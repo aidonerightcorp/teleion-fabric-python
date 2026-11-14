@@ -1,0 +1,9 @@
+<!-- Teleion context: CHARTER.md sha256=6fe2bd046fd154952a79d25d81d1efcf8474ab4eabf034b105dcbe7b513e84ee; read AGENTS.md -->
+
+# Own-task policy enforcement
+
+2026-11-14T12:24:26.996976-05:00 before records. Base ab92fe3/0.2.2. Reuse existing OmniNode resolver/authority checks and callbacks. Freeze: input form must equal own declared form; output form may stay equal or select a known builtin subset (any→text/number/choice; text→number/choice). Unknown subtype relationships refused. Each own declared output check must remain in resolved list; extra registered checks allowed, malformed/unknown checks refused before dispatch. records.task_text False cannot becomeTrue; True may narrowFalse. Explicit derived child input/output contracts remain independent task declarations. Existing permission/resource checks unchanged. records.data_use and private writer remain outside repair. Add explicit effective_policy to NodeRecord without relabeling declared contract or proposal choices. This is maker policy execution, not independent answer checking.
+
+First run new tests against installed0.2.2 before source edits. Preserve raw baseline. After implementation build/install wheel offline into owned environment, run installed-I new/full tests, context sync/check, compose example and ten composition/restart checks. Tests execute outside source checkout; sourcepaths identify tests only. Nice10 threads1 timeout60per command; no model/network/provider/GPU. No push. Parent independently checks candidate.
+
+2026-11-14T12:25:09.474438-05:00 Baseline12methods:6failures/4errors/2passes retained. Implement frozen validation policy and per-run effective_policy snapshot; record field additive. Snapshot prevents re-resolution from changing acceptance during recording. Old baseline expected behavior is not reclassified. No private writer/data-use edits.

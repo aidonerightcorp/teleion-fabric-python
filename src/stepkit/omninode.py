@@ -188,6 +188,10 @@ FORMS = {
 EQUALITY = {form: (lambda node: answers_equal(*node.ask("assembler.number_equality"))) for form in FORMS}
 # check name -> check(answer, profile) -> yes or no
 CHECKS = {}
+# Known subset relationships only; child tasks declare their own forms.
+OUTPUT_FORM_SUBSETS = {"any": {"any", "text", "number", "choice"},
+                       "text": {"text", "number", "choice"}}
+OWN_POLICY = ("input.form", "output.form", "output.checks", "records.task_text")
 # kind of work -> how a Task of that kind is recognized and profiled: functions (task, profile) that add to the profile
 PROFILERS = []
 # condition name -> condition(results of the calls made so far on a part's path) -> make the next call or not
@@ -484,6 +488,7 @@ class NodeRecord:
     budget: dict
     choices: list
     children: list = field(default_factory=list)
+    effective_policy: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         out = {name: getattr(self, name) for name in self.__dataclass_fields__ if name not in ("steps", "children")}
@@ -608,6 +613,7 @@ class RunContext:
     kinds: dict = field(default_factory=dict)            # kind of work -> Tasks of that kind in this run
     used_by_kind: dict = field(default_factory=dict)     # kind of work -> model seconds used so far
     not_started: list = field(default_factory=list)      # Tasks or steps that a running limit stopped, and why
+    effective_policy: dict = field(default_factory=dict)
 
 
 def _refuse_no_match(node, found):
@@ -696,6 +702,8 @@ class OmniNode:
 
     def ask(self, name):
         """Resolve a proposal, then check declared authority before returning it."""
+        if name in self.current.effective_policy:
+            return plain(self.current.effective_policy[name])
         value = self.resolver.value(self.dimension(name), {"profile": self.profile})
         boundary = self.contract.get(name)
         if boundary is not None:
@@ -716,8 +724,17 @@ class OmniNode:
             return (proposed is None and cap is None) or (number(proposed) and (cap is None or proposed <= cap))
 
         valid = True
-        if name in ("permissions.live", "permissions.spawn"):
+        if name in ("permissions.live", "permissions.spawn", "records.task_text"):
             valid = type(value) is bool and (bound is True or value is False)
+        elif name == "input.form":
+            valid = isinstance(value, str) and value == bound and value in INPUT_FORMS
+        elif name == "output.form":
+            valid = (isinstance(value, str) and value in FORMS and
+                     value in OUTPUT_FORM_SUBSETS.get(bound, {bound}))
+        elif name == "output.checks":
+            valid = (isinstance(bound, list) and isinstance(value, list) and
+                     all(isinstance(item, str) for item in bound + value) and
+                     set(bound) <= set(value) and all(item in CHECKS for item in value))
         elif name in ("resources.parts", "resources.models", "resources.stores", "resources.cartridges"):
             valid = ((value is None and bound is None) or
                      (isinstance(value, list) and all(isinstance(item, str) for item in value)
@@ -843,6 +860,9 @@ class OmniNode:
             ctx.profile = dict(profile if profile is not None else self._given_profile)
             self._given_profile = None
         self.current = ctx
+        # Freeze validated own-task policy for this run; repeated resolution must
+        # not change acceptance midway through execution or while recording it.
+        ctx.effective_policy = {name: plain(self.ask(name)) for name in OWN_POLICY}
         form = self.ask("input.form")
         if not INPUT_FORMS[form](task, ctx.profile):
             raise ContractError(f"node {self.node_id}: its contract takes input of the form {form!r}; this is not one "
@@ -880,7 +900,8 @@ class OmniNode:
                           task_id_of(task) if not isinstance(task, list) else None, self.contract.summary(),
                           dict(self.parameters.summary(), **plain(self.parameters.extra)), dict(self.configured),
                           dict(self.profile or {}), list(steps), answer, bool(accepted), reason, dict(evidence or {}), checks,
-                          dict(self.spent), used, budget, list(self.resolver.choices), list(children))
+                          dict(self.spent), used, budget, list(self.resolver.choices), list(children),
+                          plain(self.current.effective_policy))
 
 
 def _run_own_stages(node, task, source, store, seed):
