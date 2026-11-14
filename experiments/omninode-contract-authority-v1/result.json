@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-14T17:09:03.268673+00:00",
+  "baseline": "0.2.1",
+  "candidate": "0.2.2",
+  "baseline_new_execution_methods": {
+    "passed": 1,
+    "failed": 4
+  },
+  "candidate_new_methods": 8,
+  "candidate_total_package_methods": 35,
+  "candidate_composition_methods": 10,
+  "review": {
+    "status": "independently_checked_scoped",
+    "methods_passed": 20,
+    "composition": "8new+6inherited+6reviewer methods",
+    "source_unchanged": true
+  },
+  "wheel_sha256": "443f18b8aee04a24c4b3d00c6fdc307f86929ea9ea1fbccfed224e0134e87839",
+  "module_sha256": "41c6e9ce381178dda3683a4326e1b790abcc1e5de1acefb83bc90882f815ad34",
+  "test_sha256": "85ff1fb50857aa7b960554950c5a42623671f6152ded0d78cc812ec66c116f93",
+  "environment": "Installed wheel outside checkout, -I; numerical dependencies reused via explicit prior-environment .pth; package import path/version checked. Baseline environment preserved.",
+  "scope": "Permissions, resource allowlists and numeric budget proposal bounds; local authored callbacks only",
+  "additional_reviewer_methods_bundled": 6
+}

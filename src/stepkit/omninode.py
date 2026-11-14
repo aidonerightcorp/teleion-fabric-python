@@ -39,6 +39,7 @@ Sources (under the notes folder):
 Needs numpy (through the kit's store and the assembler).
 """
 import json
+import math
 import os
 from collections import Counter
 from dataclasses import asdict, dataclass, field
@@ -694,8 +695,41 @@ class OmniNode:
         return found
 
     def ask(self, name):
-        """The value of one setting of this node, through its resolver (the choice is recorded)."""
-        return self.resolver.value(self.dimension(name), {"profile": self.profile})
+        """Resolve a proposal, then check declared authority before returning it."""
+        value = self.resolver.value(self.dimension(name), {"profile": self.profile})
+        boundary = self.contract.get(name)
+        if boundary is not None:
+            self._check_authority(name, boundary.suggested[0], value)
+        return value
+
+    def _check_authority(self, name, bound, value):
+        """Adaptive choices can narrow declared authority, never grant more of it."""
+        def number(x):
+            if not isinstance(x, (int, float)) or isinstance(x, bool):
+                return False
+            try:
+                return math.isfinite(x) and x >= 0
+            except OverflowError:
+                return False
+
+        def within_number(cap, proposed):
+            return (proposed is None and cap is None) or (number(proposed) and (cap is None or proposed <= cap))
+
+        valid = True
+        if name in ("permissions.live", "permissions.spawn"):
+            valid = type(value) is bool and (bound is True or value is False)
+        elif name in ("resources.parts", "resources.models", "resources.stores", "resources.cartridges"):
+            valid = ((value is None and bound is None) or
+                     (isinstance(value, list) and all(isinstance(item, str) for item in value)
+                      and (bound is None or set(value) <= set(bound))))
+        elif name in ("budget.tokens", "budget.model_seconds", "budget.nodes", "budget.depth"):
+            valid = within_number(bound, value)
+        elif name == "budget.by_kind":
+            valid = ((value is None and bound is None) or
+                     (isinstance(value, dict) and all(isinstance(k, str) and number(v) for k, v in value.items())
+                      and (bound is None or all(k in value and within_number(v, value[k]) for k, v in bound.items()))))
+        if not valid:
+            raise ContractError(f"node {self.node_id}: resolved {name} exceeds or violates its declared authority")
 
     def part_settings(self, part, source) -> dict:
         """The settings of one part as this node resolves them: its own dimension "part.<part>.<setting>"

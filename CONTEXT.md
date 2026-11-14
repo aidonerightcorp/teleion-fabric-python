@@ -9,3 +9,5 @@ Existing component evidence includes bounded durable-cycle and recorded-configur
 No operational month is claimed to have started. Every family needs explicit contract tests, provider-specific failures, and integration checks. The package tests cover a limited executable subset; MIGRATION.json preserves unbundled dependencies rather than hiding them.
 
 Candidate 0.2.1 repairs inherited OmniNode resource limits while preserving permitted child configuration and fallback. Six new authority tests, 27 total package tests and 10 composition tests pass locally against the installed wheel; a separate checker reproduced the six authority tests. See experiments/omninode-authority-v1. Existing 0.2.0 evidence remains tied to that release.
+
+Version 0.2.2 adds permission/resource/budget proposal validation while preserving adaptive narrowing. Installed-wheel checks passed 35 package methods and 10 composition methods before adding six independently checked reviewer regressions. Independent authority review passed 20 methods; see experiments/omninode-contract-authority-v1 for exact scope and remaining gaps.
