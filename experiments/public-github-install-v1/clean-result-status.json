@@ -1,0 +1,6 @@
+{
+  "observed_kernel_status": "COMPLETE",
+  "detailed_result_download": "HTTP429 Too Many Requests",
+  "artifact_verification": "pending retrieval after rate limit",
+  "additional_kaggle_requests": "stopped"
+}

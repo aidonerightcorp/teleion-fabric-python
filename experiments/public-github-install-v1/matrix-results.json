@@ -1,0 +1,470 @@
+{
+  "started_at": "2026-11-14T03:53:08.997941+00:00",
+  "expected_commit": "52095288673f4902fe794b4a448caf21bf75aee6",
+  "version": "0.2.0",
+  "status": "pass",
+  "setup": [
+    {
+      "stage": "public_clone",
+      "command": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "--branch",
+        "v0.2.0",
+        "https://github.com/aidonerightcorp/teleion-fabric-python.git",
+        "/kaggle/working/github-install-matrix/public-checkout"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Cloning into '/kaggle/working/github-install-matrix/public-checkout'...\nNote: switching to '52095288673f4902fe794b4a448caf21bf75aee6'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\n",
+      "seconds": 0.652
+    },
+    {
+      "stage": "verify_commit",
+      "command": [
+        "git",
+        "-C",
+        "/kaggle/working/github-install-matrix/public-checkout",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout": "52095288673f4902fe794b4a448caf21bf75aee6\n",
+      "stderr": "",
+      "seconds": 0.004
+    },
+    {
+      "stage": "source_context_manifest",
+      "command": [
+        "/usr/bin/python3",
+        "-I",
+        "/kaggle/working/github-install-matrix/public-checkout/tools/sync_context.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"pass\", \"stale\": [], \"files\": 63}\n",
+      "stderr": "",
+      "seconds": 0.1
+    },
+    {
+      "stage": "host_pip_version",
+      "command": [
+        "/usr/bin/python3",
+        "-I",
+        "-m",
+        "pip",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "pip 26.2.2 from /usr/local/lib/python3.13/dist-packages/pip (python 3.13)\n",
+      "stderr": "",
+      "seconds": 0.388
+    }
+  ],
+  "routes": [
+    {
+      "name": "git_tag",
+      "status": "pass",
+      "stages": [
+        {
+          "stage": "create_environment",
+          "command": [
+            "/usr/bin/python3",
+            "-I",
+            "-m",
+            "venv",
+            "--without-pip",
+            "--system-site-packages",
+            "/kaggle/working/github-install-matrix/git_tag/venv"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "seconds": 0.105
+        },
+        {
+          "stage": "install_public_package",
+          "command": [
+            "/usr/bin/python3",
+            "-I",
+            "-m",
+            "pip",
+            "--python",
+            "/kaggle/working/github-install-matrix/git_tag/venv/bin/python",
+            "install",
+            "--no-cache-dir",
+            "--no-deps",
+            "--no-build-isolation",
+            "--ignore-installed",
+            "git+https://github.com/aidonerightcorp/teleion-fabric-python.git@v0.2.0"
+          ],
+          "exit_code": 0,
+          "stdout": "Collecting git+https://github.com/aidonerightcorp/teleion-fabric-python.git@v0.2.0\n  Cloning https://github.com/aidonerightcorp/teleion-fabric-python.git (to revision v0.2.0) to /tmp/pip-req-build-i2at_hnu\n  Resolved https://github.com/aidonerightcorp/teleion-fabric-python.git to commit 52095288673f4902fe794b4a448caf21bf75aee6\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: teleion-fabric\n  Building wheel for teleion-fabric (pyproject.toml): started\n  Building wheel for teleion-fabric (pyproject.toml): finished with status 'done'\n  Created wheel for teleion-fabric: filename=teleion_fabric-0.2.0-py3-none-any.whl size=184062 sha256=1ac30f718ac0f7a00d5947a61710f89f43a4dadb20c7f40ca3ac72839166af13\n  Stored in directory: /tmp/pip-ephem-wheel-cache-tcl1edvc/wheels/8b/ed/a0/9e2bd7254acc20bd229b9113d0ba0e89d64fd2d240ab4a9773\nSuccessfully built teleion-fabric\nInstalling collected packages: teleion-fabric\nSuccessfully installed teleion-fabric-0.2.0\n",
+          "stderr": "  Running command git clone --filter=blob:none --quiet https://github.com/aidonerightcorp/teleion-fabric-python.git /tmp/pip-req-build-i2at_hnu\n",
+          "seconds": 4.916
+        },
+        {
+          "stage": "installed_origin_and_resources",
+          "command": [
+            "/kaggle/working/github-install-matrix/git_tag/venv/bin/python",
+            "-I",
+            "-c",
+            "import json,sys,importlib.metadata,pathlib\nimport teleion_fabric,numpy,scipy\norigin=pathlib.Path(teleion_fabric.__file__).resolve()\nassert origin.is_relative_to(pathlib.Path(sys.prefix).resolve()),str(origin)\nassert importlib.metadata.version('teleion-fabric')=='0.2.0'\nfrom teleion_fabric.settings import load\nassert len(load('dimensions'))==88\nassert load('plans')['max_nodes']['value']==64\nassert 'teleion_fabric.plans' in __import__('importlib').import_module('teleion_fabric.plans').__name__\nprint(json.dumps({'version':teleion_fabric.__version__,'origin':str(origin),'prefix':sys.prefix,'numpy':numpy.__version__,'scipy':scipy.__version__,'direct_url':json.loads(importlib.metadata.distribution('teleion-fabric').read_text('direct_url.json'))}))\n"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"version\": \"0.2.0\", \"origin\": \"/kaggle/working/github-install-matrix/git_tag/venv/lib/python3.13/site-packages/teleion_fabric/__init__.py\", \"prefix\": \"/kaggle/working/github-install-matrix/git_tag/venv\", \"numpy\": \"2.1.3\", \"scipy\": \"1.16.3\", \"direct_url\": {\"url\": \"https://github.com/aidonerightcorp/teleion-fabric-python.git\", \"vcs_info\": {\"commit_id\": \"52095288673f4902fe794b4a448caf21bf75aee6\", \"requested_revision\": \"v0.2.0\", \"vcs\": \"git\"}}}\n",
+          "stderr": "",
+          "seconds": 0.237
+        },
+        {
+          "stage": "full_contract_suite",
+          "command": [
+            "/kaggle/working/github-install-matrix/git_tag/venv/bin/python",
+            "-I",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "/kaggle/working/github-install-matrix/public-checkout/tests",
+            "-v"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "test_composition (test_packages.Packages.test_composition) ... ok\ntest_context (test_packages.Packages.test_context) ... ok\ntest_harness_failure_records (test_packages.Packages.test_harness_failure_records) ... ok\ntest_imports (test_packages.Packages.test_imports) ... ok\ntest_json (test_packages.Packages.test_json) ... ok\ntest_profile (test_packages.Packages.test_profile) ... ok\ntest_settings (test_packages.Packages.test_settings) ... ok\ntest_branch_and_permutation (test_plans.Plans.test_branch_and_permutation) ... ok\ntest_copy_hooks_cycles_and_nonfinite_refused (test_plans.Plans.test_copy_hooks_cycles_and_nonfinite_refused) ... ok\ntest_failure_stops_downstream (test_plans.Plans.test_failure_stops_downstream) ... ok\ntest_generated_equivalence (test_plans.Plans.test_generated_equivalence) ... ok\ntest_input_and_bounds (test_plans.Plans.test_input_and_bounds) ... ok\ntest_legacy_compose_cannot_skip_validator (test_plans.Plans.test_legacy_compose_cannot_skip_validator) ... ok\ntest_mutable_effects_and_truthy_validator_refused (test_plans.Plans.test_mutable_effects_and_truthy_validator_refused) ... ok\ntest_mutation_isolation (test_plans.Plans.test_mutation_isolation) ... ok\ntest_registered_nested_validator (test_plans.Plans.test_registered_nested_validator) ... ok\ntest_reject_before_calls (test_plans.Plans.test_reject_before_calls) ... ok\ntest_semantics_versions_effects (test_plans.Plans.test_semantics_versions_effects) ... ok\ntest_setting_object_key_confusion_refused (test_plans.Plans.test_setting_object_key_confusion_refused) ... ok\ntest_setting_schema_refusal (test_plans.Plans.test_setting_schema_refusal) ... ok\ntest_settings_types_and_ownership (test_plans.Plans.test_settings_types_and_ownership) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 0.673s\n\nOK\n",
+          "seconds": 0.924
+        },
+        {
+          "stage": "example_compose_prose.py",
+          "command": [
+            "/kaggle/working/github-install-matrix/git_tag/venv/bin/python",
+            "-I",
+            "/kaggle/working/github-install-matrix/public-checkout/examples/compose_prose.py"
+          ],
+          "exit_code": 0,
+          "stdout": "{'value': ['001', 'A-02'], 'records': [{'engine': 'prose.decode', 'shape_valid': True, 'semantic_acceptance': 'requires task checker'}, {'engine': 'identifiers.select', 'shape_valid': True, 'semantic_acceptance': 'requires task checker'}], 'task_accepted': False}\n",
+          "stderr": "",
+          "seconds": 0.181
+        },
+        {
+          "stage": "example_registered_plan.py",
+          "command": [
+            "/kaggle/working/github-install-matrix/git_tag/venv/bin/python",
+            "-I",
+            "/kaggle/working/github-install-matrix/public-checkout/examples/registered_plan.py"
+          ],
+          "exit_code": 0,
+          "stdout": "{\n  \"status\": \"completed\",\n  \"outputs\": [\n    \"profile\",\n    \"structure\"\n  ],\n  \"records\": [\n    {\n      \"node\": \"profile\",\n      \"engine\": \"profile\",\n      \"version\": \"1\",\n      \"status\": \"completed\",\n      \"semantic_acceptance\": \"not_checked\"\n    },\n    {\n      \"node\": \"structure\",\n      \"engine\": \"structure\",\n      \"version\": \"1\",\n      \"status\": \"completed\",\n      \"semantic_acceptance\": \"not_checked\"\n    }\n  ],\n  \"task_accepted\": false\n}\n",
+          "stderr": "",
+          "seconds": 0.188
+        },
+        {
+          "stage": "installed_cli",
+          "command": [
+            "/kaggle/working/github-install-matrix/git_tag/venv/bin/teleion-fabric",
+            "settings",
+            "--settings",
+            "plans"
+          ],
+          "exit_code": 0,
+          "stdout": "{\n  \"max_nodes\": {\n    \"value\": 64,\n    \"suggested_values\": [\n      16,\n      64\n    ],\n    \"grid\": [\n      16,\n      64,\n      256\n    ],\n    \"status\": \"64 enforced in this release; other values are candidate configurations, not runtime overrides\"\n  },\n  \"effects\": {\n    \"value\": \"pure_only\",\n    \"suggested_values\": [\n      \"pure_only\"\n    ],\n    \"grid\": [\n      \"pure_only\"\n    ]\n  },\n  \"retry\": {\n    \"value\": \"none\",\n    \"suggested_values\": [\n      \"none\"\n    ],\n    \"grid\": [\n      \"none\"\n    ]\n  }\n}\n",
+          "stderr": "",
+          "seconds": 0.184
+        }
+      ],
+      "installed": {
+        "version": "0.2.0",
+        "origin": "/kaggle/working/github-install-matrix/git_tag/venv/lib/python3.13/site-packages/teleion_fabric/__init__.py",
+        "prefix": "/kaggle/working/github-install-matrix/git_tag/venv",
+        "numpy": "2.1.3",
+        "scipy": "1.16.3",
+        "direct_url": {
+          "url": "https://github.com/aidonerightcorp/teleion-fabric-python.git",
+          "vcs_info": {
+            "commit_id": "52095288673f4902fe794b4a448caf21bf75aee6",
+            "requested_revision": "v0.2.0",
+            "vcs": "git"
+          }
+        }
+      }
+    },
+    {
+      "name": "release_wheel",
+      "status": "pass",
+      "stages": [
+        {
+          "stage": "create_environment",
+          "command": [
+            "/usr/bin/python3",
+            "-I",
+            "-m",
+            "venv",
+            "--without-pip",
+            "--system-site-packages",
+            "/kaggle/working/github-install-matrix/release_wheel/venv"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "seconds": 0.09
+        },
+        {
+          "stage": "download_release_wheel",
+          "url": "https://github.com/aidonerightcorp/teleion-fabric-python/releases/download/v0.2.0/teleion_fabric-0.2.0-py3-none-any.whl",
+          "sha256": "7d0ff38bcd3e8fc5370848d834284adca4453b2134cca85dd0d02a1d46b62e03",
+          "bytes": 184063,
+          "seconds": 0.279
+        },
+        {
+          "stage": "install_public_package",
+          "command": [
+            "/usr/bin/python3",
+            "-I",
+            "-m",
+            "pip",
+            "--python",
+            "/kaggle/working/github-install-matrix/release_wheel/venv/bin/python",
+            "install",
+            "--no-cache-dir",
+            "--no-deps",
+            "--no-build-isolation",
+            "--ignore-installed",
+            "/kaggle/working/github-install-matrix/release_wheel/teleion_fabric-0.2.0-py3-none-any.whl"
+          ],
+          "exit_code": 0,
+          "stdout": "Processing ./teleion_fabric-0.2.0-py3-none-any.whl\nInstalling collected packages: teleion-fabric\nSuccessfully installed teleion-fabric-0.2.0\n",
+          "stderr": "",
+          "seconds": 0.949
+        },
+        {
+          "stage": "installed_origin_and_resources",
+          "command": [
+            "/kaggle/working/github-install-matrix/release_wheel/venv/bin/python",
+            "-I",
+            "-c",
+            "import json,sys,importlib.metadata,pathlib\nimport teleion_fabric,numpy,scipy\norigin=pathlib.Path(teleion_fabric.__file__).resolve()\nassert origin.is_relative_to(pathlib.Path(sys.prefix).resolve()),str(origin)\nassert importlib.metadata.version('teleion-fabric')=='0.2.0'\nfrom teleion_fabric.settings import load\nassert len(load('dimensions'))==88\nassert load('plans')['max_nodes']['value']==64\nassert 'teleion_fabric.plans' in __import__('importlib').import_module('teleion_fabric.plans').__name__\nprint(json.dumps({'version':teleion_fabric.__version__,'origin':str(origin),'prefix':sys.prefix,'numpy':numpy.__version__,'scipy':scipy.__version__,'direct_url':json.loads(importlib.metadata.distribution('teleion-fabric').read_text('direct_url.json'))}))\n"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"version\": \"0.2.0\", \"origin\": \"/kaggle/working/github-install-matrix/release_wheel/venv/lib/python3.13/site-packages/teleion_fabric/__init__.py\", \"prefix\": \"/kaggle/working/github-install-matrix/release_wheel/venv\", \"numpy\": \"2.1.3\", \"scipy\": \"1.16.3\", \"direct_url\": {\"archive_info\": {\"hash\": \"sha256=7d0ff38bcd3e8fc5370848d834284adca4453b2134cca85dd0d02a1d46b62e03\", \"hashes\": {\"sha256\": \"7d0ff38bcd3e8fc5370848d834284adca4453b2134cca85dd0d02a1d46b62e03\"}}, \"url\": \"file:///kaggle/working/github-install-matrix/release_wheel/teleion_fabric-0.2.0-py3-none-any.whl\"}}\n",
+          "stderr": "",
+          "seconds": 0.217
+        },
+        {
+          "stage": "full_contract_suite",
+          "command": [
+            "/kaggle/working/github-install-matrix/release_wheel/venv/bin/python",
+            "-I",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "/kaggle/working/github-install-matrix/public-checkout/tests",
+            "-v"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "test_composition (test_packages.Packages.test_composition) ... ok\ntest_context (test_packages.Packages.test_context) ... ok\ntest_harness_failure_records (test_packages.Packages.test_harness_failure_records) ... ok\ntest_imports (test_packages.Packages.test_imports) ... ok\ntest_json (test_packages.Packages.test_json) ... ok\ntest_profile (test_packages.Packages.test_profile) ... ok\ntest_settings (test_packages.Packages.test_settings) ... ok\ntest_branch_and_permutation (test_plans.Plans.test_branch_and_permutation) ... ok\ntest_copy_hooks_cycles_and_nonfinite_refused (test_plans.Plans.test_copy_hooks_cycles_and_nonfinite_refused) ... ok\ntest_failure_stops_downstream (test_plans.Plans.test_failure_stops_downstream) ... ok\ntest_generated_equivalence (test_plans.Plans.test_generated_equivalence) ... ok\ntest_input_and_bounds (test_plans.Plans.test_input_and_bounds) ... ok\ntest_legacy_compose_cannot_skip_validator (test_plans.Plans.test_legacy_compose_cannot_skip_validator) ... ok\ntest_mutable_effects_and_truthy_validator_refused (test_plans.Plans.test_mutable_effects_and_truthy_validator_refused) ... ok\ntest_mutation_isolation (test_plans.Plans.test_mutation_isolation) ... ok\ntest_registered_nested_validator (test_plans.Plans.test_registered_nested_validator) ... ok\ntest_reject_before_calls (test_plans.Plans.test_reject_before_calls) ... ok\ntest_semantics_versions_effects (test_plans.Plans.test_semantics_versions_effects) ... ok\ntest_setting_object_key_confusion_refused (test_plans.Plans.test_setting_object_key_confusion_refused) ... ok\ntest_setting_schema_refusal (test_plans.Plans.test_setting_schema_refusal) ... ok\ntest_settings_types_and_ownership (test_plans.Plans.test_settings_types_and_ownership) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 0.367s\n\nOK\n",
+          "seconds": 0.597
+        },
+        {
+          "stage": "example_compose_prose.py",
+          "command": [
+            "/kaggle/working/github-install-matrix/release_wheel/venv/bin/python",
+            "-I",
+            "/kaggle/working/github-install-matrix/public-checkout/examples/compose_prose.py"
+          ],
+          "exit_code": 0,
+          "stdout": "{'value': ['001', 'A-02'], 'records': [{'engine': 'prose.decode', 'shape_valid': True, 'semantic_acceptance': 'requires task checker'}, {'engine': 'identifiers.select', 'shape_valid': True, 'semantic_acceptance': 'requires task checker'}], 'task_accepted': False}\n",
+          "stderr": "",
+          "seconds": 0.182
+        },
+        {
+          "stage": "example_registered_plan.py",
+          "command": [
+            "/kaggle/working/github-install-matrix/release_wheel/venv/bin/python",
+            "-I",
+            "/kaggle/working/github-install-matrix/public-checkout/examples/registered_plan.py"
+          ],
+          "exit_code": 0,
+          "stdout": "{\n  \"status\": \"completed\",\n  \"outputs\": [\n    \"profile\",\n    \"structure\"\n  ],\n  \"records\": [\n    {\n      \"node\": \"profile\",\n      \"engine\": \"profile\",\n      \"version\": \"1\",\n      \"status\": \"completed\",\n      \"semantic_acceptance\": \"not_checked\"\n    },\n    {\n      \"node\": \"structure\",\n      \"engine\": \"structure\",\n      \"version\": \"1\",\n      \"status\": \"completed\",\n      \"semantic_acceptance\": \"not_checked\"\n    }\n  ],\n  \"task_accepted\": false\n}\n",
+          "stderr": "",
+          "seconds": 0.192
+        },
+        {
+          "stage": "installed_cli",
+          "command": [
+            "/kaggle/working/github-install-matrix/release_wheel/venv/bin/teleion-fabric",
+            "settings",
+            "--settings",
+            "plans"
+          ],
+          "exit_code": 0,
+          "stdout": "{\n  \"max_nodes\": {\n    \"value\": 64,\n    \"suggested_values\": [\n      16,\n      64\n    ],\n    \"grid\": [\n      16,\n      64,\n      256\n    ],\n    \"status\": \"64 enforced in this release; other values are candidate configurations, not runtime overrides\"\n  },\n  \"effects\": {\n    \"value\": \"pure_only\",\n    \"suggested_values\": [\n      \"pure_only\"\n    ],\n    \"grid\": [\n      \"pure_only\"\n    ]\n  },\n  \"retry\": {\n    \"value\": \"none\",\n    \"suggested_values\": [\n      \"none\"\n    ],\n    \"grid\": [\n      \"none\"\n    ]\n  }\n}\n",
+          "stderr": "",
+          "seconds": 0.189
+        }
+      ],
+      "installed": {
+        "version": "0.2.0",
+        "origin": "/kaggle/working/github-install-matrix/release_wheel/venv/lib/python3.13/site-packages/teleion_fabric/__init__.py",
+        "prefix": "/kaggle/working/github-install-matrix/release_wheel/venv",
+        "numpy": "2.1.3",
+        "scipy": "1.16.3",
+        "direct_url": {
+          "archive_info": {
+            "hash": "sha256=7d0ff38bcd3e8fc5370848d834284adca4453b2134cca85dd0d02a1d46b62e03",
+            "hashes": {
+              "sha256": "7d0ff38bcd3e8fc5370848d834284adca4453b2134cca85dd0d02a1d46b62e03"
+            }
+          },
+          "url": "file:///kaggle/working/github-install-matrix/release_wheel/teleion_fabric-0.2.0-py3-none-any.whl"
+        }
+      }
+    },
+    {
+      "name": "commit_archive",
+      "status": "pass",
+      "stages": [
+        {
+          "stage": "create_environment",
+          "command": [
+            "/usr/bin/python3",
+            "-I",
+            "-m",
+            "venv",
+            "--without-pip",
+            "--system-site-packages",
+            "/kaggle/working/github-install-matrix/commit_archive/venv"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "seconds": 0.09
+        },
+        {
+          "stage": "download_commit_archive",
+          "url": "https://codeload.github.com/aidonerightcorp/teleion-fabric-python/zip/52095288673f4902fe794b4a448caf21bf75aee6",
+          "sha256": "4f6354249f5e387c250486829f060354b25892122245c7bed8582ebb3e8e59e4",
+          "bytes": 219289,
+          "seconds": 0.167
+        },
+        {
+          "stage": "archive_context_manifest",
+          "command": [
+            "/kaggle/working/github-install-matrix/commit_archive/venv/bin/python",
+            "-I",
+            "/kaggle/working/github-install-matrix/commit_archive/teleion-fabric-python-52095288673f4902fe794b4a448caf21bf75aee6/tools/sync_context.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"status\": \"pass\", \"stale\": [], \"files\": 63}\n",
+          "stderr": "",
+          "seconds": 0.1
+        },
+        {
+          "stage": "install_public_package",
+          "command": [
+            "/usr/bin/python3",
+            "-I",
+            "-m",
+            "pip",
+            "--python",
+            "/kaggle/working/github-install-matrix/commit_archive/venv/bin/python",
+            "install",
+            "--no-cache-dir",
+            "--no-deps",
+            "--no-build-isolation",
+            "--ignore-installed",
+            "/kaggle/working/github-install-matrix/commit_archive/teleion-fabric-python-52095288673f4902fe794b4a448caf21bf75aee6"
+          ],
+          "exit_code": 0,
+          "stdout": "Processing ./teleion-fabric-python-52095288673f4902fe794b4a448caf21bf75aee6\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: teleion-fabric\n  Building wheel for teleion-fabric (pyproject.toml): started\n  Building wheel for teleion-fabric (pyproject.toml): finished with status 'done'\n  Created wheel for teleion-fabric: filename=teleion_fabric-0.2.0-py3-none-any.whl size=184062 sha256=8832c664960f3423a8b31b236342ddd9332ea1fbd075e087262b2e687c008adc\n  Stored in directory: /tmp/pip-ephem-wheel-cache-vjzdfhex/wheels/4b/46/37/c89430aa97ef66d04b8954a9673ce607845490993a22c415c0\nSuccessfully built teleion-fabric\nInstalling collected packages: teleion-fabric\nSuccessfully installed teleion-fabric-0.2.0\n",
+          "stderr": "",
+          "seconds": 3.93
+        },
+        {
+          "stage": "installed_origin_and_resources",
+          "command": [
+            "/kaggle/working/github-install-matrix/commit_archive/venv/bin/python",
+            "-I",
+            "-c",
+            "import json,sys,importlib.metadata,pathlib\nimport teleion_fabric,numpy,scipy\norigin=pathlib.Path(teleion_fabric.__file__).resolve()\nassert origin.is_relative_to(pathlib.Path(sys.prefix).resolve()),str(origin)\nassert importlib.metadata.version('teleion-fabric')=='0.2.0'\nfrom teleion_fabric.settings import load\nassert len(load('dimensions'))==88\nassert load('plans')['max_nodes']['value']==64\nassert 'teleion_fabric.plans' in __import__('importlib').import_module('teleion_fabric.plans').__name__\nprint(json.dumps({'version':teleion_fabric.__version__,'origin':str(origin),'prefix':sys.prefix,'numpy':numpy.__version__,'scipy':scipy.__version__,'direct_url':json.loads(importlib.metadata.distribution('teleion-fabric').read_text('direct_url.json'))}))\n"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"version\": \"0.2.0\", \"origin\": \"/kaggle/working/github-install-matrix/commit_archive/venv/lib/python3.13/site-packages/teleion_fabric/__init__.py\", \"prefix\": \"/kaggle/working/github-install-matrix/commit_archive/venv\", \"numpy\": \"2.1.3\", \"scipy\": \"1.16.3\", \"direct_url\": {\"dir_info\": {}, \"url\": \"file:///kaggle/working/github-install-matrix/commit_archive/teleion-fabric-python-52095288673f4902fe794b4a448caf21bf75aee6\"}}\n",
+          "stderr": "",
+          "seconds": 0.215
+        },
+        {
+          "stage": "full_contract_suite",
+          "command": [
+            "/kaggle/working/github-install-matrix/commit_archive/venv/bin/python",
+            "-I",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "/kaggle/working/github-install-matrix/public-checkout/tests",
+            "-v"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "test_composition (test_packages.Packages.test_composition) ... ok\ntest_context (test_packages.Packages.test_context) ... ok\ntest_harness_failure_records (test_packages.Packages.test_harness_failure_records) ... ok\ntest_imports (test_packages.Packages.test_imports) ... ok\ntest_json (test_packages.Packages.test_json) ... ok\ntest_profile (test_packages.Packages.test_profile) ... ok\ntest_settings (test_packages.Packages.test_settings) ... ok\ntest_branch_and_permutation (test_plans.Plans.test_branch_and_permutation) ... ok\ntest_copy_hooks_cycles_and_nonfinite_refused (test_plans.Plans.test_copy_hooks_cycles_and_nonfinite_refused) ... ok\ntest_failure_stops_downstream (test_plans.Plans.test_failure_stops_downstream) ... ok\ntest_generated_equivalence (test_plans.Plans.test_generated_equivalence) ... ok\ntest_input_and_bounds (test_plans.Plans.test_input_and_bounds) ... ok\ntest_legacy_compose_cannot_skip_validator (test_plans.Plans.test_legacy_compose_cannot_skip_validator) ... ok\ntest_mutable_effects_and_truthy_validator_refused (test_plans.Plans.test_mutable_effects_and_truthy_validator_refused) ... ok\ntest_mutation_isolation (test_plans.Plans.test_mutation_isolation) ... ok\ntest_registered_nested_validator (test_plans.Plans.test_registered_nested_validator) ... ok\ntest_reject_before_calls (test_plans.Plans.test_reject_before_calls) ... ok\ntest_semantics_versions_effects (test_plans.Plans.test_semantics_versions_effects) ... ok\ntest_setting_object_key_confusion_refused (test_plans.Plans.test_setting_object_key_confusion_refused) ... ok\ntest_setting_schema_refusal (test_plans.Plans.test_setting_schema_refusal) ... ok\ntest_settings_types_and_ownership (test_plans.Plans.test_settings_types_and_ownership) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 0.385s\n\nOK\n",
+          "seconds": 0.626
+        },
+        {
+          "stage": "example_compose_prose.py",
+          "command": [
+            "/kaggle/working/github-install-matrix/commit_archive/venv/bin/python",
+            "-I",
+            "/kaggle/working/github-install-matrix/public-checkout/examples/compose_prose.py"
+          ],
+          "exit_code": 0,
+          "stdout": "{'value': ['001', 'A-02'], 'records': [{'engine': 'prose.decode', 'shape_valid': True, 'semantic_acceptance': 'requires task checker'}, {'engine': 'identifiers.select', 'shape_valid': True, 'semantic_acceptance': 'requires task checker'}], 'task_accepted': False}\n",
+          "stderr": "",
+          "seconds": 0.184
+        },
+        {
+          "stage": "example_registered_plan.py",
+          "command": [
+            "/kaggle/working/github-install-matrix/commit_archive/venv/bin/python",
+            "-I",
+            "/kaggle/working/github-install-matrix/public-checkout/examples/registered_plan.py"
+          ],
+          "exit_code": 0,
+          "stdout": "{\n  \"status\": \"completed\",\n  \"outputs\": [\n    \"profile\",\n    \"structure\"\n  ],\n  \"records\": [\n    {\n      \"node\": \"profile\",\n      \"engine\": \"profile\",\n      \"version\": \"1\",\n      \"status\": \"completed\",\n      \"semantic_acceptance\": \"not_checked\"\n    },\n    {\n      \"node\": \"structure\",\n      \"engine\": \"structure\",\n      \"version\": \"1\",\n      \"status\": \"completed\",\n      \"semantic_acceptance\": \"not_checked\"\n    }\n  ],\n  \"task_accepted\": false\n}\n",
+          "stderr": "",
+          "seconds": 0.192
+        },
+        {
+          "stage": "installed_cli",
+          "command": [
+            "/kaggle/working/github-install-matrix/commit_archive/venv/bin/teleion-fabric",
+            "settings",
+            "--settings",
+            "plans"
+          ],
+          "exit_code": 0,
+          "stdout": "{\n  \"max_nodes\": {\n    \"value\": 64,\n    \"suggested_values\": [\n      16,\n      64\n    ],\n    \"grid\": [\n      16,\n      64,\n      256\n    ],\n    \"status\": \"64 enforced in this release; other values are candidate configurations, not runtime overrides\"\n  },\n  \"effects\": {\n    \"value\": \"pure_only\",\n    \"suggested_values\": [\n      \"pure_only\"\n    ],\n    \"grid\": [\n      \"pure_only\"\n    ]\n  },\n  \"retry\": {\n    \"value\": \"none\",\n    \"suggested_values\": [\n      \"none\"\n    ],\n    \"grid\": [\n      \"none\"\n    ]\n  }\n}\n",
+          "stderr": "",
+          "seconds": 0.188
+        }
+      ],
+      "installed": {
+        "version": "0.2.0",
+        "origin": "/kaggle/working/github-install-matrix/commit_archive/venv/lib/python3.13/site-packages/teleion_fabric/__init__.py",
+        "prefix": "/kaggle/working/github-install-matrix/commit_archive/venv",
+        "numpy": "2.1.3",
+        "scipy": "1.16.3",
+        "direct_url": {
+          "dir_info": {},
+          "url": "file:///kaggle/working/github-install-matrix/commit_archive/teleion-fabric-python-52095288673f4902fe794b4a448caf21bf75aee6"
+        }
+      }
+    }
+  ],
+  "scope": "anonymous GitHub download and installed-package behavior; system dependencies shared; no model calls/GPU",
+  "elapsed_seconds": 16.304,
+  "actual_commit": "52095288673f4902fe794b4a448caf21bf75aee6"
+}

@@ -1,0 +1,49 @@
+{
+  "recorded_at": "2026-11-13T22:59:11.047330-05:00",
+  "package_version": "0.2.0",
+  "commit": "52095288673f4902fe794b4a448caf21bf75aee6",
+  "matrix_status": "verified_pass",
+  "matrix_routes": [
+    {
+      "route": "git_tag",
+      "status": "pass",
+      "tests": 21,
+      "install_seconds": 4.916,
+      "numpy": "2.1.3",
+      "scipy": "1.16.3"
+    },
+    {
+      "route": "release_wheel",
+      "status": "pass",
+      "tests": 21,
+      "install_seconds": 0.949,
+      "numpy": "2.1.3",
+      "scipy": "1.16.3"
+    },
+    {
+      "route": "commit_archive",
+      "status": "pass",
+      "tests": 21,
+      "install_seconds": 3.93,
+      "numpy": "2.1.3",
+      "scipy": "1.16.3"
+    }
+  ],
+  "verified_test_executions": 63,
+  "examples_per_verified_route": 2,
+  "matrix_notebook": "https://www.kaggle.com/code/taylorsamarel/teleion-public-github-installs-v1",
+  "clean_notebook": "https://www.kaggle.com/code/taylorsamarel/teleion-clean-github-install-v1",
+  "clean_run": {
+    "observed_kernel_status": "COMPLETE",
+    "detailed_result_download": "HTTP429 Too Many Requests",
+    "artifact_verification": "pending retrieval after rate limit",
+    "additional_kaggle_requests": "stopped"
+  },
+  "review_scope": "Read-only harness-design review; remote results recomputed by maker, not independently rerun",
+  "limits": [
+    "shared matrix uses platform NumPy/SciPy",
+    "optional extras and model effectiveness not tested",
+    "clean dependency versions/test log awaiting artifact retrieval",
+    "no generic supply-chain attestation"
+  ]
+}

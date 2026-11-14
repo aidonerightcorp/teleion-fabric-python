@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "status": "fail",
+  "public_clone": "pass",
+  "commit_match": true,
+  "source_manifest": "pass",
+  "route_failures": [
+    {
+      "route": "git_tag",
+      "stage": "create_environment"
+    },
+    {
+      "route": "release_wheel",
+      "stage": "create_environment"
+    },
+    {
+      "route": "commit_archive",
+      "stage": "create_environment"
+    }
+  ],
+  "classification": "environment bootstrap; no package install attempted",
+  "preserved_record": "attempt1/github-install-results.json"
+}
