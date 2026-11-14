@@ -1,0 +1,258 @@
+{
+  "scope": "Byte comparison of installed package files against local public source; excludes dependencies and dist-info",
+  "files": [
+    {
+      "file": "teleion_fabric/__init__.py",
+      "source_sha256": "b8ced584e33a65bc73af3514b0c0c1b271abbebc03e66ce6e352e0f2e8bad63c",
+      "installed_sha256": "b8ced584e33a65bc73af3514b0c0c1b271abbebc03e66ce6e352e0f2e8bad63c",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/cli.py",
+      "source_sha256": "63c6d2cf0c603c0c2c4876a3ac322d1a8f2372f229363673a38dea4fecca4fe2",
+      "installed_sha256": "63c6d2cf0c603c0c2c4876a3ac322d1a8f2372f229363673a38dea4fecca4fe2",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/context.py",
+      "source_sha256": "2a14adfbafa4fa8247b14ddd1945e210e55333534c741d9e0d33cb3f8d417e2c",
+      "installed_sha256": "2a14adfbafa4fa8247b14ddd1945e210e55333534c741d9e0d33cb3f8d417e2c",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/contracts.py",
+      "source_sha256": "5a7d2ee70bc34b559421f087660daa45f6b8174fa23fbc0e71e21ba1e04dc7f9",
+      "installed_sha256": "5a7d2ee70bc34b559421f087660daa45f6b8174fa23fbc0e71e21ba1e04dc7f9",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/capabilities.json",
+      "source_sha256": "36f59da0fef450181772459148bb0d651cf6e2a574085edbb1cec5afd7969f74",
+      "installed_sha256": "36f59da0fef450181772459148bb0d651cf6e2a574085edbb1cec5afd7969f74",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/charter.json",
+      "source_sha256": "c23a3a268e12699982f4bdfb14811ae5ba6b0bf00c8a8bf5182489e4d6db916f",
+      "installed_sha256": "c23a3a268e12699982f4bdfb14811ae5ba6b0bf00c8a8bf5182489e4d6db916f",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/decision-settings.json",
+      "source_sha256": "5a0096799176156ad1421678c548414c55df02a4c3063da3b7b7624bd90b8ef1",
+      "installed_sha256": "5a0096799176156ad1421678c548414c55df02a4c3063da3b7b7624bd90b8ef1",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/dimensions.json",
+      "source_sha256": "9e3d13985539367aacde50eab24d11f1e1336561fd64e2eb94b7629e62645d59",
+      "installed_sha256": "9e3d13985539367aacde50eab24d11f1e1336561fd64e2eb94b7629e62645d59",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/engines.json",
+      "source_sha256": "8310182ec95a4f830e6858e517bfeb5ffd2356bf9d70e94333a2679f3b1c9077",
+      "installed_sha256": "8310182ec95a4f830e6858e517bfeb5ffd2356bf9d70e94333a2679f3b1c9077",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/omninode.schema.json",
+      "source_sha256": "bd235b927604de9dbb2a3e518c639f9fb6ba877b5eef594ef66999fc127df1a0",
+      "installed_sha256": "bd235b927604de9dbb2a3e518c639f9fb6ba877b5eef594ef66999fc127df1a0",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/plan-settings.json",
+      "source_sha256": "53fa8bc1c5f2e0fe975939e1107e6dbc0e3c599a1d48f8cb502143567b5fa080",
+      "installed_sha256": "53fa8bc1c5f2e0fe975939e1107e6dbc0e3c599a1d48f8cb502143567b5fa080",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/data/value-settings.json",
+      "source_sha256": "a7427f4435340573a052fae43e38d226c7f94624759b545b94cc1fe249e03ce2",
+      "installed_sha256": "a7427f4435340573a052fae43e38d226c7f94624759b545b94cc1fe249e03ce2",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/decision_provider.py",
+      "source_sha256": "d55d3360d2bc6cca2c93f0ba1dfc87197b053974645a2f1297fb238401d02242",
+      "installed_sha256": "d55d3360d2bc6cca2c93f0ba1dfc87197b053974645a2f1297fb238401d02242",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/harness-grid.json",
+      "source_sha256": "2e3719e0258e921de5430c9668557e1f1d059faa89f79fd03c268ac86fbd01a0",
+      "installed_sha256": "2e3719e0258e921de5430c9668557e1f1d059faa89f79fd03c268ac86fbd01a0",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/opencode_omninode.py",
+      "source_sha256": "4c5e8e8fe13d2f8f3bdfffe20baa2ea83bf3b5a8417e65337b2640c11a826684",
+      "installed_sha256": "4c5e8e8fe13d2f8f3bdfffe20baa2ea83bf3b5a8417e65337b2640c11a826684",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/plans.py",
+      "source_sha256": "36dccf1f533efa4f6f4dd44c6c0a38d5be70166d924b81ba8a7dce9d19e90139",
+      "installed_sha256": "36dccf1f533efa4f6f4dd44c6c0a38d5be70166d924b81ba8a7dce9d19e90139",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/prose_tools.py",
+      "source_sha256": "b5280fd4553bd0578d14714bcaa387b3dc378b38882377fcf07079f7db7c7b25",
+      "installed_sha256": "b5280fd4553bd0578d14714bcaa387b3dc378b38882377fcf07079f7db7c7b25",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/settings.json",
+      "source_sha256": "d2476ac9a7ed38f10b9db5ff47b5e924f0220d0f89d58f01ac4f9d66ad9ce279",
+      "installed_sha256": "d2476ac9a7ed38f10b9db5ff47b5e924f0220d0f89d58f01ac4f9d66ad9ce279",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/settings.py",
+      "source_sha256": "d1fe14db466eddb14945ee4bbb20adf6ae6706ffc33e8079f09d4299e9998a07",
+      "installed_sha256": "d1fe14db466eddb14945ee4bbb20adf6ae6706ffc33e8079f09d4299e9998a07",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/task_profiler.py",
+      "source_sha256": "1f140759f54f167a0f40266fa341a43933d96a6bb4950313812cf2c1e207f715",
+      "installed_sha256": "1f140759f54f167a0f40266fa341a43933d96a6bb4950313812cf2c1e207f715",
+      "match": true
+    },
+    {
+      "file": "teleion_fabric/values.py",
+      "source_sha256": "a65492af1ffa93d3e2ea936ce72b6be422128783becf62e0825134cea9908a3c",
+      "installed_sha256": "a65492af1ffa93d3e2ea936ce72b6be422128783becf62e0825134cea9908a3c",
+      "match": true
+    },
+    {
+      "file": "stepkit/__init__.py",
+      "source_sha256": "8d57d563c8d68c07a819a0e75da7de7eb088e77c01627307b89386ba07307412",
+      "installed_sha256": "8d57d563c8d68c07a819a0e75da7de7eb088e77c01627307b89386ba07307412",
+      "match": true
+    },
+    {
+      "file": "stepkit/_answers.py",
+      "source_sha256": "5d2a75a499296cdef362d87686d2ad56eec60d49a4da81ffcc4d28a01b45c298",
+      "installed_sha256": "5d2a75a499296cdef362d87686d2ad56eec60d49a4da81ffcc4d28a01b45c298",
+      "match": true
+    },
+    {
+      "file": "stepkit/_sources.py",
+      "source_sha256": "18fe1a1f1242571e28e5d9df76888d80fec8ad9b73fba70c101fde80fd728ec4",
+      "installed_sha256": "18fe1a1f1242571e28e5d9df76888d80fec8ad9b73fba70c101fde80fd728ec4",
+      "match": true
+    },
+    {
+      "file": "stepkit/assembler.py",
+      "source_sha256": "b26ae23e57b0e6d4567e707756386948094a53b011c5e3a94ba8e607f907fd9f",
+      "installed_sha256": "b26ae23e57b0e6d4567e707756386948094a53b011c5e3a94ba8e607f907fd9f",
+      "match": true
+    },
+    {
+      "file": "stepkit/attributes.py",
+      "source_sha256": "dfe75d2eb7da9caeeffbd6ad3fd9694562e86d904535443908755aafc5703bd5",
+      "installed_sha256": "dfe75d2eb7da9caeeffbd6ad3fd9694562e86d904535443908755aafc5703bd5",
+      "match": true
+    },
+    {
+      "file": "stepkit/decide.py",
+      "source_sha256": "a97eead36a7ad6ea18c82ee0071e42c4fb58287115eaf69256e4a718258fa614",
+      "installed_sha256": "a97eead36a7ad6ea18c82ee0071e42c4fb58287115eaf69256e4a718258fa614",
+      "match": true
+    },
+    {
+      "file": "stepkit/dimension.py",
+      "source_sha256": "b5b2e02a0f1928de9b742395771864963593ea605c7fdc93eb81e1bebf14434b",
+      "installed_sha256": "b5b2e02a0f1928de9b742395771864963593ea605c7fdc93eb81e1bebf14434b",
+      "match": true
+    },
+    {
+      "file": "stepkit/live.py",
+      "source_sha256": "22c0eb8865b804747ee80f5abe46832816ca91ee0f655a3d01330f95e41fe7a5",
+      "installed_sha256": "22c0eb8865b804747ee80f5abe46832816ca91ee0f655a3d01330f95e41fe7a5",
+      "match": true
+    },
+    {
+      "file": "stepkit/omninode.py",
+      "source_sha256": "c697a6bf52454b93e7fbb876b508b6a9722ef70b1a9ab442333f068041f674f1",
+      "installed_sha256": "c697a6bf52454b93e7fbb876b508b6a9722ef70b1a9ab442333f068041f674f1",
+      "match": true
+    },
+    {
+      "file": "stepkit/profile.py",
+      "source_sha256": "76d6c26a98691044f99a664c1fa3db033e1b1c76dcb1d68c0c92b7aa85419005",
+      "installed_sha256": "76d6c26a98691044f99a664c1fa3db033e1b1c76dcb1d68c0c92b7aa85419005",
+      "match": true
+    },
+    {
+      "file": "stepkit/quota.py",
+      "source_sha256": "f0c64cfaf43b68be68fe271f589fc22a2f0edca331bfa2082dd29f6604b2c331",
+      "installed_sha256": "f0c64cfaf43b68be68fe271f589fc22a2f0edca331bfa2082dd29f6604b2c331",
+      "match": true
+    },
+    {
+      "file": "stepkit/record.py",
+      "source_sha256": "8716d5dae1a248a57b9597a8908d4576614c92b3b26968ddfc3388a7b5bad65e",
+      "installed_sha256": "8716d5dae1a248a57b9597a8908d4576614c92b3b26968ddfc3388a7b5bad65e",
+      "match": true
+    },
+    {
+      "file": "stepkit/reply.py",
+      "source_sha256": "f9e1bdf10f3edfd0c8f8eda7c834f62588ada1bfcd7d8d508533074975223128",
+      "installed_sha256": "f9e1bdf10f3edfd0c8f8eda7c834f62588ada1bfcd7d8d508533074975223128",
+      "match": true
+    },
+    {
+      "file": "stepkit/store.py",
+      "source_sha256": "836cf4a79b34073e5ea243122633e18e65472e0a088596640dcd3b56560b35b3",
+      "installed_sha256": "836cf4a79b34073e5ea243122633e18e65472e0a088596640dcd3b56560b35b3",
+      "match": true
+    },
+    {
+      "file": "stepkit/tier_ladder.py",
+      "source_sha256": "b38e3fc71f0ac1e4ce8b829e0ea65aba01f4f87594c07aa030fd212a2882ae6b",
+      "installed_sha256": "b38e3fc71f0ac1e4ce8b829e0ea65aba01f4f87594c07aa030fd212a2882ae6b",
+      "match": true
+    },
+    {
+      "file": "stepkit/tools/__init__.py",
+      "source_sha256": "6faed5f507429eaa4af89f26419c13f406f9458ec4caa5ac554762573e07f932",
+      "installed_sha256": "6faed5f507429eaa4af89f26419c13f406f9458ec4caa5ac554762573e07f932",
+      "match": true
+    },
+    {
+      "file": "stepkit/tools/_safe_runner.py",
+      "source_sha256": "6d4a73b1c072ddda901f083c730e9b54990683df12353c67c281a57fa24c3416",
+      "installed_sha256": "6d4a73b1c072ddda901f083c730e9b54990683df12353c67c281a57fa24c3416",
+      "match": true
+    },
+    {
+      "file": "stepkit/tools/calculator.py",
+      "source_sha256": "19ac29dfaad0ad77b6f5d8f68d461eb249622974678ec1a8052ed0bab4608904",
+      "installed_sha256": "19ac29dfaad0ad77b6f5d8f68d461eb249622974678ec1a8052ed0bab4608904",
+      "match": true
+    },
+    {
+      "file": "stepkit/tools/options.py",
+      "source_sha256": "140168baa011d78b0dc95c190ab38bfd4c44965580b6fbd851235a8f1eead9c9",
+      "installed_sha256": "140168baa011d78b0dc95c190ab38bfd4c44965580b6fbd851235a8f1eead9c9",
+      "match": true
+    },
+    {
+      "file": "stepkit/tools/programs.py",
+      "source_sha256": "f9d3dec1e4eed939ccd10318ab82da91acf401b466ae1c8a5c149af2f96035cf",
+      "installed_sha256": "f9d3dec1e4eed939ccd10318ab82da91acf401b466ae1c8a5c149af2f96035cf",
+      "match": true
+    },
+    {
+      "file": "stepkit/variants.py",
+      "source_sha256": "53c7f75b585461e39af64082a80310962030737d4325989aa59b7fab5b5fbfdf",
+      "installed_sha256": "53c7f75b585461e39af64082a80310962030737d4325989aa59b7fab5b5fbfdf",
+      "match": true
+    }
+  ],
+  "all_match": true
+}

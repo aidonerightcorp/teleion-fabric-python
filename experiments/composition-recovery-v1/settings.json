@@ -1,0 +1,1 @@
+{"seeds":{"value":[271828,314159],"grid":[[271828,314159]]},"cases_per_seed":{"value":100,"grid":[100]},"node_count":{"value":[1,32],"grid":[[1,32]]},"timeout_seconds":{"value":120,"grid":[120]},"threads":{"value":2,"grid":[2]},"stop_policy":{"value":"finish_all_tests_and_retain_failures","grid":["finish_all_tests_and_retain_failures"]}}

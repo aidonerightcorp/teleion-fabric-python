@@ -1,0 +1,15 @@
+test_branch_mutation_does_not_modify_sibling_or_caller (__main__.Composition.test_branch_mutation_does_not_modify_sibling_or_caller) ... ok
+test_contact_checker_handles_identifiers_and_empty_values (__main__.Composition.test_contact_checker_handles_identifiers_and_empty_values) ... ok
+test_failed_producer_stops_consumers_and_preserves_record (__main__.Composition.test_failed_producer_stops_consumers_and_preserves_record) ... ok
+test_invalid_graphs_are_refused_before_execution (__main__.Composition.test_invalid_graphs_are_refused_before_execution) ... ok
+test_nested_port_validator_blocks_consumer (__main__.Composition.test_nested_port_validator_blocks_consumer) ... ok
+test_parallel_profile_and_prose_contracts (__main__.Composition.test_parallel_profile_and_prose_contracts) ... ok
+test_random_graphs_against_arithmetic_oracle (__main__.Composition.test_random_graphs_against_arithmetic_oracle) ... ok
+test_saved_plan_retrieved_after_fresh_process (__main__.Composition.test_saved_plan_retrieved_after_fresh_process) ... ok
+test_store_replacement_invalidates_cached_search (__main__.Composition.test_store_replacement_invalidates_cached_search) ... ok
+test_trace_roundtrip_retains_failed_attempt_cost (__main__.Composition.test_trace_roundtrip_retains_failed_attempt_cost) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.628s
+
+OK

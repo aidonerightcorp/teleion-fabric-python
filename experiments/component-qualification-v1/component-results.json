@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T05:06:16.104338+00:00",
+  "generated_at": "2026-11-14T16:17:15.044245+00:00",
   "north_star": "A universal, self-optimizing, task-aware solutioning fabric",
   "package_version": "0.2.0",
   "counts": {
@@ -399,7 +399,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -413,7 +413,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -455,7 +455,7 @@
       "fixture_sha256": "797f3bc3defc1fece139de47301e605da3e5e5e07bf52daa4f412f7147e5d0a8",
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "Python wheel / source",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "Executed partial checks; remaining contract blocked",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -767,7 +767,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -832,7 +832,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1137,7 +1137,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1200,7 +1200,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1214,7 +1214,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1228,7 +1228,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1242,7 +1242,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1256,7 +1256,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1270,7 +1270,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1284,7 +1284,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1298,7 +1298,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1312,7 +1312,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1326,7 +1326,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1340,7 +1340,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1354,7 +1354,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1368,7 +1368,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1382,7 +1382,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
@@ -1396,7 +1396,7 @@
       ],
       "kaggle_individual_status": "Not run; API rate limited",
       "distribution": "External or pending port",
-      "isolation": "Not exercised by this campaign",
+      "isolation": "No recorded process execution in this campaign",
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {

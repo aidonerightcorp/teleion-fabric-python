@@ -1,0 +1,59 @@
+{
+  "started_at": "2026-11-14T16:14:26.364051+00:00",
+  "finished_at": "2026-11-14T16:14:27.103662+00:00",
+  "returncode": 0,
+  "fixture_sha256": "436f9aa9a618635a1d510744e97ff85cbbc44eb3ac3d16d3b9b2e6dfb85fe93f",
+  "settings": {
+    "seeds": {
+      "value": [
+        271828,
+        314159
+      ],
+      "grid": [
+        [
+          271828,
+          314159
+        ]
+      ]
+    },
+    "cases_per_seed": {
+      "value": 100,
+      "grid": [
+        100
+      ]
+    },
+    "node_count": {
+      "value": [
+        1,
+        32
+      ],
+      "grid": [
+        [
+          1,
+          32
+        ]
+      ]
+    },
+    "timeout_seconds": {
+      "value": 120,
+      "grid": [
+        120
+      ]
+    },
+    "threads": {
+      "value": 2,
+      "grid": [
+        2
+      ]
+    },
+    "stop_policy": {
+      "value": "finish_all_tests_and_retain_failures",
+      "grid": [
+        "finish_all_tests_and_retain_failures"
+      ]
+    }
+  },
+  "status": "pass",
+  "scope": "10 local authored integration/regression tests including 200 randomized DAGs; no provider, queue or GPU qualification",
+  "review": "maker measured; independent review pending"
+}
