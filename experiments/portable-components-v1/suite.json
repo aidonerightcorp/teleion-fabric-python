@@ -1,0 +1,138 @@
+{
+  "commit": "3c268391eef0298c2089eeaafa36f1967fd61b74",
+  "version": "0.2.5",
+  "groups": {
+    "profiling-prose": {
+      "tests": {
+        "test_packages": [
+          "Packages.test_profile",
+          "Packages.test_json",
+          "Packages.test_context",
+          "Packages.test_settings"
+        ]
+      },
+      "count": 4,
+      "scope": "Task formatting profile, strict prose JSON extraction with invalid-number/duplicate-key controls, complete context and settings refusal. No semantic model or provider."
+    },
+    "typed-plans": {
+      "tests": {
+        "test_plans": null
+      },
+      "count": 14,
+      "scope": "Registered pure typed plans and settings, invalid graphs/values and branch boundaries. No durable scheduler or sandbox."
+    },
+    "composition-recovery": {
+      "tests": {
+        "check_composition": null
+      },
+      "count": 10,
+      "scope": "Arithmetic graph oracle, branch isolation, failure records, validators, saved-plan fresh-process recovery and contact/prose/profile fixtures. Local files and subprocesses; not operational queue recovery."
+    },
+    "omninode-authority": {
+      "tests": {
+        "test_omninode_authority": null,
+        "test_omninode_authority_review": null,
+        "test_omninode_contract_authority": null,
+        "test_omninode_own_policy": null,
+        "test_omninode_composed_policy": null
+      },
+      "count": 37,
+      "scope": "Authored adaptive parts/fallbacks, child and root permissions, own forms/checks, legitimate child forms and retention policy. No model calls or external writer qualification."
+    },
+    "ancestor-budgets": {
+      "tests": {
+        "test_ancestor_budget": null,
+        "test_ancestor_review_exceptions": null,
+        "test_ancestor_review_independent": null,
+        "test_ancestor_review_nested": null,
+        "test_ancestor_review_probe_accounting": null,
+        "test_ancestor_review_repeated": null,
+        "test_omninode_budget_stops": null
+      },
+      "count": 35,
+      "scope": "Sequential ancestor accounting, repeated/fresh runs, stale child handles, reported failed-probe costs, zero-cost fallback and mandatory stops. No concurrent reservations or callback interruption."
+    },
+    "release-gate": {
+      "tests": {
+        "test_ancestor_budget": null,
+        "test_ancestor_review_exceptions": null,
+        "test_ancestor_review_independent": null,
+        "test_ancestor_review_nested": null,
+        "test_ancestor_review_probe_accounting": null,
+        "test_ancestor_review_repeated": null,
+        "test_omninode_authority": null,
+        "test_omninode_authority_review": null,
+        "test_omninode_budget_stops": null,
+        "test_omninode_composed_policy": null,
+        "test_omninode_contract_authority": null,
+        "test_omninode_own_policy": null,
+        "test_packages": null,
+        "test_plans": null,
+        "test_release_version": null
+      },
+      "count": 94,
+      "scope": "Complete pinned package suite, separate from focused notebook subsets."
+    }
+  },
+  "files": {
+    "experiments/composition-recovery-v1/check_composition.py": "b8e9bb6b4e5e6ec2e95ecb2294ccc6f82c446ba3fe88db4d532cff28fd2e5912",
+    "experiments/composition-recovery-v1/settings.json": "56c147f3de3b0c0d9ecf4bf311aee8dcc3339bab7e1b076c47642a6758b4614e",
+    "src/stepkit/__init__.py": "8d57d563c8d68c07a819a0e75da7de7eb088e77c01627307b89386ba07307412",
+    "src/stepkit/_answers.py": "5d2a75a499296cdef362d87686d2ad56eec60d49a4da81ffcc4d28a01b45c298",
+    "src/stepkit/_sources.py": "18fe1a1f1242571e28e5d9df76888d80fec8ad9b73fba70c101fde80fd728ec4",
+    "src/stepkit/assembler.py": "b26ae23e57b0e6d4567e707756386948094a53b011c5e3a94ba8e607f907fd9f",
+    "src/stepkit/attributes.py": "dfe75d2eb7da9caeeffbd6ad3fd9694562e86d904535443908755aafc5703bd5",
+    "src/stepkit/decide.py": "a97eead36a7ad6ea18c82ee0071e42c4fb58287115eaf69256e4a718258fa614",
+    "src/stepkit/dimension.py": "b5b2e02a0f1928de9b742395771864963593ea605c7fdc93eb81e1bebf14434b",
+    "src/stepkit/live.py": "22c0eb8865b804747ee80f5abe46832816ca91ee0f655a3d01330f95e41fe7a5",
+    "src/stepkit/omninode.py": "ceca155499373c88ab331d55f57d7df5e69d50a811f50d34a55a53469903bc0c",
+    "src/stepkit/profile.py": "76d6c26a98691044f99a664c1fa3db033e1b1c76dcb1d68c0c92b7aa85419005",
+    "src/stepkit/quota.py": "f0c64cfaf43b68be68fe271f589fc22a2f0edca331bfa2082dd29f6604b2c331",
+    "src/stepkit/record.py": "8716d5dae1a248a57b9597a8908d4576614c92b3b26968ddfc3388a7b5bad65e",
+    "src/stepkit/reply.py": "f9e1bdf10f3edfd0c8f8eda7c834f62588ada1bfcd7d8d508533074975223128",
+    "src/stepkit/store.py": "836cf4a79b34073e5ea243122633e18e65472e0a088596640dcd3b56560b35b3",
+    "src/stepkit/tier_ladder.py": "b38e3fc71f0ac1e4ce8b829e0ea65aba01f4f87594c07aa030fd212a2882ae6b",
+    "src/stepkit/tools/__init__.py": "6faed5f507429eaa4af89f26419c13f406f9458ec4caa5ac554762573e07f932",
+    "src/stepkit/tools/_safe_runner.py": "6d4a73b1c072ddda901f083c730e9b54990683df12353c67c281a57fa24c3416",
+    "src/stepkit/tools/calculator.py": "19ac29dfaad0ad77b6f5d8f68d461eb249622974678ec1a8052ed0bab4608904",
+    "src/stepkit/tools/options.py": "140168baa011d78b0dc95c190ab38bfd4c44965580b6fbd851235a8f1eead9c9",
+    "src/stepkit/tools/programs.py": "f9d3dec1e4eed939ccd10318ab82da91acf401b466ae1c8a5c149af2f96035cf",
+    "src/stepkit/variants.py": "53c7f75b585461e39af64082a80310962030737d4325989aa59b7fab5b5fbfdf",
+    "src/teleion_fabric/__init__.py": "aa56b2f7a167b5228e5f9de34f3353f9a31456c59173c6345e95dea951c8cdc9",
+    "src/teleion_fabric/cli.py": "63c6d2cf0c603c0c2c4876a3ac322d1a8f2372f229363673a38dea4fecca4fe2",
+    "src/teleion_fabric/context.py": "2a14adfbafa4fa8247b14ddd1945e210e55333534c741d9e0d33cb3f8d417e2c",
+    "src/teleion_fabric/contracts.py": "5a7d2ee70bc34b559421f087660daa45f6b8174fa23fbc0e71e21ba1e04dc7f9",
+    "src/teleion_fabric/data/capabilities.json": "36f59da0fef450181772459148bb0d651cf6e2a574085edbb1cec5afd7969f74",
+    "src/teleion_fabric/data/charter.json": "c23a3a268e12699982f4bdfb14811ae5ba6b0bf00c8a8bf5182489e4d6db916f",
+    "src/teleion_fabric/data/decision-settings.json": "5a0096799176156ad1421678c548414c55df02a4c3063da3b7b7624bd90b8ef1",
+    "src/teleion_fabric/data/dimensions.json": "9e3d13985539367aacde50eab24d11f1e1336561fd64e2eb94b7629e62645d59",
+    "src/teleion_fabric/data/engines.json": "8310182ec95a4f830e6858e517bfeb5ffd2356bf9d70e94333a2679f3b1c9077",
+    "src/teleion_fabric/data/omninode.schema.json": "bd235b927604de9dbb2a3e518c639f9fb6ba877b5eef594ef66999fc127df1a0",
+    "src/teleion_fabric/data/plan-settings.json": "53fa8bc1c5f2e0fe975939e1107e6dbc0e3c599a1d48f8cb502143567b5fa080",
+    "src/teleion_fabric/data/value-settings.json": "a7427f4435340573a052fae43e38d226c7f94624759b545b94cc1fe249e03ce2",
+    "src/teleion_fabric/decision_provider.py": "d55d3360d2bc6cca2c93f0ba1dfc87197b053974645a2f1297fb238401d02242",
+    "src/teleion_fabric/harness-grid.json": "2e3719e0258e921de5430c9668557e1f1d059faa89f79fd03c268ac86fbd01a0",
+    "src/teleion_fabric/opencode_omninode.py": "4c5e8e8fe13d2f8f3bdfffe20baa2ea83bf3b5a8417e65337b2640c11a826684",
+    "src/teleion_fabric/plans.py": "36dccf1f533efa4f6f4dd44c6c0a38d5be70166d924b81ba8a7dce9d19e90139",
+    "src/teleion_fabric/prose_tools.py": "b5280fd4553bd0578d14714bcaa387b3dc378b38882377fcf07079f7db7c7b25",
+    "src/teleion_fabric/settings.json": "d2476ac9a7ed38f10b9db5ff47b5e924f0220d0f89d58f01ac4f9d66ad9ce279",
+    "src/teleion_fabric/settings.py": "d1fe14db466eddb14945ee4bbb20adf6ae6706ffc33e8079f09d4299e9998a07",
+    "src/teleion_fabric/task_profiler.py": "1f140759f54f167a0f40266fa341a43933d96a6bb4950313812cf2c1e207f715",
+    "src/teleion_fabric/values.py": "a65492af1ffa93d3e2ea936ce72b6be422128783becf62e0825134cea9908a3c",
+    "tests/test_ancestor_budget.py": "29a7fb45b21a3f289e94b0464a5dc93c810873410d97408d650fa9262a2a77fd",
+    "tests/test_ancestor_review_exceptions.py": "8d9599bc8e594e7e0acd8f0f023e1c1a70e109472d6dcf5a73b44932b69b3df6",
+    "tests/test_ancestor_review_independent.py": "18a906df12cc253f48bfeb7b284bfde8a0518470dc92d204192bbd76334b3425",
+    "tests/test_ancestor_review_nested.py": "e685b38ae794aef02a54e364cb02f174975867ec3112c2647d0781aabf84a6dd",
+    "tests/test_ancestor_review_probe_accounting.py": "f37f9c0bb1cf370e5dd201293c08639e3f4b5c9693a362921f923651b985695f",
+    "tests/test_ancestor_review_repeated.py": "f9e87a7f2fc851ae450d784c9a20982469c8ae16f531ed8235ae32bc93642a0c",
+    "tests/test_omninode_authority.py": "4fcc97c5fb3352724b1adc394a981de3f8f7171b115145b0a4e1113730d538ae",
+    "tests/test_omninode_authority_review.py": "b9d3c11d0f207874d52ebd3617e3fd72ecf7b9d47b6b70c3ddc97b3f236578a7",
+    "tests/test_omninode_budget_stops.py": "9ecad6189d294d29723a145ecb7cf466ef7682201a616136375366f7816b0c4e",
+    "tests/test_omninode_composed_policy.py": "b461f12a5a2fad18b92f5dd2b4f1d80fd69fcd34f9a7a3e806d5602451345974",
+    "tests/test_omninode_contract_authority.py": "85ff1fb50857aa7b960554950c5a42623671f6152ded0d78cc812ec66c116f93",
+    "tests/test_omninode_own_policy.py": "b3a0eb4432c23e0072bd940f1e4e641058d648da7bcbd9800cc029b7586eba97",
+    "tests/test_packages.py": "82f7d38ea5a5d68657048f1814ddddbb440bec74e8a2b1448b975f95b6d3d3e5",
+    "tests/test_plans.py": "971c322f3d3bc584bd6018355c3aca2465c39d8f09cb4d108ad1b419383751ae",
+    "tests/test_release_version.py": "9248bd856fa636e890adda734d5bb2bda2613466b44de77ba6943d8d2c8950ee"
+  }
+}

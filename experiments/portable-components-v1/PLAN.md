@@ -1,0 +1,13 @@
+<!-- Teleion context: CHARTER.md sha256=6fe2bd046fd154952a79d25d81d1efcf8474ab4eabf034b105dcbe7b513e84ee; read AGENTS.md -->
+
+# Portable focused CPU notebooks
+
+2026-11-14T19:28:05.744131+00:00 Plan before records. Public source pin3c268391eef0298c2089eeaafa36f1967fd61b74, distribution0.2.5. Read owning AGENTS, charter, constitution, context, architecture, complete73family/309edge inventory, MIGRATION and engine contracts. Full workspace continuity retained; family/catalog presence not implementation qualification.
+
+Five notebooks: profiling/prose (selected existing behavioral methods), typed plans, composition/recovery (existing10methods), adaptive OmniNode authority/own policy, ancestor budgets/stops. Reuse exact public tests at pinned commit, no engine copy/reimplementation. Full release validation must execute94package+10composition methods, not historical21. Expected counts and per-method IDs frozen from inspected sources. Visible notebook assertions/results, skip/expected-failure not pass; no zero-test success.
+
+Reuse public-github-install-v1 bootstrap approach: explicit commit checkout, source manifest check, venv --without-pip, host pip --python, installed-origin checks, isolated -I subprocess outsidecheckout. Notebooks contain orchestration only, can download pinned public source when deliberately run with internet on KaggleCPU. Here no network/Kaggle/provider/model/GPU: local source route and offline built wheel, host numerical dependencies recorded separately. Every attempt creates unique record directory, preserves stdout/stderr, test outcomes/counts, exact source/test/package hashes and import origins. Build newwheel, install in isolated localvenv with host dependency access, run notebooks' actual code cells sequentially outsidecheckout oneCPU nice10 threads1. At most60s testgroup/300s installation subprocess, no unbounded jobs. Local execution is not Kaggle qualification.
+
+Use existing authored callbacks/replays/fixtures only. Trusted callback tests do not prove live providers, sandboxing, concurrent reservations, durable service or allcomponents. Include runner negative controls for wrongcount/source mismatch so failure cannot become pass. Context manifest regenerated after newfiles; originalsource unchanged. No commit/push until independent review.
+
+2026-11-14T19:31:21.918502+00:00 Local setup amendment: allfive first attempts failbeforetests because -I excludes host user-site NumPy. Preserve sources/attempts. Add explicit optional TELEION_LOCAL_DEPENDENCIES path for offline host dependency reuse via venv .pth; record it, restrict to local source route. Installed package origins/bytes still verified. No claim isolated dependency resolution; remote standard Kaggle system packages retain existing path.
