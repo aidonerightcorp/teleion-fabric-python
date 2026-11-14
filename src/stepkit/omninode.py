@@ -189,7 +189,7 @@ EQUALITY = {form: (lambda node: answers_equal(*node.ask("assembler.number_equali
 # check name -> check(answer, profile) -> yes or no
 CHECKS = {}
 # Known subset relationships only; child tasks declare their own forms.
-OUTPUT_FORM_SUBSETS = {"any": {"any", "text", "number", "choice"},
+OUTPUT_FORM_SUBSETS = {"any": {"any", "text", "number", "choice", "values", "query_result"},
                        "text": {"text", "number", "choice"}}
 OWN_POLICY = ("input.form", "output.form", "output.checks", "records.task_text")
 # kind of work -> how a Task of that kind is recognized and profiled: functions (task, profile) that add to the profile
@@ -489,6 +489,7 @@ class NodeRecord:
     choices: list
     children: list = field(default_factory=list)
     effective_policy: dict = field(default_factory=dict)
+    output_validation: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         out = {name: getattr(self, name) for name in self.__dataclass_fields__ if name not in ("steps", "children")}
@@ -886,8 +887,25 @@ class OmniNode:
                 raise ContractError(f"node {self.node_id}: its contract does not give the model of the part {part!r}")
 
     def record(self, task, steps, answer, accepted, reason, evidence, children=()) -> NodeRecord:
-        """Write the record of this node. The checks of the contract are put to the answer and recorded."""
-        checks = {name: bool(CHECKS[name](answer, self.profile or {})) for name in self.ask("output.checks")}
+        """Validate the final candidate against this task's policy, including composed answers.
+
+        A child's acceptance does not establish the parent's acceptance. Keep
+        failed candidate evidence and check truth rather than checking a cleared
+        answer, and never promote a fallback that was not accepted upstream.
+        """
+        form = self.ask("output.form")
+        form_ok = bool(FORMS[form](answer))
+        checks = {name: form_ok and bool(CHECKS[name](answer, self.profile or {}))
+                  for name in self.ask("output.checks")}
+        valid = form_ok and all(checks.values())
+        validation = {"form": form, "form_ok": form_ok,
+                      "checks_evaluated": form_ok,
+                      "raw_answer": plain(answer) if not valid else None}
+        if not valid:
+            if answer is not None:
+                reason += ("; final answer violates output.form " + form if not form_ok else
+                           "; final answer failed checks " + ", ".join(name for name, ok in checks.items() if not ok))
+            answer, accepted = None, False
         used, price, left = self.used(), self.ask("price_per_model_second"), self.left()
         budget = {"model_seconds": self.ask("budget.model_seconds"), "model_seconds_used": used["model_s"],
                   "model_seconds_left": left["model_seconds"], "tokens": self.ask("budget.tokens"),
@@ -901,7 +919,7 @@ class OmniNode:
                           dict(self.parameters.summary(), **plain(self.parameters.extra)), dict(self.configured),
                           dict(self.profile or {}), list(steps), answer, bool(accepted), reason, dict(evidence or {}), checks,
                           dict(self.spent), used, budget, list(self.resolver.choices), list(children),
-                          plain(self.current.effective_policy))
+                          plain(self.current.effective_policy), validation)
 
 
 def _run_own_stages(node, task, source, store, seed):
@@ -1018,7 +1036,7 @@ def _run_typed_steps(node, task, source, store, seed):
     {"name", "when" (a name in CONDITIONS), "contract" (values for the derived contract), "parameters"
     (values for the child's parameters)}. Before each step the running limits are tested; a reached limit
     starts no further step. The rule "children.answer" turns their answers into the node's, and the
-    node's own output checks are put to that answer: a failed check leaves the node with no answer."""
+    node's own final output policy is enforced by the central record boundary."""
     ctx = node.current
     kind = node.profile.get("work")
     ctx.kinds = {kind: 1}
@@ -1037,9 +1055,6 @@ def _run_typed_steps(node, task, source, store, seed):
         ctx.used_by_kind[kind] = ctx.used_by_kind.get(kind, 0) + record.cost_with_children["model_s"]
         records.append(record)
     answer, accepted, reason = ANSWER_RULES[node.ask("children.answer")](records)
-    failed = [name for name in node.ask("output.checks") if answer is not None and not CHECKS[name](answer, node.profile)]
-    if failed:
-        answer, accepted, reason = None, False, reason + "; the answer failed the check " + ", ".join(failed)
     return node.record(task, [], answer, accepted, reason, records[-1].evidence if records else {}, records)
 
 
