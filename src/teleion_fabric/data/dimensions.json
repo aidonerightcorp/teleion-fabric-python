@@ -1,0 +1,2220 @@
+[
+  {
+    "name": "contract.input.type",
+    "layer": "contract",
+    "decides": "What the node receives.",
+    "grid_type": "set",
+    "suggested": [
+      "text",
+      "table",
+      "code_repository"
+    ],
+    "grid": [
+      "text",
+      "number",
+      "list",
+      "table",
+      "file",
+      "code_repository",
+      "image",
+      "audio",
+      "task_object",
+      "mixed"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "detected from the input itself (profile.features.surface)",
+    "resolve_when": "task",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.output.form",
+    "layer": "contract",
+    "decides": "The form the answer must take.",
+    "grid_type": "set",
+    "suggested": [
+      "number",
+      "option",
+      "short_text"
+    ],
+    "grid": [
+      "number",
+      "option",
+      "short_text",
+      "long_text",
+      "json_schema",
+      "code_patch",
+      "table_cell",
+      "file",
+      "task_object"
+    ],
+    "joint_with": [
+      "model.decoding.output_constraint",
+      "check.method"
+    ],
+    "limits": [],
+    "sized_by": "given by the caller; else read from the question (asks for a number, offers options)",
+    "resolve_when": "task",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.output.target_error",
+    "layer": "contract",
+    "decides": "The share of wrong answers the caller accepts.",
+    "grid_type": "ordered",
+    "suggested": [
+      0.05,
+      0.02,
+      0.1
+    ],
+    "grid": [
+      0.001,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "joint_with": [
+      "check.method",
+      "check.threshold",
+      "portfolio.escalate_on"
+    ],
+    "limits": [],
+    "sized_by": "caller; drives how strong the checks and the escalation must be",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.budget.model_seconds",
+    "layer": "contract",
+    "decides": "Model time the node and its children may spend.",
+    "grid_type": "ordered",
+    "suggested": [
+      5,
+      10,
+      3
+    ],
+    "grid": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      30,
+      120,
+      600
+    ],
+    "joint_with": [
+      "economics.price",
+      "portfolio.order"
+    ],
+    "limits": [],
+    "sized_by": "the cheapest budget at which the profile's records reach target_error",
+    "resolve_when": "caller",
+    "try_cost": "replay"
+  },
+  {
+    "name": "contract.budget.tokens",
+    "layer": "contract",
+    "decides": "Tokens the node and its children may spend.",
+    "grid_type": "ordered",
+    "suggested": [
+      4000,
+      16000,
+      1000
+    ],
+    "grid": "powers of 2 from 256 to 1,048,576",
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "records of the profile; tokens are recorded per step",
+    "resolve_when": "caller",
+    "try_cost": "replay"
+  },
+  {
+    "name": "contract.budget.money",
+    "layer": "contract",
+    "decides": "Money the node may spend on paid calls.",
+    "grid_type": "ordered",
+    "suggested": [
+      0.0,
+      0.01,
+      0.1
+    ],
+    "grid": [
+      0.0,
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "joint_with": [],
+    "limits": [
+      "operator caps: $150 total for all credits; above needs the owner",
+      "no agent changes its own budget",
+      "Anthropic and OpenRouter stay off for operator-funded work"
+    ],
+    "sized_by": "never above what the operator's caps leave",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.budget.children",
+    "layer": "contract",
+    "decides": "How many child nodes the node may start.",
+    "grid_type": "ordered",
+    "suggested": [
+      4,
+      0,
+      16
+    ],
+    "grid": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      16,
+      64,
+      256
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the split the profile needs (structure.split.granularity)",
+    "resolve_when": "caller",
+    "try_cost": "replay"
+  },
+  {
+    "name": "contract.budget.depth",
+    "layer": "contract",
+    "decides": "How deep children may nest.",
+    "grid_type": "ordered",
+    "suggested": [
+      2,
+      1,
+      3
+    ],
+    "grid": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      8
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the depth of the Task's plan",
+    "resolve_when": "caller",
+    "try_cost": "replay"
+  },
+  {
+    "name": "contract.budget.wall_seconds",
+    "layer": "contract",
+    "decides": "Deadline for the whole answer.",
+    "grid_type": "ordered",
+    "suggested": [
+      60,
+      10,
+      600
+    ],
+    "grid": [
+      1,
+      5,
+      10,
+      30,
+      60,
+      300,
+      600,
+      3600,
+      86400
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "caller",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.resources.models",
+    "layer": "contract",
+    "decides": "Models the node may use.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "local_3b",
+        "local_7b_code"
+      ],
+      [
+        "local_1b",
+        "local_3b",
+        "local_7b_code"
+      ]
+    ],
+    "grid": [
+      "local_1b",
+      "local_3b",
+      "local_7b_code",
+      "hosted_meta_small",
+      "hosted_meta_large"
+    ],
+    "joint_with": [],
+    "limits": [
+      "hosted Meta models only within the money cap; public text names only Meta models"
+    ],
+    "sized_by": "what the operator provides; hosted models only within contract.budget.money",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.resources.stores",
+    "layer": "contract",
+    "decides": "Stores the node may read (Task Objects, programs, records).",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "task_objects",
+        "checked_programs"
+      ],
+      [
+        "task_objects",
+        "checked_programs",
+        "records"
+      ]
+    ],
+    "grid": [
+      "task_objects",
+      "checked_programs",
+      "records",
+      "code_index",
+      "docs",
+      "public_web"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "caller",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.permissions",
+    "layer": "contract",
+    "decides": "What the node may do.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "read_stores",
+        "write_private_records",
+        "run_code_sandboxed"
+      ],
+      [
+        "read_stores",
+        "write_private_records"
+      ]
+    ],
+    "grid": [
+      "read_stores",
+      "write_private_records",
+      "write_public_records",
+      "network_read",
+      "run_code_sandboxed",
+      "spend_within_cap",
+      "ask_person_one_use_link",
+      "start_children",
+      "train_weights"
+    ],
+    "joint_with": [],
+    "limits": [
+      "maker != checker",
+      "credentials never in source, logs or URLs",
+      "public writes only after the hygiene gate",
+      "nothing published, pushed or deployed without the owner's direction"
+    ],
+    "sized_by": "caller; a child never gets more than its parent",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.privacy",
+    "layer": "contract",
+    "decides": "How private the inputs and records are.",
+    "grid_type": "ordered",
+    "suggested": [
+      "private",
+      "personal_data_stripped",
+      "public"
+    ],
+    "grid": [
+      "private",
+      "personal_data_stripped",
+      "public"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "caller; the deterministic personal-data strip runs before any export or training",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "contract.novelty_expected",
+    "layer": "contract",
+    "decides": "Whether new kinds of Task are expected.",
+    "grid_type": "set",
+    "suggested": [
+      false,
+      true
+    ],
+    "grid": [
+      false,
+      true
+    ],
+    "joint_with": [
+      "profile.unfamiliar.threshold"
+    ],
+    "limits": [],
+    "sized_by": "caller; changes the unfamiliar rule",
+    "resolve_when": "caller",
+    "try_cost": "replay"
+  },
+  {
+    "name": "profile.features.surface",
+    "layer": "profile",
+    "decides": "Cheap surface features computed by code.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "length",
+        "numbers",
+        "units",
+        "dates",
+        "options",
+        "question_form"
+      ],
+      [
+        "length",
+        "numbers",
+        "units",
+        "dates",
+        "options",
+        "question_form",
+        "list_length",
+        "table_shape",
+        "language"
+      ]
+    ],
+    "grid": [
+      "length",
+      "numbers",
+      "digits",
+      "operators",
+      "units",
+      "dates",
+      "options",
+      "list_length",
+      "table_shape",
+      "code_present",
+      "language",
+      "script",
+      "markup",
+      "question_form",
+      "imperatives",
+      "emphasis",
+      "stopword_ratio"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the smallest set that keeps the kind prediction and the node choice as good on held-out Tasks",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "profile.features.lexical",
+    "layer": "profile",
+    "decides": "Word and character n-grams, keyword lists, fielded scores.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "word_1_2grams",
+        "keywords"
+      ],
+      [
+        "word_1_3grams",
+        "char_3_5grams",
+        "keywords",
+        "bm25f_fields"
+      ]
+    ],
+    "grid": [
+      "word_1grams",
+      "word_1_2grams",
+      "word_1_3grams",
+      "char_3_5grams",
+      "keywords",
+      "bm25f_fields"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out gain in retrieval or kind prediction",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "profile.features.semantic",
+    "layer": "profile",
+    "decides": "Vector features and the geometry used to compare them.",
+    "grid_type": "set",
+    "suggested": [
+      "small_encoder",
+      "small_encoder_whitened_csls",
+      "none"
+    ],
+    "grid": [
+      "none",
+      "small_encoder",
+      "small_encoder_whitened",
+      "small_encoder_whitened_csls",
+      "learned_outcome_space"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out retrieval of the right stored Task or code",
+    "resolve_when": "profile",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "profile.features.step_data",
+    "layer": "profile",
+    "decides": "Features of what a step produced, read by code.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "form_valid",
+        "agreement",
+        "tool_fired"
+      ],
+      [
+        "form_valid",
+        "agreement",
+        "tool_fired",
+        "reply_profile",
+        "check_result"
+      ]
+    ],
+    "grid": [
+      "form_valid",
+      "numbers_in_reply",
+      "reply_length",
+      "hedges",
+      "tool_fired",
+      "check_result",
+      "agreement",
+      "exec_error",
+      "empty_result",
+      "one_cell"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "AUC for 'this step is right' on held-out Tasks",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "profile.granularity",
+    "layer": "profile",
+    "decides": "How finely Tasks are grouped when settings are stored and reused.",
+    "grid_type": "ordered",
+    "suggested": [
+      "kind",
+      "atomic_step",
+      "whole_task"
+    ],
+    "grid": [
+      "whole_task",
+      "kind",
+      "sub_kind",
+      "atomic_step"
+    ],
+    "joint_with": [
+      "profile.similarity.k",
+      "strategy.resolve"
+    ],
+    "limits": [],
+    "sized_by": "the finest grouping that still has enough records to decide",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "profile.similarity.metric",
+    "layer": "profile",
+    "decides": "How 'looks like' is measured.",
+    "grid_type": "set",
+    "suggested": [
+      "word_ngram_jaccard",
+      "bm25f",
+      "embedding_cosine"
+    ],
+    "grid": [
+      "word_ngram_jaccard",
+      "bm25f",
+      "embedding_cosine",
+      "whitened_csls",
+      "learned_from_outcomes"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy of the settings retrieved by similarity",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "profile.similarity.k",
+    "layer": "profile",
+    "decides": "How many neighbours vote.",
+    "grid_type": "ordered",
+    "suggested": [
+      5,
+      3,
+      10
+    ],
+    "grid": [
+      1,
+      3,
+      5,
+      10,
+      20,
+      50
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy of the vote",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "profile.unfamiliar.threshold",
+    "layer": "profile",
+    "decides": "When a Task counts as new (then the default node runs).",
+    "grid_type": "ordered",
+    "suggested": [
+      0.95,
+      0.9,
+      0.99
+    ],
+    "grid": [
+      0.8,
+      0.9,
+      0.95,
+      0.98,
+      0.99,
+      0.999
+    ],
+    "joint_with": [
+      "contract.novelty_expected",
+      "portfolio.fallback_default"
+    ],
+    "limits": [],
+    "sized_by": "distance quantile of known Tasks; sized so known kinds lose nothing and new kinds fall back cleanly",
+    "resolve_when": "task",
+    "try_cost": "replay"
+  },
+  {
+    "name": "structure.split.when",
+    "layer": "structure",
+    "decides": "When a Task is split into steps.",
+    "grid_type": "ordered",
+    "suggested": [
+      "on_checked_failure",
+      "when_profile_is_multi_step",
+      "never"
+    ],
+    "grid": [
+      "never",
+      "on_checked_failure",
+      "on_disagreement",
+      "when_profile_is_multi_step",
+      "always_at_start"
+    ],
+    "joint_with": [
+      "structure.split.granularity",
+      "structure.redecide"
+    ],
+    "limits": [],
+    "sized_by": "split only where a direct try fails or the profile says the whole is beyond the node",
+    "resolve_when": "task",
+    "try_cost": "replay"
+  },
+  {
+    "name": "structure.split.decomposer",
+    "layer": "structure",
+    "decides": "Who writes the steps.",
+    "grid_type": "set",
+    "suggested": [
+      "task_plan",
+      "deterministic_parser",
+      "stored_program"
+    ],
+    "grid": [
+      "task_plan",
+      "deterministic_parser",
+      "stored_program",
+      "small_model_plan",
+      "large_model_plan",
+      "person"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the cheapest decomposer whose plans pass the step checks",
+    "resolve_when": "task",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "structure.split.granularity",
+    "layer": "structure",
+    "decides": "How small the steps are.",
+    "grid_type": "ordered",
+    "suggested": [
+      "atomic",
+      "two_to_three_parts",
+      "whole"
+    ],
+    "grid": [
+      "whole",
+      "two_to_three_parts",
+      "atomic"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the coarsest split at which every step has a node that passes its check",
+    "resolve_when": "task",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "structure.redecide",
+    "layer": "structure",
+    "decides": "When the node chooses again.",
+    "grid_type": "set",
+    "suggested": [
+      "on_new_data",
+      "every_step",
+      "once_at_start"
+    ],
+    "grid": [
+      "once_at_start",
+      "every_step",
+      "on_new_data"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "choose again only where new data could change the choice",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "structure.merge",
+    "layer": "structure",
+    "decides": "Whether equal sub-Tasks share one result.",
+    "grid_type": "set",
+    "suggested": [
+      "exact_key",
+      "likeness_with_check",
+      "none"
+    ],
+    "grid": [
+      "none",
+      "exact_key",
+      "likeness_with_check"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "repeats in the records",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "structure.parallel",
+    "layer": "structure",
+    "decides": "How children run.",
+    "grid_type": "set",
+    "suggested": [
+      "parallel_reads_one_writer",
+      "sequential"
+    ],
+    "grid": [
+      "sequential",
+      "parallel_reads_one_writer",
+      "parallel"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "data dependence between steps",
+    "resolve_when": "step",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "structure.vote.lead_k",
+    "layer": "structure",
+    "decides": "Votes until one answer leads by k.",
+    "grid_type": "ordered",
+    "suggested": [
+      1,
+      2,
+      3
+    ],
+    "grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7
+    ],
+    "joint_with": [
+      "model.decoding.samples",
+      "model.decoding.temperature",
+      "contract.output.target_error"
+    ],
+    "limits": [],
+    "sized_by": "per-step error rate and the number of steps: the smallest k that keeps the whole within target_error",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "structure.red_flag",
+    "layer": "structure",
+    "decides": "Replies thrown away and asked again.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "malformed_form"
+      ],
+      [
+        "malformed_form",
+        "over_length"
+      ]
+    ],
+    "grid": [
+      "malformed_form",
+      "over_length",
+      "hedging",
+      "self_contradiction"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "share of flagged replies that were wrong in the records",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "portfolio.order",
+    "layer": "portfolio",
+    "decides": "The ordered list of parts tried for a step.",
+    "grid_type": "structured",
+    "suggested": [
+      [
+        "exact_tool",
+        "stored_result",
+        "checked_program",
+        "small_model_checked",
+        "larger_model",
+        "vote"
+      ],
+      [
+        "exact_tool",
+        "checked_program",
+        "larger_model"
+      ]
+    ],
+    "grid": "any order over: exact_tool, stored_result, checked_program, written_weights_module, small_model_checked, larger_model, vote, ladder, person (the grammar of test 10)",
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the cheapest order that meets target_error on the profile's held-out records",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "portfolio.exact_tools",
+    "layer": "portfolio",
+    "decides": "Which exact tools may fire, each with its firing rule.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "arithmetic",
+        "tracking",
+        "extrema",
+        "units"
+      ],
+      [
+        "arithmetic",
+        "tracking",
+        "extrema",
+        "units",
+        "calendar",
+        "inventory"
+      ]
+    ],
+    "grid": [
+      "arithmetic",
+      "tracking",
+      "extrema",
+      "units",
+      "permutations",
+      "calendar",
+      "inventory",
+      "kind_programs"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "each tool admitted only after its gate; silent outside its kind",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "portfolio.programs.reuse",
+    "layer": "portfolio",
+    "decides": "How stored programs are found for a new Task.",
+    "grid_type": "set",
+    "suggested": [
+      "likeness_with_check",
+      "exact_key",
+      "none"
+    ],
+    "grid": [
+      "none",
+      "exact_key",
+      "likeness_with_check"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy of reused programs",
+    "resolve_when": "task",
+    "try_cost": "replay"
+  },
+  {
+    "name": "portfolio.programs.admission",
+    "layer": "portfolio",
+    "decides": "The bar a program or chain must pass before use.",
+    "grid_type": "ordered",
+    "suggested": [
+      "36_of_40_and_silent",
+      "40_of_40_and_silent",
+      "32_of_40"
+    ],
+    "grid": [
+      "32_of_40",
+      "36_of_40",
+      "36_of_40_and_silent",
+      "40_of_40_and_silent"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "precision of admitted programs on held-out Tasks",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "portfolio.stop_rule",
+    "layer": "portfolio",
+    "decides": "When a step is done.",
+    "grid_type": "set",
+    "suggested": [
+      "check_passes",
+      "agreement",
+      "confidence_at_least_tau"
+    ],
+    "grid": [
+      "first_answer",
+      "check_passes",
+      "agreement",
+      "confidence_at_least_tau",
+      "budget_spent"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the cheapest rule that meets target_error",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "portfolio.escalate_on",
+    "layer": "portfolio",
+    "decides": "What sends a step to the next part.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "check_fails",
+        "disagreement"
+      ],
+      [
+        "check_fails",
+        "disagreement",
+        "low_reply_profile",
+        "unfamiliar"
+      ]
+    ],
+    "grid": [
+      "check_fails",
+      "disagreement",
+      "low_reply_profile",
+      "unfamiliar",
+      "tool_silent",
+      "exec_error"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "AUC of each signal for 'this step is wrong'",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "portfolio.fallback_default",
+    "layer": "portfolio",
+    "decides": "The node that runs when nothing is known.",
+    "grid_type": "set",
+    "suggested": [
+      "larger_model_with_tools_first",
+      "larger_model"
+    ],
+    "grid": [
+      "larger_model",
+      "larger_model_with_tools_first",
+      "ladder"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the best fixed node on all records",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "model.choice",
+    "layer": "model",
+    "decides": "Which model answers.",
+    "grid_type": "ordered",
+    "suggested": [
+      "local_3b",
+      "local_7b_code",
+      "local_1b"
+    ],
+    "grid": [
+      "none",
+      "local_1b",
+      "local_3b",
+      "local_7b_code",
+      "hosted_meta_small",
+      "hosted_meta_large"
+    ],
+    "joint_with": [
+      "model.precision",
+      "weights.cartridge",
+      "weights.mask.level",
+      "harness.weight"
+    ],
+    "limits": [
+      "hosted models only within contract.budget.money"
+    ],
+    "sized_by": "the smallest model that meets target_error for the profile, with its weights and settings",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.precision",
+    "layer": "model",
+    "decides": "Number format of the weights.",
+    "grid_type": "ordered",
+    "suggested": [
+      "bf16",
+      "q4",
+      "q8"
+    ],
+    "grid": [
+      "q4",
+      "q8",
+      "bf16",
+      "fp32"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the smallest format with no held-out loss on the profile",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.decoding.temperature",
+    "layer": "model",
+    "decides": "Sampling temperature.",
+    "grid_type": "ordered",
+    "suggested": [
+      0.0,
+      0.7,
+      0.3
+    ],
+    "grid": [
+      0.0,
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      1.0,
+      1.2
+    ],
+    "joint_with": [
+      "model.decoding.samples",
+      "structure.vote.lead_k"
+    ],
+    "limits": [],
+    "sized_by": "joint with samples: greedy for one sample, warmer for votes",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.decoding.top_p",
+    "layer": "model",
+    "decides": "Nucleus sampling share.",
+    "grid_type": "ordered",
+    "suggested": [
+      1.0,
+      0.95,
+      0.9
+    ],
+    "grid": [
+      0.5,
+      0.8,
+      0.9,
+      0.95,
+      1.0
+    ],
+    "joint_with": [
+      "model.decoding.temperature"
+    ],
+    "limits": [],
+    "sized_by": "native setting unless records show a gain",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.decoding.samples",
+    "layer": "model",
+    "decides": "Answers drawn per step.",
+    "grid_type": "ordered",
+    "suggested": [
+      1,
+      2,
+      6
+    ],
+    "grid": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      10,
+      20
+    ],
+    "joint_with": [
+      "model.decoding.temperature",
+      "structure.vote.lead_k"
+    ],
+    "limits": [],
+    "sized_by": "the fewest samples whose agreement meets target_error",
+    "resolve_when": "step",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.decoding.max_new_tokens",
+    "layer": "model",
+    "decides": "Answer length limit.",
+    "grid_type": "ordered",
+    "suggested": [
+      "native",
+      "sized_p99_x2",
+      "sized_p99"
+    ],
+    "grid": [
+      "native",
+      "sized_p99",
+      "sized_p99_x2",
+      64,
+      256,
+      1024,
+      4096
+    ],
+    "joint_with": [],
+    "limits": [
+      "preserve native caller and provider output settings (MUST-FOLLOW)"
+    ],
+    "sized_by": "records: the model stops by itself; keep native settings, no arbitrary ceiling",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "model.decoding.output_constraint",
+    "layer": "model",
+    "decides": "A grammar on the decoder for the answer's form.",
+    "grid_type": "set",
+    "suggested": [
+      "none",
+      "regex_for_form",
+      "json_schema"
+    ],
+    "grid": [
+      "none",
+      "regex_for_form",
+      "options_only",
+      "json_schema"
+    ],
+    "joint_with": [
+      "contract.output.form",
+      "harness.reader"
+    ],
+    "limits": [],
+    "sized_by": "share of form failures in the profile's records; constrain only where form fails",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.reasoning",
+    "layer": "model",
+    "decides": "How the model answers.",
+    "grid_type": "set",
+    "suggested": [
+      "answer_only",
+      "short_worked",
+      "program_of_thought"
+    ],
+    "grid": [
+      "answer_only",
+      "short_worked",
+      "full_worked",
+      "program_of_thought",
+      "plan_then_steps"
+    ],
+    "joint_with": [
+      "model.decoding.max_new_tokens",
+      "profile.granularity"
+    ],
+    "limits": [],
+    "sized_by": "the cheapest form that meets target_error; atomic steps rarely need worked answers",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.prompt.form",
+    "layer": "model",
+    "decides": "The chat form and the instruction text.",
+    "grid_type": "set",
+    "suggested": [
+      "chat_no_system_block",
+      "chat_with_system_block"
+    ],
+    "grid": [
+      "raw",
+      "chat_no_system_block",
+      "chat_with_system_block",
+      "persona_variants"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy per profile",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.prompt.examples",
+    "layer": "model",
+    "decides": "Worked examples in the prompt.",
+    "grid_type": "ordered",
+    "suggested": [
+      0,
+      3,
+      1
+    ],
+    "grid": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      8,
+      16
+    ],
+    "joint_with": [
+      "model.prompt.example_selection",
+      "model.context.length"
+    ],
+    "limits": [],
+    "sized_by": "the fewest examples with no held-out loss; chosen from the store by likeness",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.prompt.example_selection",
+    "layer": "model",
+    "decides": "How examples are chosen.",
+    "grid_type": "set",
+    "suggested": [
+      "by_likeness_from_store",
+      "fixed",
+      "random"
+    ],
+    "grid": [
+      "fixed",
+      "random",
+      "by_likeness_from_store",
+      "by_difficulty"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy",
+    "resolve_when": "task",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.prompt.rules_text",
+    "layer": "model",
+    "decides": "Rule text placed where the step reads it.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "controlled_language_rules"
+      ],
+      []
+    ],
+    "grid": [
+      "controlled_language_rules",
+      "skill_file",
+      "agents_md",
+      "short_exact_instruction"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out gain per profile; the smallest text that carries it",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "model.context.length",
+    "layer": "model",
+    "decides": "Context reserved for the model.",
+    "grid_type": "ordered",
+    "suggested": [
+      "sized_p99_x2",
+      "native",
+      4096
+    ],
+    "grid": [
+      "sized_p99",
+      "sized_p99_x2",
+      2048,
+      4096,
+      16384,
+      65536,
+      "native"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the context the profile's records actually use",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "model.context.retrieval",
+    "layer": "model",
+    "decides": "Stored material placed in the context.",
+    "grid_type": "joint",
+    "suggested": [
+      {
+        "k": 0
+      },
+      {
+        "k": 3,
+        "source": "task_objects",
+        "ranker": "bm25f"
+      }
+    ],
+    "grid": "k in 0, 1, 3, 5, 10; source in task_objects, docs, code_index; ranker in bm25f, embedding, whitened_csls",
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out gain; retrieval first for fresh facts",
+    "resolve_when": "task",
+    "try_cost": "replay"
+  },
+  {
+    "name": "weights.cartridge",
+    "layer": "weights",
+    "decides": "A small trained adapter on the model.",
+    "grid_type": "set",
+    "suggested": [
+      "none",
+      "one_for_all",
+      "per_kind_routed"
+    ],
+    "grid": [
+      "none",
+      "one_for_all",
+      "per_kind_routed",
+      "per_atomic_step"
+    ],
+    "joint_with": [
+      "weights.cartridge.rank",
+      "weights.cartridge.data",
+      "weights.mask.level"
+    ],
+    "limits": [],
+    "sized_by": "held-out accuracy per profile against the base and against one adapter",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "weights.cartridge.rank",
+    "layer": "weights",
+    "decides": "Adapter rank.",
+    "grid_type": "ordered",
+    "suggested": [
+      16,
+      8,
+      32
+    ],
+    "grid": [
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "joint_with": [
+      "weights.cartridge.steps"
+    ],
+    "limits": [],
+    "sized_by": "the smallest rank with no held-out loss",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "weights.cartridge.data",
+    "layer": "weights",
+    "decides": "What the adapter learns from.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "checked_own_records"
+      ],
+      [
+        "checked_own_records",
+        "generated_items_with_exact_keys"
+      ]
+    ],
+    "grid": [
+      "checked_own_records",
+      "generated_items_with_exact_keys",
+      "public_sets"
+    ],
+    "joint_with": [],
+    "limits": [
+      "personal-data strip before training",
+      "a checker never shares a fine-tune or training data with the maker it checks"
+    ],
+    "sized_by": "held-out gain; atomic steps can use unlimited generated items with exact keys",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "weights.cartridge.steps",
+    "layer": "weights",
+    "decides": "Training length, with early stopping.",
+    "grid_type": "ordered",
+    "suggested": [
+      "early_stop_on_dev",
+      300,
+      1000
+    ],
+    "grid": [
+      "early_stop_on_dev",
+      100,
+      300,
+      1000,
+      3000
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "dev loss; keep the best checkpoint",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "weights.mask.unit",
+    "layer": "weights",
+    "decides": "What trimming removes.",
+    "grid_type": "set",
+    "suggested": [
+      "mlp_neuron",
+      "attention_head",
+      "layer"
+    ],
+    "grid": [
+      "mlp_neuron",
+      "attention_head",
+      "layer",
+      "expert"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy at equal size",
+    "resolve_when": "profile",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "weights.mask.level",
+    "layer": "weights",
+    "decides": "Share removed.",
+    "grid_type": "ordered",
+    "suggested": [
+      0.0,
+      0.25,
+      0.55
+    ],
+    "grid": [
+      0.0,
+      0.1,
+      0.25,
+      0.4,
+      0.55,
+      0.7,
+      0.85
+    ],
+    "joint_with": [
+      "weights.mask.calibration",
+      "weights.mask.recovery",
+      "profile.granularity"
+    ],
+    "limits": [],
+    "sized_by": "the largest share with no held-out loss for the profile",
+    "resolve_when": "profile",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "weights.mask.calibration",
+    "layer": "weights",
+    "decides": "Which data scores what to keep.",
+    "grid_type": "set",
+    "suggested": [
+      "own_profile",
+      "family",
+      "general"
+    ],
+    "grid": [
+      "own_profile",
+      "family",
+      "general"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy at equal size",
+    "resolve_when": "profile",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "weights.mask.recovery",
+    "layer": "weights",
+    "decides": "Training after trimming.",
+    "grid_type": "set",
+    "suggested": [
+      "none",
+      "cartridge_after_trim"
+    ],
+    "grid": [
+      "none",
+      "cartridge_after_trim",
+      "full_recovery_training"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy at the trimmed size",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "weights.written_module",
+    "layer": "weights",
+    "decides": "A small network whose weights are written from a rule, for one atomic step.",
+    "grid_type": "set",
+    "suggested": [
+      "none",
+      "compiled_rule_module"
+    ],
+    "grid": [
+      "none",
+      "compiled_rule_module",
+      "hand_written_module"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "exactness out of range against the Python tool's cost",
+    "resolve_when": "profile",
+    "try_cost": "cpu"
+  },
+  {
+    "name": "weights.edit",
+    "layer": "weights",
+    "decides": "A direct edit of a pretrained model's weights.",
+    "grid_type": "set",
+    "suggested": [
+      "none",
+      "fault_removal"
+    ],
+    "grid": [
+      "none",
+      "fault_removal",
+      "steering_baked_in",
+      "rank_one_fact_edit"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "only where a measured fault exists (loops, cut-off answers, form failures)",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "weights.merge",
+    "layer": "weights",
+    "decides": "Merging several adapters into one.",
+    "grid_type": "set",
+    "suggested": [
+      "none",
+      "routed_not_merged"
+    ],
+    "grid": [
+      "none",
+      "routed_not_merged",
+      "task_arithmetic",
+      "ties"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out accuracy per kind",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "weights.admission",
+    "layer": "weights",
+    "decides": "When new weights replace the default for a profile.",
+    "grid_type": "joint",
+    "suggested": [
+      {
+        "no_loss_margin_points": 3.0,
+        "canary_share": 0.05,
+        "rollback_drop_points": 5.0
+      }
+    ],
+    "grid": "no_loss_margin in 1, 2, 3, 5 points; canary share in 1, 5, 10, 25%; rollback drop in 2, 5, 10 points over 50 to 500 Tasks",
+    "joint_with": [],
+    "limits": [
+      "record base, data, tests and cost for every version",
+      "maker != checker"
+    ],
+    "sized_by": "MUST-FOLLOW: a fine-tune replaces a default only when it beats it on held-out tests; small share first; automatic return",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "harness.weight",
+    "layer": "harness",
+    "decides": "How much fixed text and machinery wraps a call.",
+    "grid_type": "ordered",
+    "suggested": [
+      "lean",
+      "none",
+      "standard"
+    ],
+    "grid": [
+      "none",
+      "lean",
+      "standard",
+      "heavy"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the lightest harness with no held-out loss",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "harness.tools_offered",
+    "layer": "harness",
+    "decides": "Tools the model may call.",
+    "grid_type": "multi",
+    "suggested": [
+      [],
+      [
+        "calculator"
+      ]
+    ],
+    "grid": [
+      "calculator",
+      "code_runner",
+      "search_store",
+      "read_file",
+      "query_table"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "offer a tool only where records show the model uses it; else the node calls the tool itself",
+    "resolve_when": "profile",
+    "try_cost": "card"
+  },
+  {
+    "name": "harness.max_turns",
+    "layer": "harness",
+    "decides": "Turns per step.",
+    "grid_type": "ordered",
+    "suggested": [
+      1,
+      3,
+      10
+    ],
+    "grid": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      30,
+      100
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the turns the profile's records use",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "harness.retry",
+    "layer": "harness",
+    "decides": "Retries after a typed failure.",
+    "grid_type": "ordered",
+    "suggested": [
+      1,
+      0,
+      2
+    ],
+    "grid": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "records",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "harness.reader",
+    "layer": "harness",
+    "decides": "How the answer is read from a reply.",
+    "grid_type": "set",
+    "suggested": [
+      "answer_line",
+      "last_number",
+      "first_number"
+    ],
+    "grid": [
+      "answer_line",
+      "last_number",
+      "first_number",
+      "option_letter",
+      "constrained_form",
+      "first_allowed_word"
+    ],
+    "joint_with": [
+      "model.decoding.output_constraint",
+      "contract.output.form"
+    ],
+    "limits": [],
+    "sized_by": "the reader that matches the profile's reply form; free to try by replay on recorded replies",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "harness.instruction_at_step",
+    "layer": "harness",
+    "decides": "A short exact instruction where the step reads it.",
+    "grid_type": "set",
+    "suggested": [
+      "none",
+      "name_the_legal_choices"
+    ],
+    "grid": [
+      "none",
+      "name_the_legal_choices",
+      "show_the_failed_check"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "loops avoided per added token",
+    "resolve_when": "step",
+    "try_cost": "card"
+  },
+  {
+    "name": "harness.memo",
+    "layer": "harness",
+    "decides": "Answers keyed by content.",
+    "grid_type": "set",
+    "suggested": [
+      "content_key",
+      "none"
+    ],
+    "grid": [
+      "none",
+      "content_key",
+      "content_key_with_check"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "repeat rate",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "harness.sandbox",
+    "layer": "harness",
+    "decides": "Where generated code runs.",
+    "grid_type": "set",
+    "suggested": [
+      "process_no_network",
+      "container_no_network"
+    ],
+    "grid": [
+      "process_no_network",
+      "container_no_network"
+    ],
+    "joint_with": [],
+    "limits": [
+      "no network and no secrets for generated code"
+    ],
+    "sized_by": "fixed by permissions",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "check.method",
+    "layer": "check",
+    "decides": "How a step's result is checked.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "form",
+        "recompute_by_code",
+        "agreement"
+      ],
+      [
+        "form",
+        "agreement",
+        "reply_profile"
+      ]
+    ],
+    "grid": [
+      "form",
+      "recompute_by_code",
+      "exact_key",
+      "agreement_same_model",
+      "agreement_two_models",
+      "agreement_two_methods",
+      "reply_profile",
+      "trained_checker",
+      "person"
+    ],
+    "joint_with": [
+      "check.threshold",
+      "contract.output.target_error"
+    ],
+    "limits": [],
+    "sized_by": "the cheapest independent check that meets target_error",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "check.threshold",
+    "layer": "check",
+    "decides": "Score above which a result passes.",
+    "grid_type": "ordered",
+    "suggested": [
+      "calibrated_to_target_error",
+      0.5,
+      0.8
+    ],
+    "grid": [
+      "calibrated_to_target_error",
+      0.3,
+      0.5,
+      0.7,
+      0.8,
+      0.9,
+      0.95
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "calibrated per profile on held-out records",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "check.independence",
+    "layer": "check",
+    "decides": "What must differ between maker and checker.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "different_model",
+        "different_training_data"
+      ],
+      [
+        "code_only"
+      ]
+    ],
+    "grid": [
+      "different_model",
+      "different_fine_tune",
+      "different_training_data",
+      "code_only",
+      "person"
+    ],
+    "joint_with": [],
+    "limits": [
+      "a checker must not share a fine-tune or training data with the maker it checks",
+      "different keys alone are not independence"
+    ],
+    "sized_by": "MUST-FOLLOW",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "check.weights",
+    "layer": "check",
+    "decides": "How much a check's verdict moves a profile's record.",
+    "grid_type": "joint",
+    "suggested": [
+      {
+        "pass": 0.3,
+        "fail": 0.8
+      }
+    ],
+    "grid": "pass and fail weights in 0.1 to 1.0",
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "how often each verdict was right on marked records",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "records.granularity",
+    "layer": "records",
+    "decides": "What is recorded.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "step",
+        "node",
+        "choice_with_reason"
+      ]
+    ],
+    "grid": [
+      "task",
+      "step",
+      "node",
+      "choice_with_reason",
+      "every_model_attempt"
+    ],
+    "joint_with": [],
+    "limits": [
+      "every model attempt is recorded, including failures"
+    ],
+    "sized_by": "MUST-FOLLOW: every model attempt, failures too",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "records.personal_data",
+    "layer": "records",
+    "decides": "Personal data in records.",
+    "grid_type": "set",
+    "suggested": [
+      "strip_before_store",
+      "strip_before_export"
+    ],
+    "grid": [
+      "strip_before_store",
+      "strip_before_export"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "deterministic strip layer",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "learning.from_records",
+    "layer": "learning",
+    "decides": "What records turn into.",
+    "grid_type": "multi",
+    "suggested": [
+      [
+        "checked_programs",
+        "routing_table",
+        "thresholds"
+      ],
+      [
+        "checked_programs",
+        "routing_table",
+        "thresholds",
+        "cartridges",
+        "masks"
+      ]
+    ],
+    "grid": [
+      "checked_programs",
+      "kind_programs",
+      "routing_table",
+      "examples",
+      "thresholds",
+      "prompts",
+      "cartridges",
+      "masks",
+      "written_modules"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-out gain per item, admitted one at a time",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "learning.admission",
+    "layer": "learning",
+    "decides": "How a learned item is admitted.",
+    "grid_type": "set",
+    "suggested": [
+      "k_fold_then_fresh",
+      "fresh_holdout"
+    ],
+    "grid": [
+      "k_fold_then_fresh",
+      "fresh_holdout",
+      "canary_live"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "MUST-FOLLOW and test 13's gate",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "learning.retirement",
+    "layer": "learning",
+    "decides": "When items leave the library.",
+    "grid_type": "joint",
+    "suggested": [
+      {
+        "unused_tasks": 1000,
+        "losing_share": 0.5
+      }
+    ],
+    "grid": "unused for 100 to 10,000 Tasks, or losing on more than 30 to 70% of their uses",
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "library size limits",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "learning.cadence",
+    "layer": "learning",
+    "decides": "When learning runs.",
+    "grid_type": "set",
+    "suggested": [
+      "every_n_records",
+      "nightly",
+      "on_drift"
+    ],
+    "grid": [
+      "every_n_records",
+      "nightly",
+      "on_drift"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "drift and volume",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "economics.price",
+    "layer": "economics",
+    "decides": "What a model second or token costs in the objective.",
+    "grid_type": "joint",
+    "suggested": [
+      {
+        "per_model_second": "one_price_for_all_kinds"
+      }
+    ],
+    "grid": "one price for all kinds, or per model; per token",
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the budget the caller gives",
+    "resolve_when": "caller",
+    "try_cost": "replay"
+  },
+  {
+    "name": "economics.objective",
+    "layer": "economics",
+    "decides": "What the node maximizes.",
+    "grid_type": "set",
+    "suggested": [
+      "accuracy_within_budget",
+      "accuracy_minus_lambda_cost"
+    ],
+    "grid": [
+      "accuracy_within_budget",
+      "accuracy_minus_lambda_cost",
+      "cost_at_target_error"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "the contract",
+    "resolve_when": "caller",
+    "try_cost": "none"
+  },
+  {
+    "name": "strategy.resolve",
+    "layer": "strategy",
+    "decides": "How a value is chosen for any dimension.",
+    "grid_type": "set",
+    "suggested": [
+      "nearest_proven",
+      "search_with_admission",
+      "default_first"
+    ],
+    "grid": [
+      "default_first",
+      "nearest_proven",
+      "bandit_with_cost_cap",
+      "search_with_admission",
+      "population_of_strategies",
+      "learned_predictor",
+      "hand_rule"
+    ],
+    "joint_with": [
+      "strategy.when",
+      "strategy.exploration"
+    ],
+    "limits": [],
+    "sized_by": "the strategy that does best on held-back Tasks under the contract's reward (test 17)",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "strategy.when",
+    "layer": "strategy",
+    "decides": "When a dimension is resolved again.",
+    "grid_type": "set",
+    "suggested": [
+      "on_new_data",
+      "per_profile_cached",
+      "per_task"
+    ],
+    "grid": [
+      "per_profile_cached",
+      "per_task",
+      "per_step",
+      "on_new_data"
+    ],
+    "joint_with": [
+      "structure.redecide"
+    ],
+    "limits": [],
+    "sized_by": "decide again only where new data could change the choice",
+    "resolve_when": "step",
+    "try_cost": "replay"
+  },
+  {
+    "name": "strategy.exploration",
+    "layer": "strategy",
+    "decides": "Share of live work used to try non-default values.",
+    "grid_type": "ordered",
+    "suggested": [
+      0.05,
+      0.0,
+      0.1
+    ],
+    "grid": [
+      0.0,
+      0.01,
+      0.05,
+      0.1,
+      0.25
+    ],
+    "joint_with": [],
+    "limits": [
+      "never on paid calls above the cap; canary shares only for weights"
+    ],
+    "sized_by": "value of information against the cost of a worse answer",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "strategy.selection_rule",
+    "layer": "strategy",
+    "decides": "How the search picks among candidates.",
+    "grid_type": "set",
+    "suggested": [
+      "within_1_point_then_cheapest",
+      "best_accuracy",
+      "within_0_5_point_then_cheapest"
+    ],
+    "grid": [
+      "best_accuracy",
+      "within_0_5_point_then_cheapest",
+      "within_1_point_then_cheapest",
+      "within_2_points_then_cheapest"
+    ],
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "held-back accuracy of the picks",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  },
+  {
+    "name": "strategy.joint_groups",
+    "layer": "strategy",
+    "decides": "Which dimensions are searched together.",
+    "grid_type": "structured",
+    "suggested": [
+      [
+        [
+          "model.decoding.samples",
+          "model.decoding.temperature",
+          "structure.vote.lead_k"
+        ],
+        [
+          "weights.mask.level",
+          "weights.mask.calibration",
+          "weights.mask.recovery"
+        ],
+        [
+          "model.choice",
+          "model.precision",
+          "harness.weight",
+          "model.prompt.examples"
+        ]
+      ]
+    ],
+    "grid": "any partition of the dimensions; a group is searched on its joint grid",
+    "joint_with": [],
+    "limits": [],
+    "sized_by": "interaction effects seen in records",
+    "resolve_when": "profile",
+    "try_cost": "replay"
+  }
+]

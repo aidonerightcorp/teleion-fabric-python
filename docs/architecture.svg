@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="1070" viewBox="0 0 1060 1070">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#476a86"/></marker></defs>
+<rect width="100%" height="100%" fill="#fffdf7"/>
+<g font-family="Arial,sans-serif" fill="#18344b">
+<text x="40" y="42" font-size="24">Teleion Fabric: one architecture, replaceable engines</text>
+<text x="40" y="70" font-size="14">Universal • self-optimizing • task-aware — architecture, not a claim of complete runtime integration</text>
+<rect x="80" y="110" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="138" font-size="18">Input / acceptance contract</text><text x="100" y="160" font-size="13">TaskContract + scopes</text>
+<path d="M340,178 V206" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<rect x="80" y="210" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="238" font-size="18">Profile and size</text><text x="100" y="260" font-size="13">TaskProfile + uncertainty</text>
+<path d="M340,278 V306" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<rect x="80" y="310" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="338" font-size="18">Retrieve and check reuse</text><text x="100" y="360" font-size="13">Capability cards + prior methods</text>
+<path d="M340,378 V406" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<rect x="80" y="410" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="438" font-size="18">Configure workers</text><text x="100" y="460" font-size="13">Harness / model / context / tools</text>
+<path d="M340,478 V506" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<rect x="80" y="510" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="538" font-size="18">Compile typed graph</text><text x="100" y="560" font-size="13">Versioned nodes + semantic edges</text>
+<path d="M340,578 V606" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<rect x="80" y="610" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="638" font-size="18">Durable task queue</text><text x="100" y="660" font-size="13">Attempts / leases / fencing</text>
+<path d="M340,678 V706" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<rect x="80" y="710" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="738" font-size="18">Execute opaque engines</text><text x="100" y="760" font-size="13">Functions / models / graphs / humans</text>
+<path d="M340,778 V806" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<rect x="80" y="810" width="520" height="68" rx="10" fill="#eaf2f7" stroke="#476a86"/><text x="100" y="838" font-size="18">Check and deliver</text><text x="100" y="860" font-size="13">Accepted output or explicit failure</text>
+<rect x="670" y="155" width="350" height="100" rx="10" fill="#f4f1df" stroke="#7c7650"/><text x="687" y="183" font-size="16">Durable Task Object store</text>
+<text x="687" y="208" font-size="12">Definitions, inputs, outputs, versions</text>
+<text x="687" y="228" font-size="12">Evidence, effects and provenance</text>
+<rect x="670" y="365" width="350" height="100" rx="10" fill="#f4f1df" stroke="#7c7650"/><text x="687" y="393" font-size="16">Typed memory and recall</text>
+<text x="687" y="418" font-size="12">Intent, procedures, episodes, evidence</text>
+<text x="687" y="438" font-size="12">Complete inventory + relevant details</text>
+<rect x="670" y="575" width="350" height="100" rx="10" fill="#f4f1df" stroke="#7c7650"/><text x="687" y="603" font-size="16">Observation and improvement</text>
+<text x="687" y="628" font-size="12">Real tasks for at least one month</text>
+<text x="687" y="648" font-size="12">Earlier component tests stay scoped</text>
+<rect x="670" y="785" width="350" height="100" rx="10" fill="#f4f1df" stroke="#7c7650"/><text x="687" y="813" font-size="16">External constraints</text>
+<text x="687" y="838" font-size="12">Permissions, privacy, resource caps</text>
+<text x="687" y="858" font-size="12">Optimizer cannot relax these</text>
+<path d="M600,844 H640 V205 H670" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<path d="M845,255 V360" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<path d="M670,415 H620 V344 H602" stroke="#476a86" fill="none" marker-end="url(#arrow)"/>
+<path d="M670,625 H30 V244 H78" stroke="#476a86" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
+<text x="40" y="958" font-size="15">Each engine exposes: typed I/O, semantics, version, effects, permissions, costs, failures and evidence.</text>
+<text x="40" y="990" font-size="13">Full component and relationship inventory: packaged capability and engine catalogs. Dotted path = improvement proposal.</text>
+<text x="40" y="1022" font-size="13">A learned embedding projection is distinct from editing encoder weights. Similarity never grants authority.</text>
+</g></svg>

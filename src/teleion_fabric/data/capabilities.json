@@ -1,0 +1,1990 @@
+{
+  "components": [
+    {
+      "id": "capability.001",
+      "name": "Task contract",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.002",
+      "name": "Durable queue",
+      "scope": "implemented_scoped; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.003",
+      "name": "Task Object store",
+      "scope": "implemented_scoped; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.004",
+      "name": "Component catalog",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.005",
+      "name": "Typed memory",
+      "scope": "prototype; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.006",
+      "name": "Task and step profiling",
+      "scope": "implemented_scoped; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.007",
+      "name": "Search and retrieval",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.008",
+      "name": "Reuse decision",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.009",
+      "name": "Agent configuration",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.010",
+      "name": "Plan synthesis",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.011",
+      "name": "Deterministic compiler",
+      "scope": "implemented_scoped; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.012",
+      "name": "Execution worker",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.013",
+      "name": "Checking and admission",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.014",
+      "name": "Resource ledger",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.015",
+      "name": "Model and weight registry",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.016",
+      "name": "Learning and experimentation",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.017",
+      "name": "User and worker surfaces",
+      "scope": "partial; architectural registry summary, consult implementation cards",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.018",
+      "name": "Task fingerprint and compatibility assessment",
+      "scope": "Implementation inspected; no fresh execution or independent check in this audit.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.019",
+      "name": "Context budget and packet compaction",
+      "scope": "Implementation inspected; no fresh execution or independent check in this audit.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.020",
+      "name": "Reactive fenced scheduler",
+      "scope": "Implementation inspected; no fresh execution or independent check in this audit.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.021",
+      "name": "Managed atomic work queue",
+      "scope": "Implementation inspected; no fresh execution or independent check in this audit.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.022",
+      "name": "Content-addressed catalogue body store",
+      "scope": "Implementation inspected; no fresh execution or independent check in this audit.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.023",
+      "name": "Held-out configuration optimizer",
+      "scope": "Implementation inspected; no fresh execution or independent check in this audit.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.024",
+      "name": "Generated-project reuse observer",
+      "scope": "Implementation inspected; no fresh execution or independent check in this audit.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.025",
+      "name": "Qualified worker reuse and execution",
+      "scope": "Implementation inspected plus recorded local checks/measurements in DELIVERY.json; no fresh tests; not independently rechecked.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.026",
+      "name": "Typed recipe compiler",
+      "scope": "implemented_source_inspected",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.027",
+      "name": "Execution and exact subgraph reuse",
+      "scope": "implemented_source_inspected",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.028",
+      "name": "Semantic admission and frozen-plan compilation",
+      "scope": "implemented_source_inspected",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.029",
+      "name": "Inspectable route search",
+      "scope": "implemented_source_inspected",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.030",
+      "name": "History-informed search initialization",
+      "scope": "Implementation inspected; no fresh test or measured benefit claimed.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.031",
+      "name": "Multidimensional effort policy",
+      "scope": "Implementation inspected; not measured optimal sizing.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.032",
+      "name": "Round-based solver and holdout confirmation",
+      "scope": "Implementation inspected; no fresh execution or broad optimization validation.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.033",
+      "name": "Typed task fingerprints",
+      "scope": "Source-inspected by Kothar/SolutionGraph delegate; no fresh tests or measured benefit established.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.034",
+      "name": "Receipt-derived historical memory",
+      "scope": "Source-inspected by Kothar/SolutionGraph delegate; no fresh tests or measured benefit established.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.035",
+      "name": "Stage sizing and run budget governor",
+      "scope": "Implementation inspected by delegate and selectively cross-read by parent; no fresh execution.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.036",
+      "name": "Primitive build queue and reuse-before-rewrite gate",
+      "scope": "Implementation inspected by delegate and selectively cross-read by parent; no fresh execution.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.037",
+      "name": "Immutable task capsules and result/effect invariants",
+      "scope": "Implementation inspected by delegate and selectively cross-read by parent; no fresh execution.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.038",
+      "name": "Cheapest-effective-tool ladder adapter",
+      "scope": "Implementation inspected by delegate and selectively cross-read by parent; no fresh execution.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.039",
+      "name": "provider typed graph composition and execution",
+      "scope": "Implementation inspected by delegate and selectively cross-read by parent; no fresh execution.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.040",
+      "name": "provider verifier-bound reuse and learning",
+      "scope": "Implementation inspected by delegate and selectively cross-read by parent; no fresh execution.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.041",
+      "name": "Scoped primitive reuse campaign",
+      "scope": "Historical measured campaign and recorded oracle checks retained; not rerun or independently rechecked.",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.042",
+      "name": "Fabric store and record adapter",
+      "scope": "Historically independently checked with corrections; no fresh service check",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.043",
+      "name": "Measured tier ladder and invariant bridge",
+      "scope": "Historically checked replay and bridge consistency",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.044",
+      "name": "provider meaning and evidence bridge",
+      "scope": "Implemented adapter with maker-measured fidelity; no fresh independent approval",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.045",
+      "name": "Belief calibration summary",
+      "scope": "Measured on reused test23 records; not independently reviewed in inspected J3 report",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.046",
+      "name": "Evidence attribute ledger",
+      "scope": "Source-inspected capability; no new behavioral run",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.047",
+      "name": "Typed memory retrieval",
+      "scope": "Implemented and maker-checked historically; independent review pending in inspected report",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.048",
+      "name": "Dimension catalog",
+      "scope": "Existing catalog, mixed implementation/evidence maturity",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.049",
+      "name": "Task and step profilers",
+      "scope": "Implemented; historical measured replay",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.050",
+      "name": "Familiarity threshold",
+      "scope": "Historically measured; source-inspected helper",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.051",
+      "name": "Reply confidence and selective acceptance",
+      "scope": "historically independently checked with corrections; no fresh approval",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.052",
+      "name": "Arrangement assembler and admission",
+      "scope": "Source-inspected implementation; historical tests10/13 checked status preserved by governing history, not newly reviewed",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.053",
+      "name": "Strategy selector",
+      "scope": "historically independently checked with corrections; no fresh approval",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.054",
+      "name": "Profile-routed cartridges",
+      "scope": "historically independently checked with corrections; no fresh approval",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.055",
+      "name": "Profile-specific MLP masks",
+      "scope": "historically independently checked with corrections; no fresh approval",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.056",
+      "name": "Small-network grokking harness",
+      "scope": "Measured and same-maker recomputed; not independently reviewed",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.057",
+      "name": "Counting edits and written replacement",
+      "scope": "Measured and same-maker recomputed; no independent review",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.058",
+      "name": "Durable task lifecycle",
+      "scope": "documented implementation; historical claims not rerun",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.059",
+      "name": "Versioned storage and progressive reuse",
+      "scope": "documented implementation; historical claims not rerun",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.060",
+      "name": "Lease-bound model-job accounting",
+      "scope": "implemented; static code inspection",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.061",
+      "name": "Context shim and deterministic direct responses",
+      "scope": "documented implementation; historical claims not rerun",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.062",
+      "name": "Deterministic working-entity memory",
+      "scope": "implemented; static code inspection",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.063",
+      "name": "Warm responder and canary machinery",
+      "scope": "documented implementation; historical claims not rerun",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.064",
+      "name": "Seed-pack capability library",
+      "scope": "Documentation inspected; proposed catalog with reported code/tests",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.065",
+      "name": "Anti-stall selection and resource-tier proposals",
+      "scope": "Implemented policy functions; no fresh execution",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.066",
+      "name": "Shared-plan quota shim",
+      "scope": "Static implementation audit; no requests executed",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.067",
+      "name": "OpenCode and prose OmniNode",
+      "scope": "implemented wrapper; offline subprocess/persistence/prose checks; live wrapper qualification pending",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.068",
+      "name": "Task input profiler feature engines",
+      "scope": "implemented;10authored behavior cases pass; local semantic engine exercised; no harness gain shown",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.069",
+      "name": "SubQ Snap optional decision provider",
+      "scope": "implemented local adapter; one live call12/12 authored checks; not production routing",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.070",
+      "name": "Capability context and evidence continuity",
+      "scope": "implemented locally; validation recorded separately",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.071",
+      "name": "Real-task observation policy",
+      "scope": "specified; operational observation not started",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.072",
+      "name": "Durable adaptive-policy lifecycle",
+      "scope": "measured local and Kaggle replication; same-maker check",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    },
+    {
+      "id": "capability.073",
+      "name": "Recorded configuration factorial",
+      "scope": "measured historical replay; no live CLI comparison",
+      "delivery": "architecture_catalog; implementation qualification is separate"
+    }
+  ],
+  "relationships": [
+    {
+      "from": "capability.001",
+      "to": "capability.006",
+      "relation": "profile"
+    },
+    {
+      "from": "capability.006",
+      "to": "capability.009",
+      "relation": "configure"
+    },
+    {
+      "from": "capability.009",
+      "to": "capability.007",
+      "relation": "retrieve"
+    },
+    {
+      "from": "capability.004",
+      "to": "capability.007",
+      "relation": "catalog"
+    },
+    {
+      "from": "capability.005",
+      "to": "capability.007",
+      "relation": "context"
+    },
+    {
+      "from": "capability.007",
+      "to": "capability.008",
+      "relation": "consider_reuse"
+    },
+    {
+      "from": "capability.008",
+      "to": "capability.010",
+      "relation": "compose_if_needed"
+    },
+    {
+      "from": "capability.010",
+      "to": "capability.011",
+      "relation": "compile"
+    },
+    {
+      "from": "capability.011",
+      "to": "capability.002",
+      "relation": "enqueue"
+    },
+    {
+      "from": "capability.002",
+      "to": "capability.012",
+      "relation": "claim"
+    },
+    {
+      "from": "capability.014",
+      "to": "capability.012",
+      "relation": "budget"
+    },
+    {
+      "from": "capability.015",
+      "to": "capability.009",
+      "relation": "eligible_variants"
+    },
+    {
+      "from": "capability.012",
+      "to": "capability.013",
+      "relation": "check"
+    },
+    {
+      "from": "capability.013",
+      "to": "capability.003",
+      "relation": "retain_evidence"
+    },
+    {
+      "from": "capability.003",
+      "to": "capability.005",
+      "relation": "memory"
+    },
+    {
+      "from": "capability.003",
+      "to": "capability.016",
+      "relation": "learn"
+    },
+    {
+      "from": "capability.016",
+      "to": "capability.004",
+      "relation": "propose_capability"
+    },
+    {
+      "from": "capability.013",
+      "to": "capability.017",
+      "relation": "deliver"
+    },
+    {
+      "from": "capability.017",
+      "to": "capability.001",
+      "relation": "revise"
+    },
+    {
+      "from": "capability.067",
+      "to": "capability.006",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.067",
+      "to": "capability.009",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.067",
+      "to": "capability.012",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.067",
+      "to": "capability.013",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.067",
+      "to": "capability.003",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.068",
+      "to": "capability.006",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.068",
+      "to": "capability.009",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.069",
+      "to": "capability.006",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.069",
+      "to": "capability.009",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.069",
+      "to": "capability.013",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.070",
+      "to": "capability.004",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.070",
+      "to": "capability.005",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.070",
+      "to": "capability.009",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.071",
+      "to": "capability.013",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.071",
+      "to": "capability.016",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.072",
+      "to": "capability.002",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.072",
+      "to": "capability.003",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.072",
+      "to": "capability.008",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.072",
+      "to": "capability.016",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.073",
+      "to": "capability.006",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.073",
+      "to": "capability.009",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.073",
+      "to": "capability.016",
+      "relation": "supports_scoped"
+    },
+    {
+      "from": "capability.018",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.018",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.018",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.018",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.019",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.020",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.020",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.020",
+      "to": "capability.012",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.020",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.021",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.022",
+      "to": "capability.003",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.022",
+      "to": "capability.004",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.022",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.023",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.023",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.023",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.023",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.024",
+      "to": "capability.003",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.024",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.024",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.024",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.024",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.012",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.026",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.026",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.026",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.026",
+      "to": "capability.012",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.026",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.027",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.027",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.027",
+      "to": "capability.012",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.028",
+      "to": "capability.004",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.028",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.028",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.028",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.028",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.029",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.029",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.031",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.031",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.031",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.031",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.031",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.033",
+      "to": "capability.001",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.033",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.034",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.035",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.035",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.036",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.036",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.036",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.037",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.038",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.038",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.038",
+      "to": "capability.015",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.039",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.039",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.039",
+      "to": "capability.012",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.039",
+      "to": "capability.015",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.040",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.040",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.040",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.040",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.041",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.042",
+      "to": "capability.003",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.042",
+      "to": "capability.004",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.042",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.042",
+      "to": "capability.015",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.042",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.043",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.001",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.012",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.045",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.046",
+      "to": "capability.001",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.046",
+      "to": "capability.003",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.046",
+      "to": "capability.004",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.046",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.047",
+      "to": "capability.001",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.047",
+      "to": "capability.004",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.047",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.047",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.047",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.004",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.015",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.049",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.049",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.049",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.050",
+      "to": "capability.003",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.050",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.050",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.051",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.053",
+      "to": "capability.001",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.053",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.054",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.054",
+      "to": "capability.015",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.055",
+      "to": "capability.006",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.055",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.055",
+      "to": "capability.015",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.056",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.056",
+      "to": "capability.015",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.057",
+      "to": "capability.004",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.058",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.059",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.059",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.059",
+      "to": "capability.008",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.059",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.060",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.060",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.060",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.061",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.061",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.062",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.062",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.062",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.062",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.063",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.063",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.063",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.002",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.005",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.007",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.011",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.012",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.065",
+      "to": "capability.013",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.065",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.065",
+      "to": "capability.016",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.066",
+      "to": "capability.009",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.066",
+      "to": "capability.010",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.066",
+      "to": "capability.014",
+      "relation": "relevant_to"
+    },
+    {
+      "from": "capability.018",
+      "to": "capability.019",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.018",
+      "to": "capability.025",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.019",
+      "to": "capability.018",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.020",
+      "to": "capability.021",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.021",
+      "to": "capability.020",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.021",
+      "to": "capability.022",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.022",
+      "to": "capability.021",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.023",
+      "to": "capability.018",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.024",
+      "to": "capability.025",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.021",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.025",
+      "to": "capability.018",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.026",
+      "to": "capability.027",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.027",
+      "to": "capability.026",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.028",
+      "to": "capability.029",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.028",
+      "to": "capability.032",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.029",
+      "to": "capability.028",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.029",
+      "to": "capability.030",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.029",
+      "to": "capability.031",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.029",
+      "to": "capability.032",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.030",
+      "to": "capability.029",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.031",
+      "to": "capability.030",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.031",
+      "to": "capability.029",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.028",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.030",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.032",
+      "to": "capability.031",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.033",
+      "to": "capability.030",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.034",
+      "to": "capability.030",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.035",
+      "to": "capability.031",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.036",
+      "to": "capability.021",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.036",
+      "to": "capability.039",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.037",
+      "to": "capability.040",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.037",
+      "to": "capability.018",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.038",
+      "to": "capability.037",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.039",
+      "to": "capability.040",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.039",
+      "to": "capability.036",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.040",
+      "to": "capability.039",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.040",
+      "to": "capability.041",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.041",
+      "to": "capability.040",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.042",
+      "to": "capability.046",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.042",
+      "to": "capability.047",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.043",
+      "to": "capability.042",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.043",
+      "to": "capability.044",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.042",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.043",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.044",
+      "to": "capability.045",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.045",
+      "to": "capability.046",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.045",
+      "to": "capability.044",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.046",
+      "to": "capability.045",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.046",
+      "to": "capability.047",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.046",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.047",
+      "to": "capability.046",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.047",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.046",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.048",
+      "to": "capability.043",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.049",
+      "to": "capability.051",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.049",
+      "to": "capability.052",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.049",
+      "to": "capability.050",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.050",
+      "to": "capability.049",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.050",
+      "to": "capability.042",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.051",
+      "to": "capability.049",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.051",
+      "to": "capability.043",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.053",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.052",
+      "to": "capability.044",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.053",
+      "to": "capability.052",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.053",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.054",
+      "to": "capability.055",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.054",
+      "to": "capability.049",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.054",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.055",
+      "to": "capability.054",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.055",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.056",
+      "to": "capability.057",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.056",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.057",
+      "to": "capability.056",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.057",
+      "to": "capability.054",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.057",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.058",
+      "to": "capability.060",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.058",
+      "to": "capability.059",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.058",
+      "to": "capability.042",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.059",
+      "to": "capability.042",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.059",
+      "to": "capability.061",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.059",
+      "to": "capability.058",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.060",
+      "to": "capability.058",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.060",
+      "to": "capability.066",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.061",
+      "to": "capability.062",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.061",
+      "to": "capability.059",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.061",
+      "to": "capability.066",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.062",
+      "to": "capability.061",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.062",
+      "to": "capability.047",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.063",
+      "to": "capability.058",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.063",
+      "to": "capability.060",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.063",
+      "to": "capability.061",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.058",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.064",
+      "to": "capability.065",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.065",
+      "to": "capability.064",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.065",
+      "to": "capability.048",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.065",
+      "to": "capability.059",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.065",
+      "to": "capability.066",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.066",
+      "to": "capability.060",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.066",
+      "to": "capability.061",
+      "relation": "reported_relationship"
+    },
+    {
+      "from": "capability.066",
+      "to": "capability.065",
+      "relation": "reported_relationship"
+    }
+  ],
+  "limits": "Family descriptions are not installed engines or total part counts; historical source records remain private."
+}

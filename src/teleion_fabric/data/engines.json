@@ -1,0 +1,48 @@
+[
+  {
+    "id": "task.profile",
+    "entrypoint": "teleion_fabric.task_profiler:profile",
+    "input": "task text",
+    "output": "versioned task profile",
+    "effects": [],
+    "version": "1",
+    "settings": "settings.json"
+  },
+  {
+    "id": "prose.segments",
+    "entrypoint": "teleion_fabric.prose_tools:segments",
+    "input": "untrusted prose",
+    "output": "headings paragraphs fences",
+    "effects": [],
+    "version": "1"
+  },
+  {
+    "id": "prose.json",
+    "entrypoint": "teleion_fabric.prose_tools:extract_json",
+    "input": "untrusted prose + declared JSON type",
+    "output": "unique candidate or explicit failure",
+    "effects": [],
+    "version": "1"
+  },
+  {
+    "id": "harness.opencode",
+    "entrypoint": "teleion_fabric.opencode_omninode:execute",
+    "input": "task contract + configured runtime + durable sink",
+    "output": "result and artifact reference or failure reference",
+    "effects": [
+      "harness subprocess",
+      "provider calls if configured",
+      "sink writes"
+    ],
+    "version": "1",
+    "qualification": "offline fixtures; live wrapper qualification pending"
+  },
+  {
+    "id": "context.packet",
+    "entrypoint": "teleion_fabric.context:packet",
+    "input": "task text",
+    "output": "complete public architecture context",
+    "effects": [],
+    "version": "1"
+  }
+]

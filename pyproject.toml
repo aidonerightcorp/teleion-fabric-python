@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "teleion-fabric"
+version = "0.1.0"
+description = "Typed OmniNode packages, task profiling, prose tools and reusable engine contracts"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+[project.optional-dependencies]
+fit = ["scikit-learn>=1.3"]
+semantic = ["torch>=2", "transformers>=4"]
+[project.scripts]
+teleion-fabric = "teleion_fabric.cli:main"
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+teleion_fabric = ["*.json", "data/*.json"]
+stepkit = ["data/*.json"]

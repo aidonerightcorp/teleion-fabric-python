@@ -1,0 +1,299 @@
+{
+  "scope": "Every current stepkit Python module plus new portable Fabric modules. Cross-project provider internals remain outside this export.",
+  "modules": [
+    {
+      "module": "stepkit.__init__",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit._answers",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit._sources",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.assembler",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.attributes",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.decide",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.dimension",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.fabric",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.fabric_runtime",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.live",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.omninode",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.profile",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.quota",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.record",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.reply",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.solutiongraph_bridge",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.store",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.taedri_bridge",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.tier_ladder",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.tools.__init__",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.tools._safe_runner",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.tools.calculator",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.tools.options",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.tools.programs",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.tools.tables",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.variants",
+      "delivery": "bundled_source",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.__init__",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.admission",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.backends",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.editors",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.edits",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.evaluation",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.generate",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.kernel_script",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.locate",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.models",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.protocol",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.records",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.sandbox",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.score_nov3",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "stepkit.weightspace.settings",
+      "delivery": "external_provider_or_pending_port",
+      "qualification": "See package tests; historical behavior is not requalified by copying source",
+      "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
+    },
+    {
+      "module": "teleion_fabric.__init__",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.cli",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.context",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.contracts",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.decision_provider",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.opencode_omninode",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.prose_tools",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.settings",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.task_profiler",
+      "delivery": "bundled_source",
+      "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    }
+  ],
+  "architecture_families": 73,
+  "relationships": 309,
+  "external_families": "Complete architecture register in src/teleion_fabric/data/capabilities.json; not all families have a public implementation."
+}
