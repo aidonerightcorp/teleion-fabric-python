@@ -8,6 +8,12 @@ MD_MARK=re.compile(r'\A<!-- Teleion context: CHARTER.md sha256=[a-f0-9]+; read A
 def clean(text):return MD_MARK.sub('',PY_MARK.sub('',text))
 def synchronize(write=False):
  digest=hashlib.sha256(clean((ROOT/'CHARTER.md').read_text()).encode()).hexdigest();hashes={};stale=[]
+ resource=ROOT/'src/teleion_fabric/data/charter.json'
+ data=json.loads(resource.read_text());current=clean((ROOT/'CHARTER.md').read_text())
+ if data.get('charter')!=current:
+  stale.append(str(resource.relative_to(ROOT)))
+  if write:
+   data['charter']=current;resource.write_text(json.dumps(data,indent=2)+'\n')
  for path in sorted(ROOT.rglob('*')):
   relative=path.relative_to(ROOT)
   if not path.is_file() or any((p.startswith('.') and p not in ['.github','.gitignore']) or p in ['__pycache__','build','dist'] or p.endswith('.egg-info') for p in relative.parts):continue

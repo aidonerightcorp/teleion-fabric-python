@@ -9,12 +9,12 @@
     "CONTEXT.md": "5101c138ea71898e2bdc8254339e3c18fd4c5f6e821eb28aed46f5137d7dba1b",
     "MIGRATION.json": "e6832ebab0f7f40617b18703a4f7fe19e97bbfe643ce3cdc3886fb4998630ef9",
     "NOTICE.md": "d2f1ab0160080082c5c7961173826c91906c2788c46f06669a12d40d4e71d07a",
-    "README.md": "0ee99e37acfd1aec1f76a008484cc101b7b1b1958c6296b9627346d9764873a6",
+    "README.md": "ffb9cabc5b35d5744e9e791602403c8fb0d71eb5ba545b24c690a8ac4acefd8a",
     "SOURCE-MANIFEST.json": "0129180ca4acbc21329655441e9f6402ef49ebeeb441bba2973c7cb44ef1289c",
     "docs/ARCHITECTURE.md": "976a311711b7120ed0ce7016e0c932e2444f8a456181f3ba1e8bfdd666038f94",
     "docs/architecture.svg": "0cc1a87de4df81458bf9195fc54781878d65948180ef33b41cf05f5ce5408480",
     "examples/compose_prose.py": "f9a744ae87aba1f2eded5cf5affa5163e702227acba52fbbf2e1c6d446841094",
-    "pyproject.toml": "bc7ef2b924e061f17941b186df0b25f038043598cf8f39b930ef41196e2ff96d",
+    "pyproject.toml": "66e82629b10b88396431d7dda1bf96ecc1e6a9da172a4339be2cb539e64c8fb7",
     "src/stepkit/__init__.py": "8d57d563c8d68c07a819a0e75da7de7eb088e77c01627307b89386ba07307412",
     "src/stepkit/_answers.py": "5d2a75a499296cdef362d87686d2ad56eec60d49a4da81ffcc4d28a01b45c298",
     "src/stepkit/_sources.py": "18fe1a1f1242571e28e5d9df76888d80fec8ad9b73fba70c101fde80fd728ec4",
@@ -36,7 +36,7 @@
     "src/stepkit/tools/options.py": "140168baa011d78b0dc95c190ab38bfd4c44965580b6fbd851235a8f1eead9c9",
     "src/stepkit/tools/programs.py": "f9d3dec1e4eed939ccd10318ab82da91acf401b466ae1c8a5c149af2f96035cf",
     "src/stepkit/variants.py": "53c7f75b585461e39af64082a80310962030737d4325989aa59b7fab5b5fbfdf",
-    "src/teleion_fabric/__init__.py": "fa1a668279bbca9f2b73e6a74907f37c15f40553a708ea1d663360669c86f29f",
+    "src/teleion_fabric/__init__.py": "5f1b88037a2959dc3025007a9917b7d940cca4ed5e7fac8ff1e58e3684040f9d",
     "src/teleion_fabric/cli.py": "63c6d2cf0c603c0c2c4876a3ac322d1a8f2372f229363673a38dea4fecca4fe2",
     "src/teleion_fabric/context.py": "2a14adfbafa4fa8247b14ddd1945e210e55333534c741d9e0d33cb3f8d417e2c",
     "src/teleion_fabric/contracts.py": "88e2a7229628f71091f622272d6053f84a699dc6011ab150a34411ab4ee5d47c",
@@ -54,7 +54,7 @@
     "src/teleion_fabric/settings.py": "4922431d9751dd3187e1818150504a06677c4575abb2f1a000e013a696ba03b8",
     "src/teleion_fabric/task_profiler.py": "1f140759f54f167a0f40266fa341a43933d96a6bb4950313812cf2c1e207f715",
     "tests/test_packages.py": "82f7d38ea5a5d68657048f1814ddddbb440bec74e8a2b1448b975f95b6d3d3e5",
-    "tools/sync_context.py": "1da3b213c62e7013e410c26e64f48c9ba049df00a912ac9c21dc92c471a455c4"
+    "tools/sync_context.py": "f1a589e0c3291252a6f1eabeb9fbb245f3780f07e2e314264e83ae02e7eb6609"
   },
   "scope": "owned source/docs receive comments; JSON/configuration use this sidecar; private history excluded"
 }

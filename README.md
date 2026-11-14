@@ -5,7 +5,7 @@
 Build solutions from versioned capability edges rather than repeatedly reading implementation internals.
 
 ```sh
-python -m pip install "git+https://github.com/aidonerightcorp/teleion-fabric-python.git@v0.1.0"
+python -m pip install "git+https://github.com/aidonerightcorp/teleion-fabric-python.git@v0.1.1"
 teleion-fabric profile --input task.txt
 teleion-fabric extract-json --input response.txt --type object
 ```
