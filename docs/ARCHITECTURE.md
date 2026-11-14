@@ -46,3 +46,7 @@ This subset supports fan-out over single-input engines. Conditional branches and
 `settings.load` exposes raw resources. `settings.select` accepts only normalized mapping entries with explicit enumerable grids; design catalogs and wrapper documents require explicit adapters and are refused. Selection enforces exact recursive value types and detaches values from caller objects. It does not enforce prose limits, external quotas or joint configuration compatibility.
 
 Plan inputs, engine outputs, plan documents and selectable configuration values are restricted to finite plain JSON values with string object keys. Cycles, excessive nesting and custom Python objects are rejected before copy hooks can run. Branch isolation applies to this value boundary; registered implementations remain trusted Python code.
+
+## Adaptive OmniNodes and inherited authority
+
+The bundled stepkit.OmniNode configures stages from recorded evidence, selects permitted parts, derives child tasks, applies output checks, follows fallbacks and retains step/tree records. Its contract is an authority/resource boundary, not the whole node. Version0.2.1 rejects child part/model/store/cartridge allowlists wider than the parent's declarations. Before running stages it rechecks every ancestor's part/model/live permissions, including after child reconfiguration. Trusted implementations remain outside any sandbox guarantee. Full model-backed adaptation, hard cost reservation and storage-adapter enforcement require separate evidence.

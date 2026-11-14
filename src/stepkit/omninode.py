@@ -782,9 +782,11 @@ class OmniNode:
             raise ContractError(f"node {self.node_id}: a child's contract may not be deeper or wider than what is left")
         if child.ask("permissions.live") and not self.ask("permissions.live"):
             raise ContractError(f"node {self.node_id}: a child may not get a live source that the parent does not have")
-        mine, theirs = self.ask("resources.parts"), child.ask("resources.parts")
-        if mine is not None and (theirs is None or not set(theirs) <= set(mine)):
-            raise ContractError(f"node {self.node_id}: a child may only get parts that the parent has")
+        for resource in ("parts", "models", "stores", "cartridges"):
+            mine = self.ask("resources." + resource)
+            theirs = child.ask("resources." + resource)
+            if mine is not None and (theirs is None or not set(theirs) <= set(mine)):
+                raise ContractError(f"node {self.node_id}: a child may only get {resource} that the parent has")
         price = {"value": self.ask("price_per_model_second"), "source": f"the price of the parent node {self.node_id}",
                  "by": "caller"}
         child.base_resolver.evidence["price_per_model_second"] = price
@@ -814,6 +816,10 @@ class OmniNode:
         return CHILD_RULES[self.ask("children.rule")](self, task, source, store, seed)
 
     def check_resources(self, arrangement, source):
+        # Configuration can change after spawn. Check the actual attempted stages
+        # against every ancestor before any connector or exact tool is invoked.
+        if self.parent is not None:
+            self.parent.check_resources(arrangement, source)
         if source.live and not self.ask("permissions.live"):
             raise ContractError(f"node {self.node_id}: its contract does not permit a source that calls a model")
         parts, models = self.ask("resources.parts"), self.ask("resources.models")

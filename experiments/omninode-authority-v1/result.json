@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-14T16:42:06.312004+00:00",
+  "baseline": "0.2.0",
+  "candidate": "0.2.1",
+  "baseline_failed_assertions": 12,
+  "new_methods": 6,
+  "candidate_new_methods_passed": 6,
+  "candidate_package_methods_passed": 27,
+  "candidate_composition_methods_passed": 10,
+  "wheel_sha256": "2ad7c6415dcded147a8e4fce7f0b9a0b0a8cbde4089735731e29074ba86b2782",
+  "fixture_sha256": "4fcc97c5fb3352724b1adc394a981de3f8f7171b115145b0a4e1113730d538ae",
+  "module_sha256": "b473c7ad456dfa23daf75b1f003175fbfa10ae883374867a73307bfd9313abb1",
+  "review": {
+    "status": "independent_checker_no_blocking_defect",
+    "authority_methods_passed": 6,
+    "module_sha256": "b473c7ad456dfa23daf75b1f003175fbfa10ae883374867a73307bfd9313abb1",
+    "fixture_sha256": "4fcc97c5fb3352724b1adc394a981de3f8f7171b115145b0a4e1113730d538ae",
+    "scope": "Independent unchanged-test execution and code review; not scientific replication or full sandbox qualification"
+  },
+  "scope": "local authored permission inheritance and regression tests; no model/provider calls"
+}
