@@ -17,3 +17,5 @@ Candidate0.2.3 protects own-task forms, required output checks and task-text per
 The first0.2.3candidate was rejected by independent composed-answer/list-form cases. The amended candidate adds central final-answer validation and existing list-form narrowings:58package methods,10composition/restart methods and all7copied reviewer cases now pass locally. Prior failed source/wheel/results remain retained; independent recheck pending.
 
 Version0.2.4 adds mandatory declared-budget stops alongside flexible strategy stops. Independent review reproduced10diagnostics and12test methods; full installed package63methods and composition10methods pass before the release-version consistency test. See experiments/omninode-budget-stops-v1. This does not add per-call reservations or intra-callback interruption.
+
+Version0.2.5 adds independently reviewed sequential ancestor accounting:8baseline checks and27reviewmethods pass on reviewedsourcececa1554. Retains exactfallback, failedcandidatehistory and explicitlimits; see experiments/ancestor-accounting-v1. Release gates below are run against a freshly installed wheel.

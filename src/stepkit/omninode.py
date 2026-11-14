@@ -223,14 +223,41 @@ def _last_answered(answers):
 FALLBACKS = {"last_answered": _last_answered, "none": lambda answers: (None, "no answer is given")}
 
 
+def _budget_used_up(node, spent, dimension, keys, label):
+    if node.zero_cost_only:
+        return None
+    current = node
+    while current is not None:
+        limit = current.ask(dimension)
+        # During a stage sequence, this run's trace has not yet been committed
+        # to node.spent. Replace that contribution instead of counting it twice.
+        used = spent if current is node else {
+            key: current.used()[key] - node.spent[key] + spent[key] for key in keys}
+        if limit is not None and sum(used[key] for key in keys) >= limit:
+            owner = "" if current is node else f" of ancestor {current.node_id}"
+            return f"the budget of {label}{owner} is used up"
+        current = current.parent
+    return None
+
+
 def _seconds_used_up(node, spent):
-    limit = node.ask("budget.model_seconds")
-    return "the budget of model seconds is used up" if limit is not None and spent["model_s"] >= limit else None
+    reason = _budget_used_up(node, spent, "budget.model_seconds", ("model_s",), "model seconds")
+    if reason or node.zero_cost_only:
+        return reason
+    kind = (node.profile or {}).get("work")
+    current = node
+    while current is not None:
+        limits = current.ask("budget.by_kind")
+        if limits and kind in limits:
+            used = current.kind_usage().get(kind, 0) - node.spent["model_s"] + spent["model_s"]
+            if used >= limits[kind] * current.current.kinds.get(kind, 1):
+                return f"the budget of model seconds for kind {kind} at node {current.node_id} is used up"
+        current = current.parent
+    return None
 
 
 def _tokens_used_up(node, spent):
-    limit = node.ask("budget.tokens")
-    return "the budget of tokens is used up" if limit is not None and spent["tok_in"] + spent["tok_out"] >= limit else None
+    return _budget_used_up(node, spent, "budget.tokens", ("tok_in", "tok_out"), "tokens")
 
 
 # rule name -> rule(node, cost so far) -> a reason to stop now, or None
@@ -338,6 +365,7 @@ class Session:
         self.source, self.task, self.form, self.seed, self.profile = source, task, form, seed, profile or {}
         self.checks = list(checks)      # the contract's output checks: a failed check fails the step
         self.made = {}
+        self.on_cost = None
 
     def has(self, call):
         return call in self.made or self.source.has(call, self.task)
@@ -345,6 +373,9 @@ class Session:
     def _call(self, call, fresh):
         if call not in self.made:
             result = dict(self.source.probe(call, self.task, seed=self.seed))
+            self.made[call] = result
+            if self.on_cost is not None:
+                self.on_cost(add_costs(item.get("cost") for item in self.made.values()))
             evidence = dict(result.get("output_profile") or {})
             evidence.update(self.source.evidence(call, self.task))
             result["evidence"] = evidence
@@ -640,10 +671,13 @@ class OmniNode:
     def __init__(self, contract, parameters, node_id="n", parent=None, role="", resolver=None):
         self.contract, self.parameters = contract, parameters
         self.node_id, self.parent, self.role = node_id, parent, role
+        self.parent_context = parent.current if parent is not None else None
+        self.zero_cost_only = parent.zero_cost_only if parent is not None else False
         self.depth = parent.depth + 1 if parent is not None else 0
         self.base_resolver = resolver or Resolver()
         self._prepared, self._given_profile = {}, None
         self.current = RunContext(None, {}, self.base_resolver.fork())
+        self._accounting_contexts = [self.current]
 
     # ---- the current run's state, by name (setters kept for code written before the run contexts) ----
     @property
@@ -693,8 +727,14 @@ class OmniNode:
         given = profile if profile is not None else self._given_profile
         self._given_profile = None
         if isinstance(task, list):
-            return RunContext(None, {}, self.base_resolver.fork())
-        return RunContext(task_id_of(task), dict(given) if given is not None else profile_of(task), self.base_resolver.fork())
+            context = RunContext(None, {}, self.base_resolver.fork())
+        else:
+            context = RunContext(task_id_of(task), dict(given) if given is not None else profile_of(task), self.base_resolver.fork())
+        if self.parent is None:
+            self._accounting_contexts = [context]
+        else:
+            self._accounting_contexts.append(context)
+        return context
 
     # ---- settings: never read directly ----
     def dimension(self, name):
@@ -768,7 +808,37 @@ class OmniNode:
     # ---- the running limits ----
     def used(self) -> dict:
         """The cost of this node and of every node under it, so far."""
-        return add_costs([self.spent] + [child.used() for child in self.children])
+        return self._context_used(self.current)
+
+    def _context_used(self, context) -> dict:
+        return add_costs([context.spent] + [child._all_used() for child in context.children])
+
+    def _all_used(self) -> dict:
+        """Every child execution charged to its owning parent context."""
+        return add_costs(self._context_used(context) for context in self._accounting_contexts)
+
+    def kind_usage(self) -> dict:
+        """Actual local and descendant model time grouped by the executed profile."""
+        return self._context_kind_usage(self.current)
+
+    def _context_kind_usage(self, context) -> dict:
+        used = {}
+        kind = context.profile.get("work")
+        if kind is not None:
+            used[kind] = context.spent["model_s"]
+        for child in context.children:
+            for child_context in child._accounting_contexts:
+                for child_kind, seconds in child._context_kind_usage(child_context).items():
+                    used[child_kind] = used.get(child_kind, 0) + seconds
+        return used
+
+    def check_ancestry(self):
+        child = self
+        while child.parent is not None:
+            parent = child.parent
+            if child.parent_context is not parent.current or child not in parent.children:
+                raise ContractError(f"node {self.node_id}: stale parent run context")
+            child = parent
 
     def left(self, kind=None) -> dict:
         """What is left now of this node's running limits: model seconds and tokens of the node and every
@@ -783,7 +853,7 @@ class OmniNode:
         by_kind = self.ask("budget.by_kind")
         if by_kind and kind in by_kind:
             out["kind_model_seconds"] = (by_kind[kind] * self.current.kinds.get(kind, 1)
-                                         - self.current.used_by_kind.get(kind, 0))
+                                         - self.kind_usage().get(kind, 0))
         return out
 
     def left_model_seconds(self):
@@ -814,15 +884,27 @@ class OmniNode:
         depth = self.ask("budget.depth")
         if depth <= 0:
             raise ContractError(f"node {self.node_id}: the depth limit of its contract is reached, it can derive no child")
-        own = CHILD_BUDGETS[self.ask("children.budget")](self.left(kind))
+        remaining = self.left(kind)
+        own = CHILD_BUDGETS[self.ask("children.budget")](remaining)
+        for name in ("model_seconds", "tokens"):
+            own["budget." + name] = _smallest(own["budget." + name], remaining[name])
+        ancestor = self.parent
+        while ancestor is not None:
+            limits = ancestor.left(kind)
+            own["budget.model_seconds"] = _smallest(own["budget.model_seconds"], limits["model_seconds"], limits["kind_model_seconds"])
+            own["budget.tokens"] = _smallest(own["budget.tokens"], limits["tokens"])
+            ancestor = ancestor.parent
         derived = self.contract.with_({"budget.depth": depth - 1, **own}, by=f"derived by node {self.node_id}")
         for name in ("budget.nodes", "permissions.spawn", "budget.by_kind"):
             derived.add(CONTRACT[name])
         return derived.with_(values or {}, by=f"derived by node {self.node_id}")
 
-    def spawn(self, contract, parameters=None, role="") -> "OmniNode":
+    def spawn(self, contract, parameters=None, role="", *, zero_cost_only=False) -> "OmniNode":
         """Start a child node. The limits of this node's contract are enforced: the permission to
         spawn, the depth, the number of child nodes, and that the child is given no more than this node has."""
+        self.check_ancestry()
+        if type(zero_cost_only) is not bool:
+            raise ContractError("zero_cost_only must be a boolean")
         if not self.ask("permissions.spawn"):
             raise ContractError(f"node {self.node_id}: its contract does not permit child nodes")
         depth, nodes = self.ask("budget.depth"), self.ask("budget.nodes")
@@ -832,6 +914,17 @@ class OmniNode:
             raise ContractError(f"node {self.node_id}: its contract allows {nodes} child nodes and all are started")
         child = OmniNode(contract, self.parameters if parameters is None else parameters,
                          f"{self.node_id}.{len(self.children) + 1}", self, role)
+        child.zero_cost_only = self.zero_cost_only or zero_cost_only
+        if not child.zero_cost_only:
+            ancestor = self
+            while ancestor is not None:
+                left = ancestor.left()
+                for name in ("model_seconds", "tokens"):
+                    remaining = left[name]
+                    proposed = child.ask("budget." + name)
+                    if remaining is not None and (proposed is None or proposed > max(0, remaining)):
+                        raise ContractError(f"node {self.node_id}: child's {name} budget exceeds ancestor remaining budget")
+                ancestor = ancestor.parent
         if child.ask("budget.depth") >= depth or child.ask("budget.nodes") > nodes - len(self.children) - 1:
             raise ContractError(f"node {self.node_id}: a child's contract may not be deeper or wider than what is left")
         if child.ask("permissions.live") and not self.ask("permissions.live"):
@@ -857,6 +950,7 @@ class OmniNode:
         """Do the Task (or the list of Tasks) by the rule "children.rule": the node's own stages, one
         child for each Task, or a child for each typed step. The run takes the context that `configure`
         prepared for this Task, or a new one. The contract's input form is checked first. Returns the record."""
+        self.check_ancestry()
         ready = self._prepared.pop(None if isinstance(task, list) else task_id_of(task), None)
         ctx = ready or self._new_context(task, profile)
         if ready is not None and (profile is not None or self._given_profile is not None):
@@ -887,6 +981,8 @@ class OmniNode:
                 raise ContractError(f"node {self.node_id}: its contract does not give the part {part!r}")
             if models is not None and source.parts[part].model is not None and source.parts[part].model not in models:
                 raise ContractError(f"node {self.node_id}: its contract does not give the model of the part {part!r}")
+            if self.zero_cost_only and (source.live or source.parts[part].model is not None or source.parts[part].calls):
+                raise ContractError(f"node {self.node_id}: zero-cost execution permits only exact value parts without probe calls")
 
     def record(self, task, steps, answer, accepted, reason, evidence, children=()) -> NodeRecord:
         """Validate the final candidate against this task's policy, including composed answers.
@@ -896,6 +992,7 @@ class OmniNode:
         answer, and never promote a fallback that was not accepted upstream.
         """
         form = self.ask("output.form")
+        evidence = dict(evidence, zero_cost_only=self.zero_cost_only)
         form_ok = bool(FORMS[form](answer))
         checks = {name: form_ok and bool(CHECKS[name](answer, self.profile or {}))
                   for name in self.ask("output.checks")}
@@ -913,7 +1010,7 @@ class OmniNode:
                   "model_seconds_left": left["model_seconds"], "tokens": self.ask("budget.tokens"),
                   "tokens_used": used["tok_in"] + used["tok_out"], "nodes": self.ask("budget.nodes"),
                   "nodes_started": len(self.children), "depth": self.ask("budget.depth"),
-                  "by_kind": self.ask("budget.by_kind"), "used_by_kind": dict(self.current.used_by_kind),
+                  "by_kind": self.ask("budget.by_kind"), "used_by_kind": self.kind_usage(),
                   "not_started": list(self.current.not_started),
                   "price_per_model_second": price, "priced_cost": price * used["model_s"]}
         return NodeRecord(self.node_id, self.parent.node_id if self.parent is not None else None, self.depth, self.role,
@@ -948,6 +1045,9 @@ def _run_own_stages(node, task, source, store, seed):
         kind, last = STAGE_KINDS[kind_name], position == len(arrangement) - 1
 
         def accept(result, trace):
+            # Retain already reported costs even if a later stage raises before
+            # the complete trace can be returned.
+            node.spent = add_costs([trace.total_cost(), result.get("cost")])
             answer = result.get("answer")
             agrees = kind.needs_agreement and any(equal(answer, step.answer) for step in trace)
             if kind.accepts(answer is not None, agrees, result.get("flags") or {}):
@@ -962,6 +1062,8 @@ def _run_own_stages(node, task, source, store, seed):
         return accept
 
     session = source.session(task, form=form, seed=seed, profile=profile, checks=node.ask("output.checks"))
+    if isinstance(session, Session):
+        session.on_cost = lambda spent: setattr(node, "spent", spent)
     steps = [Step(part, accept_of(position, part, kind)) for position, (part, kind) in enumerate(arrangement)]
     trace = first_accepted(task, steps, session, input_profile=profile, seed=seed)
     done = [NodeStep(**asdict(step), stage=f"{kind}({part})", settings=node.part_settings(part, source))
@@ -994,7 +1096,8 @@ def _free_parts(node, task, profile, kind, reached, source):
         raise ContractError(f"node {node.node_id}: the fallback arrangement may hold only parts that call no model")
     child = node.spawn(node.derive({"input.form": kind, "output.form": profile["answer_form"], "budget.model_seconds": None,
                                     "budget.tokens": None}, kind),
-                       node.child_parameters({"arrangement": arrangement}), f"task, free parts only ({reached} used up)")
+                       node.child_parameters({"arrangement": arrangement}), f"task, free parts only ({reached} used up)",
+                       zero_cost_only=True)
     child.profile = profile
     return child
 

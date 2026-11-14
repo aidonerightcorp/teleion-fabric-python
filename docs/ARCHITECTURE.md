@@ -64,3 +64,9 @@ The central record boundary validates every final candidate, including composed 
 ## Mandatory declared-budget stops
 
 Version0.2.4 always checks declared token and model-second exhaustion before the first stage and before continuing after an unaccepted stage. The stop_rules setting adds configurable strategy stops; an empty list does not disable those budget checks. REQUIRED_BUDGET_STOPS records their names. Unlimited budgets retain prior behavior. A single part can still contain multiple calls and can overrun its remaining budget; reservation and intra-part interruption are separate work.
+
+## Sequential ancestor accounting (0.2.5)
+
+Each child is bound to its parent run context. Starting another parent run makes old child handles stale. Repeated child runs keep distinct task contexts; their costs remain charged to the governing parent. A fresh root task gets its own budget. Implicit child grants use the smallest remaining allowance across active ancestors; explicit widening is refused. Per-kind model time uses executed profiles and structured task counts, with one task as the manual-path default.
+
+Standard probe sessions retain reported cost immediately, including when a later probe, evidence calculation or output check raises. Unknown failed-operation cost remains unknown. Explicit zero_cost_only children preserve exact-tool fallback but refuse live/model/probe execution, including in descendants. Evidence records the mode. Trusted callbacks and custom sessions are not sandboxed, and this does not implement reservations or concurrent accounting.
