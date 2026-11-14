@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-13T22:34:00.195238-05:00",
+  "status": "pass",
+  "test_methods": 21,
+  "deterministic_equivalence_inputs": 100,
+  "baseline": "existing contracts.compose on increment/double integer chain",
+  "review": "Separate code reviewer reproduced two boundary bugs and confirmed both fixes with targeted regressions; full installed suite measured by maker",
+  "scope": "offline pure branching graph/compiler and setting regressions; no live model performance claim",
+  "no_model_calls": true,
+  "no_gpu_jobs": true,
+  "remote": "Final21-test suite and composition example passed offline on Kaggle CPU",
+  "retained_failure": "One19-test run targeted the prior installed wheel while rebuild was queued; rerun after installation passed. No implementation failure was relabeled as success.",
+  "remote_url": "https://www.kaggle.com/code/taylorsamarel/teleion-python-package-edges-v1"
+}

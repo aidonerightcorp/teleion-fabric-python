@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T22:30:04.864842-05:00",
+  "status": "pass",
+  "test_methods": 18,
+  "deterministic_equivalence_inputs": 100,
+  "baseline": "existing contracts.compose on increment/double integer chain",
+  "review": "maker measurements; separate review pending",
+  "scope": "offline pure branching graph/compiler and setting regressions; no live model performance claim",
+  "no_model_calls": true,
+  "no_gpu_jobs": true
+}

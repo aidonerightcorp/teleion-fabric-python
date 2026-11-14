@@ -8,6 +8,7 @@ class Port:
  python_type:type
  semantic_type:str
  version:str='1'
+ validator_id:str|None=None
 
 @dataclass(frozen=True)
 class Engine:
@@ -24,6 +25,7 @@ def compose(engines):
  if not engines:raise ValueError('empty composition')
  for engine in engines:
   if engine.effects:raise ValueError('effectful engines require the owning executor')
+  if engine.input.validator_id is not None or engine.output.validator_id is not None:raise ValueError('registered validators require compile_plan')
  for left,right in zip(engines,engines[1:]):
   if left.output!=right.input:raise ValueError('incompatible type, semantics or version')
  def run(value):

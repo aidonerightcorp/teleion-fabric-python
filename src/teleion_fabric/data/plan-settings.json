@@ -1,0 +1,1 @@
+{"max_nodes":{"value":64,"suggested_values":[16,64],"grid":[16,64,256],"status":"64 enforced in this release; other values are candidate configurations, not runtime overrides"},"effects":{"value":"pure_only","suggested_values":["pure_only"],"grid":["pure_only"]},"retry":{"value":"none","suggested_values":["none"],"grid":["none"]}}

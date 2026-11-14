@@ -291,6 +291,16 @@
       "module": "teleion_fabric.task_profiler",
       "delivery": "bundled_source",
       "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.plans",
+      "delivery": "bundled_source",
+      "qualification": "registered pure single-input branching plans; offline contract tests; no durable execution or automatic discovery"
+    },
+    {
+      "module": "teleion_fabric.values",
+      "delivery": "bundled_source",
+      "qualification": "plain finite JSON boundary, string keys, cycle and depth checks"
     }
   ],
   "architecture_families": 73,

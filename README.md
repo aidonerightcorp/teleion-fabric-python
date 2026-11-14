@@ -5,7 +5,7 @@
 Build solutions from versioned capability edges rather than repeatedly reading implementation internals.
 
 ```sh
-python -m pip install "git+https://github.com/aidonerightcorp/teleion-fabric-python.git@v0.1.1"
+python -m pip install "git+https://github.com/aidonerightcorp/teleion-fabric-python.git@v0.2.0"
 teleion-fabric profile --input task.txt
 teleion-fabric extract-json --input response.txt --type object
 ```
@@ -30,3 +30,5 @@ This is an initial portable release, not the entire historical fabric. Some lega
 ![Fabric lifecycle](docs/architecture.svg)
 
 The shared dimension catalog contains 88 settings descriptions (`load("dimensions")`). Some grids are design candidates, not implemented support or enforced limits. See NOTICE.md for source-release rights and dependency notices.
+
+Version0.2.0 adds declarative branching plans: run `python examples/registered_plan.py`. Plans reference admitted engine IDs/versions; invalid graphs fail before execution. Nested values can use explicit versioned port validators. Plan execution leaves task acceptance to a separate checker. The first regression campaign compares100 deterministic integer inputs with the callable-composition baseline; it is not evidence of model-selection gains.

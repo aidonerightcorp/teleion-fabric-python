@@ -36,3 +36,13 @@ The planner works with the edges. An engine may implement a pure function or cal
 The bundled `contracts.compose` deliberately handles sequential pure engines only. Durable DAG execution, retries, leases and effect reconciliation belong to existing provider engines and are tracked as external dependencies. This avoids claiming a small linear example is a replacement for the full compiler/queue.
 
 Each module receives an entry in the package manifest; settings are package resources. Each engine entry lists its input/output semantics, effects, version and qualification scope. Keep one cohesive distribution where modules share a release; split distributions only when dependencies, ownership or deployment require it.
+
+## Declarative package plans
+
+`plans.compile_plan` resolves data-only engine IDs and exact version keys through a caller-admitted registry. It preflights every node, type/semantic/version edge and output before any engine runs, rejects cycles and declared effects, and freezes a deterministic topological order. Runtime branches receive separate snapshots. A failed node stops remaining execution and returns explicit records. Optional registered port validators check nested values before consumers; a validator must return the boolean True.
+
+This subset supports fan-out over single-input engines. Conditional branches and multi-input joins are not supported. Trusted Python functions can still have undeclared side effects; a declaration and deepcopy are not a sandbox. The plan digest identifies serialized graph/contracts, not callable code, mutable closures, a deployment or cache eligibility. Registry owners must bind exact versions to admitted implementations. Shape and registered-validator checks still leave task acceptance to its checker.
+
+`settings.load` exposes raw resources. `settings.select` accepts only normalized mapping entries with explicit enumerable grids; design catalogs and wrapper documents require explicit adapters and are refused. Selection enforces exact recursive value types and detaches values from caller objects. It does not enforce prose limits, external quotas or joint configuration compatibility.
+
+Plan inputs, engine outputs, plan documents and selectable configuration values are restricted to finite plain JSON values with string object keys. Cycles, excessive nesting and custom Python objects are rejected before copy hooks can run. Branch isolation applies to this value boundary; registered implementations remain trusted Python code.

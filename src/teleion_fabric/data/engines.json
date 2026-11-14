@@ -44,5 +44,15 @@
     "output": "complete public architecture context",
     "effects": [],
     "version": "1"
+  },
+  {
+    "id": "plan.compile",
+    "entrypoint": "teleion_fabric.plans:compile_plan",
+    "version": "1",
+    "input": "declarative nodes and outputs plus caller-admitted Engine/Port registry and optional versioned validators",
+    "output": "immutable compiled pure branching plan",
+    "effects": [],
+    "settings": "data/plan-settings.json",
+    "limits": "No arbitrary imports, conditions, multi-input joins, durable queue, retries, cache or sandbox. Plan digest describes graph/contracts, not callable source identity."
   }
 ]
