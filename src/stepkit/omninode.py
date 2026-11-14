@@ -125,7 +125,7 @@ PARAMETERS = Parameters(name="parameters", dimensions=[
               about="points of accuracy that one model second is worth; shared by a node and its children"),
     Dimension("fallback", ["last_answered", "none"], kind=CHOICES, about="the answer when no stage gives one"),
     Dimension("stop_rules", [["budget_model_seconds", "budget_tokens"], []], kind=CHOICES,
-              about="names of the rules that end a run before its last stage"),
+              about="additional strategy stops; declared model-second and token budgets always apply"),
     SEARCH["assembler.number_equality"],
     Dimension("retrieval.neighbours", [5], [1, 3, 5, 7, 9, 15], NUMBERS, {"min": 1, "max": 100},
               about="how many of the nearest stored Tasks name the kind of a Task"),
@@ -235,6 +235,8 @@ def _tokens_used_up(node, spent):
 
 # rule name -> rule(node, cost so far) -> a reason to stop now, or None
 STOP_RULES = {"budget_model_seconds": _seconds_used_up, "budget_tokens": _tokens_used_up}
+# A strategy can add stops but cannot remove these declared-budget checks.
+REQUIRED_BUDGET_STOPS = ("budget_model_seconds", "budget_tokens")
 # rule name -> rule(records of the children so far) -> start this child or not
 CONDITIONS = {"always": lambda records: True, "no_child_accepted": lambda records: not any(r.accepted for r in records)}
 
@@ -934,7 +936,8 @@ def _run_own_stages(node, task, source, store, seed):
         raise ContractError(f"node {node.node_id}: its parameters hold no arrangement")
     node.check_resources(arrangement, source)
     equal, fallback = EQUALITY[form](node), FALLBACKS[node.ask("fallback")]
-    stops = [STOP_RULES[name] for name in node.ask("stop_rules")]
+    stops = [STOP_RULES[name] for name in dict.fromkeys(
+        (*REQUIRED_BUDGET_STOPS, *node.ask("stop_rules")))]
     before = next((why for why in (rule(node, add_costs([])) for rule in stops) if why), None)
     if before:
         node.spent = add_costs([])
