@@ -6,7 +6,7 @@ from .values import validate_json
 from importlib.resources import files
 
 def load(name='profiler'):
- paths={'plans':'data/plan-settings.json','dimensions':'data/dimensions.json','profiler':'settings.json','harness_grid':'harness-grid.json','decision':'data/decision-settings.json'}
+ paths={'plans':'data/plan-settings.json','dimensions':'data/dimensions.json','profiler':'settings.json','harness_grid':'harness-grid.json','decision':'data/decision-settings.json','retention':'data/retention-settings.json','boundary':'data/boundary-settings.json'}
  if name not in paths:raise ValueError('unknown settings resource')
  return json.loads(files('teleion_fabric').joinpath(paths[name]).read_text())
 

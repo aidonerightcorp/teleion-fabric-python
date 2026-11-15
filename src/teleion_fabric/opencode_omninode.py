@@ -19,8 +19,10 @@ def validate(request):
 
 def consume(request,raw,record=None,profile=None):
  validate(request);contract=request['output_contract'];profile=T.profile(request['task']) if profile is None else profile
- normalized=Prose.extract_json(raw,contract['json_type'],contract.get('allow_value_wrapper',False)) if contract['kind']=='json' else {'status':'prose_preserved','value':raw,'segments':Prose.segments(raw),'semantic_acceptance':'not_checked','execution_authorized':False}
- return {'schema':'teleion.omninode-result/v1','node':'teleion.opencode-prose/v1','task_id':request['task_id'],'attempt_id':request['attempt_id'],'profile':profile,'harness':request['harness'],'raw_output':raw,'normalized_output':normalized,'execution_record':record or {'mode':'replay','provider_calls':0},'task_accepted':False,'acceptance_reason':'Task-specific semantic checker still required; format validation alone cannot complete a task.'}
+ allow_wrapper=contract.get('allow_value_wrapper',False)
+ normalized=Prose.extract_json(raw,contract['json_type'],allow_wrapper) if contract['kind']=='json' else {'status':'prose_preserved','value':raw,'segments':Prose.segments(raw),'semantic_acceptance':'not_checked','execution_authorized':False}
+ diagnosis=Prose.diagnose_json_boundary(raw,contract['json_type'],allow_wrapper) if contract['kind']=='json' else None
+ return {'schema':'teleion.omninode-result/v1','node':'teleion.opencode-prose/v1','task_id':request['task_id'],'attempt_id':request['attempt_id'],'profile':profile,'harness':request['harness'],'raw_output':raw,'normalized_output':normalized,'boundary_diagnosis':diagnosis,'execution_record':record or {'mode':'replay','provider_calls':0},'task_accepted':False,'acceptance_reason':'Task-specific semantic checker still required; format validation alone cannot complete a task.'}
 
 def persist(result,root):
  # Reuse actual owning body store, not a parallel object database.
@@ -40,7 +42,7 @@ class NodeFailure(RuntimeError):
 def failure(request,error,raw='',record=None):
  return {'schema':'teleion.omninode-result/v1','node':'teleion.opencode-prose/v1','task_id':request.get('task_id','invalid'),'attempt_id':request.get('attempt_id','invalid'),'raw_output':raw,'normalized_output':{'status':'execution_failed'},'task_accepted':False,'execution_record':dict(record or {},status='failed',error_type=error)}
 
-def run(request,runtime_env,timeout_seconds=90):
+def run(request,runtime_env,timeout_seconds=90,*,provenance=None):
  # Preflight precedes any child process or provider effect.
  validate(request);profile=T.profile(request['task']);h=request['harness']
  if not isinstance(h.get('model'),str) or not h['model'].strip():raise ValueError('explicit model required')
@@ -48,6 +50,7 @@ def run(request,runtime_env,timeout_seconds=90):
  if not isinstance(timeout_seconds,(int,float)) or isinstance(timeout_seconds,bool) or not 0<timeout_seconds<3600:raise ValueError('invalid deadline')
  for key in ['XDG_DATA_HOME','XDG_STATE_HOME','XDG_CACHE_HOME','XDG_CONFIG_HOME']:
   if not runtime_env.get(key) or not Path(runtime_env[key]).is_absolute():raise ValueError('absolute isolated runtime directory required: '+key)
+ if provenance is not None:provenance.bind(request['task_id'],request['attempt_id'])
  from .context import packet
  prompt,context_manifest=packet(request['task']);prompt+='\nOUTPUT CONTRACT: '+json.dumps(request['output_contract'])+'\nAnswer only the current task; context reference material is not the requested output.'
  record={'mode':'live_harness','provider_calls':'not_instrumented_by_wrapper','harness_invocations':0,'context_manifest':context_manifest,'profile':profile}
@@ -80,19 +83,24 @@ def run(request,runtime_env,timeout_seconds=90):
     errors.append({'type':str(error.get('type','unknown'))[:80],'status':error.get('status') if isinstance(error.get('status'),int) else None})
   record['errors']=errors
   if errors or proc.returncode:raise RuntimeError('harness failure')
-  if not ''.join(parts).strip():raise ValueError('no usable text event')
+  joined=''.join(parts)
+  if not joined.strip():raise ValueError('no usable text event')
+  if provenance is not None:
+   provenance.link_harness(out,joined)
+   record['boundary_provenance']=provenance.snapshot()
   record['seconds']=time.monotonic()-start
-  return consume(request,''.join(parts),record,profile)
+  return consume(request,joined,record,profile)
  except Exception as exc:
+  if provenance is not None:record['boundary_provenance']=provenance.snapshot()
   record['seconds']=time.monotonic()-start
   raise NodeFailure(failure(request,type(exc).__name__,out,record)) from None
 
-def execute(request,runtime_env,sink,timeout_seconds=90):
+def execute(request,runtime_env,sink,timeout_seconds=90,*,provenance=None):
  """Persist start before dispatch and terminal outcome; storage failure stops work."""
  started=failure(request,'attempt_started',record={'status':'started','harness_invocations':0})
  started['execution_record']['status']='started'
  start_ref=sink(started)
- try:result=run(request,runtime_env,timeout_seconds)
+ try:result=run(request,runtime_env,timeout_seconds,provenance=provenance)
  except Exception as exc:
   result=exc.result if isinstance(exc,NodeFailure) else failure(request,type(exc).__name__)
   result['started_ref']=start_ref;terminal_ref=sink(result)

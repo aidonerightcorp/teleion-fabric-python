@@ -1,0 +1,112 @@
+{
+  "name": "retention",
+  "dimensions": {
+    "records.store": {
+      "name": "records.store",
+      "kind": "choices",
+      "suggested": ["omninode-runs"],
+      "grid": ["omninode-runs", "task-records"],
+      "limits": {},
+      "about": "container name where node run records are persisted"
+    },
+    "records.maker": {
+      "name": "records.maker",
+      "kind": "choices",
+      "suggested": [{"id": "stepkit", "component": "OmniNode"}],
+      "grid": [{"id": "stepkit", "component": "OmniNode"}],
+      "limits": {},
+      "about": "maker metadata attached to persisted node records"
+    },
+    "records.data_use": {
+      "name": "records.data_use",
+      "kind": "choices",
+      "suggested": ["benchmark: no training", "open"],
+      "grid": ["benchmark: no training", "open"],
+      "limits": {"only": ["benchmark: no training", "open"]},
+      "about": "default governance tag when a record contract omits records.data_use"
+    },
+    "records.max_writes": {
+      "name": "records.max_writes",
+      "kind": "numbers",
+      "suggested": [64],
+      "grid": [1, 8, 16, 64, 256, 1000],
+      "limits": {"min": 1, "max": 100000},
+      "about": "maximum records one sink instance may persist before refusing further writes"
+    },
+    "records.summary_chars": {
+      "name": "records.summary_chars",
+      "kind": "numbers",
+      "suggested": [180],
+      "grid": [80, 120, 180, 240, 360],
+      "limits": {"min": 32, "max": 2000},
+      "about": "character cap for sanitized answer previews in l0_summary and execution_report"
+    },
+    "records.withhold_min_chars": {
+      "name": "records.withhold_min_chars",
+      "kind": "numbers",
+      "suggested": [8],
+      "grid": [4, 8, 12, 16, 24],
+      "limits": {"min": 1, "max": 256},
+      "about": "minimum stripped character length required for usable task-text substring matching"
+    },
+    "records.withhold_part_chars": {
+      "name": "records.withhold_part_chars",
+      "kind": "numbers",
+      "suggested": [24],
+      "grid": [12, 16, 24, 32, 48],
+      "limits": {"min": 1, "max": 512},
+      "about": "minimum candidate string length redacted when appearing inside withheld task text"
+    },
+    "records.key_max_chars": {
+      "name": "records.key_max_chars",
+      "kind": "numbers",
+      "suggested": [256],
+      "grid": [128, 256, 512],
+      "limits": {"min": 64, "max": 1024},
+      "about": "maximum normalized record key length before digest suffix truncation"
+    },
+    "records.digest_digits": {
+      "name": "records.digest_digits",
+      "kind": "numbers",
+      "suggested": [10],
+      "grid": [8, 10],
+      "limits": {"min": 6, "max": 11},
+      "about": "hex prefix length used for key disambiguation and module lineage summaries"
+    },
+    "records.ieee754_exact_int_limit": {
+      "name": "records.ieee754_exact_int_limit",
+      "kind": "numbers",
+      "suggested": [9007199254740992],
+      "grid": [9007199254740992],
+      "limits": {"min": 9007199254740992, "max": 9007199254740992},
+      "about": "IEEE-754 exact integer threshold for canonical JSON normalization"
+    },
+    "records.decimal_int_limit": {
+      "name": "records.decimal_int_limit",
+      "kind": "numbers",
+      "suggested": [10000000000000000],
+      "grid": [10000000000000000],
+      "limits": {"min": 10000000000000000, "max": 10000000000000000},
+      "about": "whole-float integer conversion ceiling for canonical JSON normalization"
+    },
+    "records.report_schema_version": {
+      "name": "records.report_schema_version",
+      "kind": "numbers",
+      "suggested": [1],
+      "grid": [1],
+      "limits": {"min": 1, "max": 1},
+      "about": "schema version integer emitted on execution_report envelopes"
+    },
+    "records.text_fields": {
+      "name": "records.text_fields",
+      "kind": "choices",
+      "suggested": [["question", "text", "prompt", "reply", "texts", "messages"]],
+      "grid": [
+        ["question", "text", "prompt", "reply", "texts", "messages"],
+        ["question", "text", "prompt", "reply", "texts", "messages", "input", "query"]
+      ],
+      "limits": {},
+      "about": "mapping keys redacted unconditionally when task-text retention is denied"
+    }
+  }
+}

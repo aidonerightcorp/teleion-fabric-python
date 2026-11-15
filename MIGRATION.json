@@ -92,6 +92,12 @@
       "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
     },
     {
+      "module": "stepkit.retention",
+      "delivery": "bundled_source",
+      "qualification": "Offline unit tests for task-text echo redaction, missing/malformed context withholding, and monotonic records.data_use boundaries",
+      "dependency_scope": "Portable in-memory and caller-supplied record ports; no automatic network calls or service credentials"
+    },
+    {
       "module": "stepkit.solutiongraph_bridge",
       "delivery": "external_provider_or_pending_port",
       "qualification": "See package tests; historical behavior is not requalified by copying source",
@@ -251,6 +257,11 @@
       "module": "teleion_fabric.__init__",
       "delivery": "bundled_source",
       "qualification": "See tests and scope; optional runtime dependencies remain explicit"
+    },
+    {
+      "module": "teleion_fabric.boundary_provenance",
+      "delivery": "bundled_source",
+      "qualification": "Offline unit tests for body-only byte digests, optional CAS reference validation, and fail-closed strict-output vs envelope contamination diagnostics"
     },
     {
       "module": "teleion_fabric.cli",

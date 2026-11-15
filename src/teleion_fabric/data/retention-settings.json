@@ -1,0 +1,41 @@
+{
+  "store": {
+    "value": "omninode-runs",
+    "grid": ["omninode-runs", "task-records"]
+  },
+  "data_use": {
+    "value": "benchmark: no training",
+    "grid": ["benchmark: no training", "open"]
+  },
+  "max_writes": {
+    "value": 64,
+    "grid": [1, 8, 16, 64, 256, 1000]
+  },
+  "summary_chars": {
+    "value": 180,
+    "grid": [80, 120, 180, 240, 360]
+  },
+  "withhold_min_chars": {
+    "value": 8,
+    "grid": [4, 8, 12, 16, 24]
+  },
+  "withhold_part_chars": {
+    "value": 24,
+    "grid": [12, 16, 24, 32, 48]
+  },
+  "key_max_chars": {
+    "value": 256,
+    "grid": [128, 256, 512]
+  },
+  "digest_digits": {
+    "value": 10,
+    "grid": [8, 10]
+  },
+  "text_fields": {
+    "value": ["question", "text", "prompt", "reply", "texts", "messages"],
+    "grid": [
+      ["question", "text", "prompt", "reply", "texts", "messages"],
+      ["question", "text", "prompt", "reply", "texts", "messages", "input", "query"]
+    ]
+  }
+}

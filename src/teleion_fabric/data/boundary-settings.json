@@ -1,0 +1,49 @@
+{
+  "schema_version": {
+    "value": "teleion.boundary-provenance/v1",
+    "grid": ["teleion.boundary-provenance/v1"]
+  },
+  "diagnosis_schema_version": {
+    "value": "teleion.strict-output-diagnosis/v1",
+    "grid": ["teleion.strict-output-diagnosis/v1"]
+  },
+  "required_boundaries": {
+    "value": [
+      "native_request",
+      "native_response",
+      "native_content",
+      "emitted_response",
+      "harness_stdout",
+      "harness_text"
+    ],
+    "grid": [
+      [
+        "native_request",
+        "native_response",
+        "native_content",
+        "emitted_response",
+        "harness_stdout",
+        "harness_text"
+      ],
+      [
+        "native_content",
+        "harness_text"
+      ]
+    ]
+  },
+  "max_body_bytes": {
+    "value": 2097152,
+    "grid": [65536, 262144, 1048576, 2097152, 8388608]
+  },
+  "strict_mode": {
+    "value": "whole_response_only",
+    "grid": ["whole_response_only"]
+  },
+  "envelope_tags": {
+    "value": ["system-reminder", "system", "developer"],
+    "grid": [
+      ["system-reminder", "system", "developer"],
+      ["system-reminder"]
+    ]
+  }
+}

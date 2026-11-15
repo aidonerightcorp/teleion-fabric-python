@@ -191,7 +191,9 @@ CHECKS = {}
 # Known subset relationships only; child tasks declare their own forms.
 OUTPUT_FORM_SUBSETS = {"any": {"any", "text", "number", "choice", "values", "query_result"},
                        "text": {"text", "number", "choice"}}
-OWN_POLICY = ("input.form", "output.form", "output.checks", "records.task_text")
+DATA_USE_SUBSETS = {"open": {"open", "benchmark: no training"},
+                    "benchmark: no training": {"benchmark: no training"}}
+OWN_POLICY = ("input.form", "output.form", "output.checks", "records.task_text", "records.data_use")
 # kind of work -> how a Task of that kind is recognized and profiled: functions (task, profile) that add to the profile
 PROFILERS = []
 # condition name -> condition(results of the calls made so far on a part's path) -> make the next call or not
@@ -260,10 +262,28 @@ def _tokens_used_up(node, spent):
     return _budget_used_up(node, spent, "budget.tokens", ("tok_in", "tok_out"), "tokens")
 
 
+def _model_calls_used_up(node, spent):
+    if node.zero_cost_only:
+        return None
+    current = node
+    while current is not None:
+        if current._has_dimension("budget.model_calls"):
+            limit = current.ask("budget.model_calls")
+            used_calls = spent["calls"] if current is node else (
+                current.used()["calls"] - node.spent["calls"] + spent["calls"]
+            )
+            if limit is not None and used_calls >= limit:
+                owner = "" if current is node else f" of ancestor {current.node_id}"
+                return f"the budget of model calls{owner} is used up"
+        current = current.parent
+    return None
+
+
 # rule name -> rule(node, cost so far) -> a reason to stop now, or None
-STOP_RULES = {"budget_model_seconds": _seconds_used_up, "budget_tokens": _tokens_used_up}
+STOP_RULES = {"budget_model_seconds": _seconds_used_up, "budget_tokens": _tokens_used_up,
+              "budget_model_calls": _model_calls_used_up}
 # A strategy can add stops but cannot remove these declared-budget checks.
-REQUIRED_BUDGET_STOPS = ("budget_model_seconds", "budget_tokens")
+REQUIRED_BUDGET_STOPS = ("budget_model_seconds", "budget_tokens", "budget_model_calls")
 # rule name -> rule(records of the children so far) -> start this child or not
 CONDITIONS = {"always": lambda records: True, "no_child_accepted": lambda records: not any(r.accepted for r in records)}
 
@@ -350,6 +370,38 @@ class Part:
     info: dict = field(default_factory=dict)
     value: object = None
     evidence: tuple = ()
+    required_model: str = None
+
+
+def _part_model_labels(node_id, part_name, part_obj, resolved_settings=None) -> list:
+    """Validate and collect every declared or resolved model label for one part."""
+    info = part_obj.info
+    if info is not None and not isinstance(info, dict):
+        raise ContractError(f"node {node_id}: malformed metadata for part {part_name!r}")
+    info = info or {}
+    resolved_model = (resolved_settings or {}).get("model")
+    candidates = (
+        part_obj.model,
+        part_obj.required_model,
+        info.get("model"),
+        info.get("required_model"),
+        resolved_model,
+    )
+    labels = []
+    for candidate in candidates:
+        if candidate is None:
+            continue
+        if type(candidate) is not str or not candidate.strip():
+            raise ContractError(f"node {node_id}: invalid model identifier on part {part_name!r}")
+        if candidate not in labels:
+            labels.append(candidate)
+    fixed_required = part_obj.required_model if part_obj.required_model is not None else info.get("required_model")
+    if fixed_required is not None:
+        if part_obj.model is not None and part_obj.model != fixed_required:
+            raise ContractError(f"node {node_id}: conflicting required_model on part {part_name!r}")
+        if resolved_model is not None and resolved_model != fixed_required:
+            raise ContractError(f"node {node_id}: resolved model conflicts with required_model of part {part_name!r}")
+    return labels
 
 
 class Session:
@@ -366,6 +418,7 @@ class Session:
         self.checks = list(checks)      # the contract's output checks: a failed check fails the step
         self.made = {}
         self.on_cost = None
+        self.before_part = None
 
     def has(self, call):
         return call in self.made or self.source.has(call, self.task)
@@ -386,6 +439,8 @@ class Session:
     def __call__(self, part_name, task=None, step_input=None, seed=None):
         if part_name not in self.source.parts:
             raise KeyError(f"unknown part {part_name!r}; this source has: {sorted(self.source.parts)}")
+        if self.before_part is not None:
+            self.before_part(part_name)
         part, fresh, ran = self.source.parts[part_name], [], []
         for step in part.calls:
             call = step["call"].format(**(ran[-1]["evidence"] if ran else {}))
@@ -525,7 +580,8 @@ class NodeRecord:
     output_validation: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
-        out = {name: getattr(self, name) for name in self.__dataclass_fields__ if name not in ("steps", "children")}
+        out = {name: getattr(self, name) for name in self.__dataclass_fields__
+               if name not in ("steps", "children") and hasattr(self, name)}
         out["steps"] = [step.to_dict() for step in self.steps]
         out["children"] = [child.to_dict() for child in self.children]
         return out
@@ -737,6 +793,10 @@ class OmniNode:
         return context
 
     # ---- settings: never read directly ----
+    def _has_dimension(self, name) -> bool:
+        return (name in self.parameters or name in self.contract or
+                self.resolver.evidence_dimension(name) is not None or name in self.resolver.evidence)
+
     def dimension(self, name):
         found = self.parameters.get(name) or self.contract.get(name) or self.resolver.evidence_dimension(name)
         if found is None:
@@ -752,6 +812,15 @@ class OmniNode:
         if boundary is not None:
             self._check_authority(name, boundary.suggested[0], value)
         return value
+
+    def effective_models(self):
+        """Effective model allowlist intersecting `resources.models` and optional `permissions.models`."""
+        allowed = self.ask("resources.models")
+        if self._has_dimension("permissions.models"):
+            perm = self.ask("permissions.models")
+            if perm is not None:
+                allowed = list(perm) if allowed is None else [m for m in allowed if m in set(perm)]
+        return allowed
 
     def _check_authority(self, name, bound, value):
         """Adaptive choices can narrow declared authority, never grant more of it."""
@@ -769,6 +838,9 @@ class OmniNode:
         valid = True
         if name in ("permissions.live", "permissions.spawn", "records.task_text"):
             valid = type(value) is bool and (bound is True or value is False)
+        elif name == "records.data_use":
+            valid = (isinstance(value, str) and value in DATA_USE_SUBSETS and
+                     value in DATA_USE_SUBSETS.get(bound, {bound}))
         elif name == "input.form":
             valid = isinstance(value, str) and value == bound and value in INPUT_FORMS
         elif name == "output.form":
@@ -778,11 +850,11 @@ class OmniNode:
             valid = (isinstance(bound, list) and isinstance(value, list) and
                      all(isinstance(item, str) for item in bound + value) and
                      set(bound) <= set(value) and all(item in CHECKS for item in value))
-        elif name in ("resources.parts", "resources.models", "resources.stores", "resources.cartridges"):
+        elif name in ("resources.parts", "resources.models", "resources.stores", "resources.cartridges", "permissions.models"):
             valid = ((value is None and bound is None) or
                      (isinstance(value, list) and all(isinstance(item, str) for item in value)
                       and (bound is None or set(value) <= set(bound))))
-        elif name in ("budget.tokens", "budget.model_seconds", "budget.nodes", "budget.depth"):
+        elif name in ("budget.tokens", "budget.model_seconds", "budget.model_calls", "budget.nodes", "budget.depth"):
             valid = within_number(bound, value)
         elif name == "budget.by_kind":
             valid = ((value is None and bound is None) or
@@ -794,13 +866,30 @@ class OmniNode:
     def part_settings(self, part, source) -> dict:
         """The settings of one part as this node resolves them: its own dimension "part.<part>.<setting>"
         when the parameters hold one, else the shared one, for which the part's recorded setting is evidence."""
+        info = source.parts[part].info
+        if info is not None and not isinstance(info, dict):
+            raise ContractError(f"node {self.node_id}: malformed metadata for part {part!r}")
         recorded = {"part." + name: {"value": value, "source": "the recorded setting of this part"}
-                    for name, value in source.parts[part].info.items()}
+                    for name, value in (info or {}).items()}
         out = {}
         for name in PART_SETTINGS:
             own = f"part.{part}.{name}"
             if own in self.parameters or self.resolver.evidence_dimension(own) is not None:
                 out[name] = self.ask(own)
+            elif own in self.resolver.evidence:
+                template = self.dimension("part." + name)
+                own_dim = Dimension(
+                    own,
+                    template.suggested,
+                    template.grid,
+                    template.kind,
+                    template.limits,
+                    template.members,
+                    template.generator,
+                    template.about,
+                    template.extra,
+                )
+                out[name] = self.resolver.value(own_dim)
             else:
                 out[name] = self.resolver.value(self.dimension("part." + name), {"evidence": recorded}, as_name=own)
         return out
@@ -846,8 +935,10 @@ class OmniNode:
         names a limit for it (seconds per Task times the Tasks of that kind in this run). None: no limit."""
         used = self.used()
         seconds, tokens = self.ask("budget.model_seconds"), self.ask("budget.tokens")
+        calls = self.ask("budget.model_calls") if self._has_dimension("budget.model_calls") else None
         out = {"model_seconds": None if seconds is None else seconds - used["model_s"],
                "tokens": None if tokens is None else tokens - used["tok_in"] - used["tok_out"],
+               "model_calls": None if calls is None else calls - used["calls"],
                "nodes": self.ask("budget.nodes") - len(self.children), "depth": self.ask("budget.depth"),
                "kind_model_seconds": None}
         by_kind = self.ask("budget.by_kind")
@@ -876,6 +967,23 @@ class OmniNode:
         self._prepared[ctx.task_id] = ctx
         return ctx.configured
 
+    def _chain(self) -> list:
+        chain = []
+        current = self
+        while current is not None:
+            chain.append(current)
+            current = current.parent
+        return chain
+
+    @staticmethod
+    def _intersect_allowlists(lists):
+        narrowed = None
+        for items in lists:
+            if items is None:
+                continue
+            narrowed = list(items) if narrowed is None else [item for item in narrowed if item in set(items)]
+        return narrowed
+
     # ---- child nodes ----
     def derive(self, values=None, kind=None) -> Contract:
         """The contract of a child: this node's contract one level less deep, with no child nodes, no
@@ -888,12 +996,27 @@ class OmniNode:
         own = CHILD_BUDGETS[self.ask("children.budget")](remaining)
         for name in ("model_seconds", "tokens"):
             own["budget." + name] = _smallest(own["budget." + name], remaining[name])
-        ancestor = self.parent
-        while ancestor is not None:
+        chain = self._chain()
+        call_limits = [anc.left(kind)["model_calls"] for anc in chain if anc._has_dimension("budget.model_calls")]
+        if call_limits:
+            own["budget.model_calls"] = _smallest(*call_limits)
+        for ancestor in chain[1:]:
             limits = ancestor.left(kind)
             own["budget.model_seconds"] = _smallest(own["budget.model_seconds"], limits["model_seconds"], limits["kind_model_seconds"])
             own["budget.tokens"] = _smallest(own["budget.tokens"], limits["tokens"])
-            ancestor = ancestor.parent
+        own["permissions.live"] = all(anc.ask("permissions.live") for anc in chain)
+        own["records.task_text"] = all(anc.ask("records.task_text") for anc in chain)
+        own["records.data_use"] = (
+            "benchmark: no training"
+            if any(anc.ask("records.data_use") == "benchmark: no training" for anc in chain)
+            else "open"
+        )
+        for resource in ("parts", "stores", "cartridges"):
+            own["resources." + resource] = self._intersect_allowlists(anc.ask("resources." + resource) for anc in chain)
+        narrowed_models = self._intersect_allowlists(anc.effective_models() for anc in chain)
+        own["resources.models"] = narrowed_models
+        if any(anc._has_dimension("permissions.models") for anc in chain):
+            own["permissions.models"] = narrowed_models
         derived = self.contract.with_({"budget.depth": depth - 1, **own}, by=f"derived by node {self.node_id}")
         for name in ("budget.nodes", "permissions.spawn", "budget.by_kind"):
             derived.add(CONTRACT[name])
@@ -916,24 +1039,47 @@ class OmniNode:
                          f"{self.node_id}.{len(self.children) + 1}", self, role)
         child.zero_cost_only = self.zero_cost_only or zero_cost_only
         if not child.zero_cost_only:
-            ancestor = self
-            while ancestor is not None:
+            for ancestor in self._chain():
                 left = ancestor.left()
                 for name in ("model_seconds", "tokens"):
                     remaining = left[name]
                     proposed = child.ask("budget." + name)
                     if remaining is not None and (proposed is None or proposed > max(0, remaining)):
                         raise ContractError(f"node {self.node_id}: child's {name} budget exceeds ancestor remaining budget")
-                ancestor = ancestor.parent
+                if ancestor._has_dimension("budget.model_calls"):
+                    remaining_calls = left["model_calls"]
+                    proposed_calls = child.ask("budget.model_calls") if child._has_dimension("budget.model_calls") else None
+                    if remaining_calls is not None and (proposed_calls is None or proposed_calls > max(0, remaining_calls)):
+                        raise ContractError(f"node {self.node_id}: child's model_calls budget exceeds ancestor remaining budget")
         if child.ask("budget.depth") >= depth or child.ask("budget.nodes") > nodes - len(self.children) - 1:
             raise ContractError(f"node {self.node_id}: a child's contract may not be deeper or wider than what is left")
-        if child.ask("permissions.live") and not self.ask("permissions.live"):
-            raise ContractError(f"node {self.node_id}: a child may not get a live source that the parent does not have")
-        for resource in ("parts", "models", "stores", "cartridges"):
-            mine = self.ask("resources." + resource)
-            theirs = child.ask("resources." + resource)
-            if mine is not None and (theirs is None or not set(theirs) <= set(mine)):
-                raise ContractError(f"node {self.node_id}: a child may only get {resource} that the parent has")
+        child_live = child.ask("permissions.live")
+        child_task_text = child.ask("records.task_text")
+        child_data_use = child.ask("records.data_use")
+        child_models = child.effective_models()
+        child_raw_models = child.ask("resources.models")
+        child_perm_models = child.ask("permissions.models") if child._has_dimension("permissions.models") else None
+        for ancestor in self._chain():
+            if child_live and not ancestor.ask("permissions.live"):
+                raise ContractError(f"node {self.node_id}: a child may not get a live source that ancestor {ancestor.node_id} does not have")
+            if child_task_text and not ancestor.ask("records.task_text"):
+                raise ContractError(f"node {self.node_id}: a child may not enable task-text retention denied by ancestor {ancestor.node_id}")
+            anc_data_use = ancestor.ask("records.data_use")
+            if child_data_use not in DATA_USE_SUBSETS.get(anc_data_use, {anc_data_use}):
+                raise ContractError(f"node {self.node_id}: a child may not widen records.data_use beyond ancestor {ancestor.node_id}")
+            anc_models = ancestor.effective_models()
+            if anc_models is not None:
+                if child_models is None or not set(child_models) <= set(anc_models):
+                    raise ContractError(f"node {self.node_id}: a child may only get models that ancestor {ancestor.node_id} has")
+                if child_raw_models is not None and not set(child_raw_models) <= set(anc_models):
+                    raise ContractError(f"node {self.node_id}: a child may only get models that ancestor {ancestor.node_id} has")
+                if child_perm_models is not None and not set(child_perm_models) <= set(anc_models):
+                    raise ContractError(f"node {self.node_id}: a child may only get models that ancestor {ancestor.node_id} has")
+            for resource in ("parts", "stores", "cartridges"):
+                mine = ancestor.ask("resources." + resource)
+                theirs = child.ask("resources." + resource)
+                if mine is not None and (theirs is None or not set(theirs) <= set(mine)):
+                    raise ContractError(f"node {self.node_id}: a child may only get {resource} that ancestor {ancestor.node_id} has")
         price = {"value": self.ask("price_per_model_second"), "source": f"the price of the parent node {self.node_id}",
                  "by": "caller"}
         child.base_resolver.evidence["price_per_model_second"] = price
@@ -960,28 +1106,66 @@ class OmniNode:
         # Freeze validated own-task policy for this run; repeated resolution must
         # not change acceptance midway through execution or while recording it.
         ctx.effective_policy = {name: plain(self.ask(name)) for name in OWN_POLICY}
+        for ancestor in self._chain()[1:]:
+            if ctx.effective_policy["records.task_text"] and not ancestor.ask("records.task_text"):
+                raise ContractError(f"node {self.node_id}: task-text retention exceeds ancestor {ancestor.node_id}")
+            anc_use = ancestor.ask("records.data_use")
+            if ctx.effective_policy["records.data_use"] not in DATA_USE_SUBSETS.get(anc_use, {anc_use}):
+                raise ContractError(f"node {self.node_id}: records.data_use exceeds ancestor {ancestor.node_id}")
         form = self.ask("input.form")
         if not INPUT_FORMS[form](task, ctx.profile):
             raise ContractError(f"node {self.node_id}: its contract takes input of the form {form!r}; this is not one "
                                 f"(kind of work: {ctx.profile.get('work')!r}, a list of Tasks: {isinstance(task, list)})")
         return CHILD_RULES[self.ask("children.rule")](self, task, source, store, seed)
 
-    def check_resources(self, arrangement, source):
+    def check_part_authority(self, part, source, resolved_settings=None):
+        """Verify part, live-source, and effective model allowlists across all ancestors before dispatch."""
+        if part not in source.parts:
+            raise ContractError(f"node {self.node_id}: no part {part!r} in the source")
+        part_obj = source.parts[part]
+        if resolved_settings is None:
+            resolved_settings = self.part_settings(part, source)
+        labels = _part_model_labels(self.node_id, part, part_obj, resolved_settings)
+        for ancestor in reversed(self._chain()):
+            if source.live and not ancestor.ask("permissions.live"):
+                raise ContractError(f"node {ancestor.node_id}: its contract does not permit a source that calls a model")
+            parts, models = ancestor.ask("resources.parts"), ancestor.effective_models()
+            if parts is not None and part not in parts:
+                raise ContractError(f"node {ancestor.node_id}: its contract does not give the part {part!r}")
+            if models is not None:
+                if any(label not in models for label in labels):
+                    raise ContractError(f"node {ancestor.node_id}: its contract does not give the model of the part {part!r}")
+                if len(models) == 0 and (part_obj.calls or source.live):
+                    raise ContractError(f"node {ancestor.node_id}: empty model allowlist forbids model-backed part {part!r}")
+            if ancestor.zero_cost_only and (source.live or labels or part_obj.calls):
+                raise ContractError(f"node {ancestor.node_id}: zero-cost execution permits only exact value parts without probe calls")
+
+    def check_resources(self, arrangement, source, settings_by_part=None):
         # Configuration can change after spawn. Check the actual attempted stages
         # against every ancestor before any connector or exact tool is invoked.
         if self.parent is not None:
-            self.parent.check_resources(arrangement, source)
+            self.parent.check_resources(arrangement, source, settings_by_part)
         if source.live and not self.ask("permissions.live"):
             raise ContractError(f"node {self.node_id}: its contract does not permit a source that calls a model")
-        parts, models = self.ask("resources.parts"), self.ask("resources.models")
+        parts, models = self.ask("resources.parts"), self.effective_models()
         for part, kind in arrangement:
             if part not in source.parts or kind not in STAGE_KINDS:
                 raise ContractError(f"node {self.node_id}: no part {part!r} in the source, or no stage type {kind!r}")
             if parts is not None and part not in parts:
                 raise ContractError(f"node {self.node_id}: its contract does not give the part {part!r}")
-            if models is not None and source.parts[part].model is not None and source.parts[part].model not in models:
-                raise ContractError(f"node {self.node_id}: its contract does not give the model of the part {part!r}")
-            if self.zero_cost_only and (source.live or source.parts[part].model is not None or source.parts[part].calls):
+            part_obj = source.parts[part]
+            labels = _part_model_labels(
+                self.node_id,
+                part,
+                part_obj,
+                (settings_by_part or {}).get(part),
+            )
+            if models is not None:
+                if any(label not in models for label in labels):
+                    raise ContractError(f"node {self.node_id}: its contract does not give the model of the part {part!r}")
+                if len(models) == 0 and (part_obj.calls or source.live):
+                    raise ContractError(f"node {self.node_id}: empty model allowlist forbids model-backed part {part!r}")
+            if self.zero_cost_only and (source.live or labels or part_obj.calls):
                 raise ContractError(f"node {self.node_id}: zero-cost execution permits only exact value parts without probe calls")
 
     def record(self, task, steps, answer, accepted, reason, evidence, children=()) -> NodeRecord:
@@ -1032,6 +1216,11 @@ def _run_own_stages(node, task, source, store, seed):
     if not arrangement:
         raise ContractError(f"node {node.node_id}: its parameters hold no arrangement")
     node.check_resources(arrangement, source)
+    settings_by_part = {}
+    for part, _ in arrangement:
+        if part not in settings_by_part:
+            settings_by_part[part] = node.part_settings(part, source)
+    node.check_resources(arrangement, source, settings_by_part)
     equal, fallback = EQUALITY[form](node), FALLBACKS[node.ask("fallback")]
     stops = [STOP_RULES[name] for name in dict.fromkeys(
         (*REQUIRED_BUDGET_STOPS, *node.ask("stop_rules")))]
@@ -1064,9 +1253,12 @@ def _run_own_stages(node, task, source, store, seed):
     session = source.session(task, form=form, seed=seed, profile=profile, checks=node.ask("output.checks"))
     if isinstance(session, Session):
         session.on_cost = lambda spent: setattr(node, "spent", spent)
+        session.before_part = lambda part_name: node.check_part_authority(
+            part_name, source, settings_by_part.get(part_name)
+        )
     steps = [Step(part, accept_of(position, part, kind)) for position, (part, kind) in enumerate(arrangement)]
     trace = first_accepted(task, steps, session, input_profile=profile, seed=seed)
-    done = [NodeStep(**asdict(step), stage=f"{kind}({part})", settings=node.part_settings(part, source))
+    done = [NodeStep(**asdict(step), stage=f"{kind}({part})", settings=dict(settings_by_part[part]))
             for step, (part, kind) in zip(trace, arrangement)]
     node.spent = trace.total_cost()
     return node.record(task, done, trace.answer, ended.get("accepted", False), trace.reason,
@@ -1091,8 +1283,12 @@ def _free_parts(node, task, profile, kind, reached, source):
     arrangement = [list(stage) for stage in node.ask("children.fallback_arrangement")]
     if reached in STRUCTURAL_LIMITS or not arrangement:
         return _stop(node, task, profile, kind, reached, source)
-    parts = source_for(source, profile).parts
-    if any(parts[part].model is not None for part, _ in arrangement):
+    resolved_source = source_for(source, profile)
+    parts = resolved_source.parts
+    if any(
+        part in parts and (_part_model_labels(node.node_id, part, parts[part]) or parts[part].calls)
+        for part, _ in arrangement
+    ):
         raise ContractError(f"node {node.node_id}: the fallback arrangement may hold only parts that call no model")
     child = node.spawn(node.derive({"input.form": kind, "output.form": profile["answer_form"], "budget.model_seconds": None,
                                     "budget.tokens": None}, kind),
@@ -1438,7 +1634,7 @@ CATALOG_NAMES = {
     "children.rule": ("structure.split.when", DECIDES),
     "children.steps": ("structure.split.decomposer", DECIDES),
     "children.answer": ("structure.merge", DECIDES),
-    "part.model": ("model.choice", CARRIED),
+    "part.model": ("model.choice", ENFORCED),
     "part.prompt_form": ("model.prompt.form", CARRIED),
     "part.examples": ("model.prompt.examples", CARRIED),
     "part.context_length": ("model.context.length", CARRIED),
@@ -1473,3 +1669,16 @@ def catalog_use(catalog) -> dict:
             "not_used": sorted(name for name, rank in best.items() if rank is None),
             "by_catalog_dimension": {name: entries for name, entries in use.items() if entries},
             "not_in_catalog": missing}
+
+
+from .retention import (  # noqa: E402
+    WITHHELD,
+    MemoryRecordPort,
+    NodeRecordSink,
+    RecordConflictError,
+    RecordLimitError,
+    record_data_use,
+    record_task_text_allowed,
+    task_text_allowed,
+    withhold_task_text,
+)

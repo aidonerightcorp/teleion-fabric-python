@@ -25,6 +25,35 @@
     "version": "1"
   },
   {
+    "id": "prose.strict_json",
+    "entrypoint": "teleion_fabric.prose_tools:strict_json",
+    "input": "raw output text + declared JSON type",
+    "output": "fail-closed whole-payload JSON check without envelope or fence extraction",
+    "effects": [],
+    "version": "1",
+    "settings": "data/boundary-settings.json"
+  },
+  {
+    "id": "prose.diagnose_boundary",
+    "entrypoint": "teleion_fabric.prose_tools:diagnose_json_boundary",
+    "input": "raw output text + declared JSON type",
+    "output": "fail-closed strict check paired with envelope/fence contamination attribution",
+    "effects": [],
+    "version": "1",
+    "settings": "data/boundary-settings.json"
+  },
+  {
+    "id": "records.retention",
+    "entrypoint": "stepkit.retention:NodeRecordSink",
+    "input": "NodeRecord tree + optional task context + record port",
+    "output": "sanitized persisted records and privacy-bounded execution reports",
+    "effects": [
+      "port writes when write or submit is invoked"
+    ],
+    "version": "1",
+    "settings": "data/retention-settings.json"
+  },
+  {
     "id": "harness.opencode",
     "entrypoint": "teleion_fabric.opencode_omninode:execute",
     "input": "task contract + configured runtime + durable sink",
