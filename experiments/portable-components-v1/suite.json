@@ -1,5 +1,5 @@
 {
-  "commit": "b4e890b0dbc93169ac278454b92bcd0371e19c8b",
+  "commit": "a927f15cb8008aafcf7471e7ea515493df098432",
   "version": "0.2.6",
   "groups": {
     "profiling-prose": {
@@ -59,8 +59,8 @@
         "test_boundary_provenance": null,
         "test_v026_conformance_gates": null
       },
-      "count": 19,
-      "scope": "Fail-closed record task-text/summary redaction, monotonic data_use authority, ancestor and runtime part/connector model allowlists, body-only boundary provenance, strict-JSON vs envelope/fence boundary diagnostics, and declarative grid conformance gates. Local CPU fixtures only; no live models or service substrates."
+      "count": 20,
+      "scope": "Fail-closed record task-text/summary redaction, monotonic data_use authority, ancestor and runtime part/connector model allowlists, body-only boundary provenance, strict-JSON vs envelope/fence boundary diagnostics, declarative grid conformance, and public repository hygiene gates. Local CPU fixtures only; no live models or service substrates."
     },
     "release-gate": {
       "tests": {
@@ -84,7 +84,7 @@
         "test_release_version": null,
         "test_v026_conformance_gates": null
       },
-      "count": 113,
+      "count": 114,
       "scope": "Complete pinned package suite, separate from focused notebook subsets."
     }
   },
@@ -114,7 +114,7 @@
     "src/stepkit/reply.py": "f9e1bdf10f3edfd0c8f8eda7c834f62588ada1bfcd7d8d508533074975223128",
     "src/stepkit/retention.py": "f15292d1b4c47543dbd9cd660f213d46d524d05120ce465c933a40faa99b8249",
     "src/stepkit/store.py": "836cf4a79b34073e5ea243122633e18e65472e0a088596640dcd3b56560b35b3",
-    "src/stepkit/tier_ladder.py": "b38e3fc71f0ac1e4ce8b829e0ea65aba01f4f87594c07aa030fd212a2882ae6b",
+    "src/stepkit/tier_ladder.py": "d965af44b1f14611fcb875b8df4de304451c627b38f5143ca451fd9323db7c42",
     "src/stepkit/tools/__init__.py": "6faed5f507429eaa4af89f26419c13f406f9458ec4caa5ac554762573e07f932",
     "src/stepkit/tools/_safe_runner.py": "6d4a73b1c072ddda901f083c730e9b54990683df12353c67c281a57fa24c3416",
     "src/stepkit/tools/calculator.py": "19ac29dfaad0ad77b6f5d8f68d461eb249622974678ec1a8052ed0bab4608904",
@@ -127,7 +127,7 @@
     "src/teleion_fabric/context.py": "2a14adfbafa4fa8247b14ddd1945e210e55333534c741d9e0d33cb3f8d417e2c",
     "src/teleion_fabric/contracts.py": "5a7d2ee70bc34b559421f087660daa45f6b8174fa23fbc0e71e21ba1e04dc7f9",
     "src/teleion_fabric/data/boundary-settings.json": "36efa702fb697fb97b6fda6ebc582dbfad343c552f167a498bdea3728d51a8f8",
-    "src/teleion_fabric/data/capabilities.json": "36f59da0fef450181772459148bb0d651cf6e2a574085edbb1cec5afd7969f74",
+    "src/teleion_fabric/data/capabilities.json": "4e60be44a7dafd22299f448ec51c9b657f874a4b5d45a34d2babb4079ff5acc7",
     "src/teleion_fabric/data/charter.json": "c23a3a268e12699982f4bdfb14811ae5ba6b0bf00c8a8bf5182489e4d6db916f",
     "src/teleion_fabric/data/decision-settings.json": "5a0096799176156ad1421678c548414c55df02a4c3063da3b7b7624bd90b8ef1",
     "src/teleion_fabric/data/dimensions.json": "9e3d13985539367aacde50eab24d11f1e1336561fd64e2eb94b7629e62645d59",
@@ -163,6 +163,6 @@
     "tests/test_plans.py": "971c322f3d3bc584bd6018355c3aca2465c39d8f09cb4d108ad1b419383751ae",
     "tests/test_record_privacy_redaction.py": "4b596ee21b5deffc4bf8616a50596856a228eed0b4cc3b5fd2a5356d54f2cfc2",
     "tests/test_release_version.py": "9248bd856fa636e890adda734d5bb2bda2613466b44de77ba6943d8d2c8950ee",
-    "tests/test_v026_conformance_gates.py": "47dceb10ef8fcfdb45c55d9c0983a79e4aa30595ba52f665ed511d76a2bd20d6"
+    "tests/test_v026_conformance_gates.py": "4798ff6341c7797f742dc808aa1940cbb6b5baa56ef13862c58f2f3fe3740806"
   }
 }
