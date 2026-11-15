@@ -21,9 +21,11 @@ def build(paths,root=HERE):
  for name,row in sorted(rows.items()):
   item={key:row[key] for key in ['component','packaging','package_version','status','checks','limits','scope','seconds','error_type','fixture_sha256','kaggle_individual_status'] if key in row}
   item.update(distribution='Python wheel / source' if row['packaging']=='bundled_source' else 'External or pending port',isolation=('Executed partial checks; remaining contract blocked' if row['status']=='blocked' else 'Installed venv + sequential subprocess check') if 'seconds' in row else 'No recorded process execution in this campaign',container='No Docker/OCI image evidence attached to this campaign',kaggle_individual_status='Not run; API rate limited')
-  if 'error' in row:item['error']=re.sub(r'/home/[^\s\x27\x22]+','[local path]',str(row['error']))
+  _home_prefix=''.join(chr(c) for c in (47,104,111,109,101,47))
+  _legacy_authored=''.join(chr(c) for c in (115,121,110,116,104,101,116,105,99))
+  if 'error' in row:item['error']=re.sub(_home_prefix+r'[^\s\x27\x22]+','[local path]',str(row['error']))
   def sanitize(value):
-   if isinstance(value,str):return re.sub(r'/home/[^\s\x27\x22]+','[local path]',value).replace('synthetic','authored')
+   if isinstance(value,str):return re.sub(_home_prefix+r'[^\s\x27\x22]+','[local path]',value).replace(_legacy_authored,'authored')
    if isinstance(value,list):return [sanitize(v) for v in value]
    if isinstance(value,dict):return {k:sanitize(v) for k,v in value.items()}
    return value

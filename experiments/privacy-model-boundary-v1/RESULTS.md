@@ -15,9 +15,9 @@ Candidate `0.2.6` integrates three bounded component capabilities on top of `0.2
    - `BoundaryProvenance` computes body-only SHA-256 digests under grid-governed byte limits with optional `{digest, size_bytes}` content-addressed sink verification and scrubbed fail-closed sink errors.
    - `strict_json` remains fail-closed on contaminated outputs while `diagnose_json_boundary` distinguishes clean JSON, `<system-reminder>` / instruction-envelope prefixes, markdown code fences, prose-plus-fence wrappers, literal tags inside valid JSON strings, ambiguous candidates, and malformed JSON (`5` `test_boundary_provenance` methods).
 4. **Declarative grids and conformance gates (`test_v026_conformance_gates`)**:
-   - `retention` and `boundary` grids resolve through `teleion_fabric.settings`, and mechanical AST/naming conformance checks pass (`3` `test_v026_conformance_gates` methods).
+   - `retention` and `boundary` grids resolve through `teleion_fabric.settings`, mechanical AST/naming conformance checks pass, and a repository-wide public-hygiene regression check scans all tracked files (`4` `test_v026_conformance_gates` methods).
 
 ## Validation and limits
 
-- Installed-wheel CPU gates: `113` package test methods (`94` inherited + `19` new), `10` composition/restart test methods, `examples/compose_prose.py`, and `tools/sync_context.py --check` pass locally outside the source checkout.
+- Installed-wheel CPU gates: `114` package test methods (`94` inherited + `20` new), `10` composition/restart test methods, `examples/compose_prose.py`, and `tools/sync_context.py --check` pass locally outside the source checkout.
 - Scope limits: local CPU execution over deterministic fixtures and in-memory ports only; no live model/provider calls, no remote database or queue service qualification, no sandboxing of trusted Python callables, no concurrent budget reservation, and no claim that operational month observation has started. Maker validation only; independent checker review is required before publication.

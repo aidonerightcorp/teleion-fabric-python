@@ -7,9 +7,9 @@ with its result state, every tier with what it spent, and an answer of an exact 
 followed by a model call (the invariant).
 
 INTERNAL: this is the interface of external provider's cheapest-effective-tool ladder (Loop Engine,
-tools/taedri_invariants_and_cheapest_tool_ladder_engines.py: tier specs, a gate per tier, the refusal of model spend
+external invariants and cheapest-tool ladder engines: tier specs, a gate per tier, the refusal of model spend
 when tier 0 solves, telemetry, the eight result states) over the kit's measured parts instead of canned engines.
-`stepkit/taedri_bridge.py` maps one to the other and runs that module's own checks over these records.
+The external ladder bridge maps one to the other and runs that module's own checks over these records.
 
 The file is `tier_ladder.py`, not `ladder.py`: the package already exports the function `stepkit.ladder`
 (`decide.ladder`, the two-level ladder), and importing a submodule of the same name would replace that attribute.

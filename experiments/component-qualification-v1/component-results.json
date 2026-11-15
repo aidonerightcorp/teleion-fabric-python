@@ -822,7 +822,7 @@
       "container": "No Docker/OCI image evidence attached to this campaign"
     },
     {
-      "component": "stepkit.taedri_bridge",
+      "component": "stepkit.ladder_bridge",
       "packaging": "external_provider_or_pending_port",
       "package_version": null,
       "status": "external_pending",
@@ -1889,13 +1889,13 @@
     {
       "id": "capability.033",
       "name": "Typed task fingerprints",
-      "scope": "Source-inspected by Kothar/SolutionGraph delegate; no fresh tests or measured benefit established.",
+      "scope": "Source-inspected by external compiler/SolutionGraph delegate; no fresh tests or measured benefit established.",
       "delivery": "architecture_catalog; implementation qualification is separate"
     },
     {
       "id": "capability.034",
       "name": "Receipt-derived historical memory",
-      "scope": "Source-inspected by Kothar/SolutionGraph delegate; no fresh tests or measured benefit established.",
+      "scope": "Source-inspected by external compiler/SolutionGraph delegate; no fresh tests or measured benefit established.",
       "delivery": "architecture_catalog; implementation qualification is separate"
     },
     {

@@ -110,7 +110,7 @@
       "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"
     },
     {
-      "module": "stepkit.taedri_bridge",
+      "module": "stepkit.ladder_bridge",
       "delivery": "external_provider_or_pending_port",
       "qualification": "See package tests; historical behavior is not requalified by copying source",
       "dependency_scope": "Functions may require externally supplied records/services/source packs; no automatic discovery or downloads"

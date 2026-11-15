@@ -29,7 +29,7 @@ A wheel is a distribution; a venv isolates Python dependencies; a subprocess is 
 | stepkit.reply | Python wheel / source | pass_scoped | 6 | Not run |
 | stepkit.solutiongraph_bridge | External or pending port | external_pending | 0 | Not run |
 | stepkit.store | Python wheel / source | pass_scoped | 3 | Not run |
-| stepkit.taedri_bridge | External or pending port | external_pending | 0 | Not run |
+| stepkit.ladder_bridge | External or pending port | external_pending | 0 | Not run |
 | stepkit.tier_ladder | Python wheel / source | pass_scoped | 4 | Not run |
 | stepkit.tools.__init__ | Python wheel / source | packaging_only | 2 | Not run |
 | stepkit.tools._safe_runner | Python wheel / source | pass_scoped | 3 | Not run |
