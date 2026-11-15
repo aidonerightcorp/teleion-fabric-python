@@ -32,7 +32,12 @@ def bootstrap(group,suite,checker):
         if not local:
             command('clone',['git','clone','--no-checkout','https://github.com/aidonerightcorp/teleion-fabric-python.git',source],300)
             command('checkout',['git','-C',source,'checkout','--detach',pin])
-        assert command('commit',['git','-C',source,'rev-parse','HEAD']).strip()==pin,'wrong source commit'
+        head=command('commit',['git','-C',source,'rev-parse','HEAD']).strip()
+        if not local:
+            assert head==pin,'wrong source commit'
+        else:
+            assert len(pin)==len(head) and command('verify_pin',['git','-C',source,'rev-parse','--verify',pin+'^{commit}']).strip()==pin,'wrong source commit'
+            if head!=pin:command('ancestor_pin',['git','-C',source,'merge-base','--is-ancestor',pin,'HEAD'])
         for name,sha in suite['files'].items():
             assert hashlib.sha256((source/name).read_bytes()).hexdigest()==sha,'wrong source bytes: '+name
         command('source_context',[sys.executable,'-I',source/'tools/sync_context.py','--check'])
